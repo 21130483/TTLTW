@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* common */
+
+.color-sick-item {
+    background-color: #e4e4fb;
+}
+
+.contentSick {
+    font-size: 18px;
+    padding: 8px;
+    border-bottom: 1px #ccc solid;
+    color: #1250DC;
+}
+
+.btn-sick {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 12px;
+    background-color: #e4e4fb;
+    border: 1px blue solid;
+}
+
+/*  */
+
+#sick-main {
+    margin: 50px 0;
+}
+
+.sub1-sick-main {
+    background-color: #f3ebeb;
+}
+
+.sub2-sick-main {
+    width: 1220px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 50px;
+}
+
+.sick-header {
+    padding-top: 60px;
+
+}
+
+.sick-header .text-sick-header {
+    text-align: center;
+}
+
+.sick-sub-header {
+    display: flex;
+
+}
+
+.sick-sub-header>i {
+    color: blue;
+    font-size: 24px;
+
+}
+
+.sick-sub-header>p {
+    font-size: 24px;
+    margin-left: 20px;
+    margin-bottom: 24px;
+
+}
+
+.sick-content {
+    background-color: #fff;
+    border-radius: 24px;
+    padding: 24px;
+
+}
+
+.sick-content .sick-sub-content {
+    padding: 24px;
+    
+}
+
+.sick-content-main {
+    display: flex;
+}
+
+.sick-content-main .sick-body-people>p {
+    font-size: 12px;
+}
+
+.sick-body-item .sick-item {
+    display: flex;
+    padding-top: 14px;
+    border-radius: 20px 0 0;
+}
+
+.sick-body-item .sick-item:hover {
+    cursor: pointer;
+}
+
+.sick-body-item .sick-item>img {
+    width: 40px;
+    height: 40px;
+}
+
+.sick-body-item .sick-item>p {
+    padding-top: 12px;
+    padding-left: 12px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.Sick-text-sick {
+    background-color: #e4e4fb;
+    border-radius: 0 24px 24px 0;
+
+}
+
+.Sick-text-sick .sick-text-main {
+    display: flex;
+    height: 400px;
+    width: 800px;
+    padding: 24px;
+}
+
+.Sick-text-sick .sick-text-main .sick-text-content1 {
+    width: 50%;
+    padding-right: 40px;
+}
+
+.Sick-text-sick .sick-text-main .sick-text-content2 {
+    width: 50%;
+}
+
+.sick-text-button {
+    text-align: center;
+}

@@ -1,0 +1,1168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* common */
+
+.common-bre {
+    opacity: 1!important;
+    font-weight: 500;
+}
+
+.icon-common {
+    font-size: 24px;
+    padding-right: 40px;
+    width: 20px;
+    height: 20px;
+
+}
+
+.icon-love-product {
+    color: #ee111c;
+    font-size: 24px;
+    padding-left: 70px;
+}
+
+.icon-nolove-product {
+    color: #ccc;
+    font-size: 24px;
+    padding-left: 70px;
+}
+
+.red-color {
+    color: red;
+}
+
+.ccc-color {
+    color: #ccc;
+}
+
+/* .icon-love-product:hover::after {
+    content: "Ẩn sản phẩm"; 
+    font-size: 12px;
+    position: absolute;
+    color: #000;
+    top: 375px;
+    left: 170px;
+    font-family: Arial, Helvetica, sans-serif;
+} */
+
+
+
+
+.cursor-point {
+    cursor: pointer;
+}
+
+.align-items-center {
+    align-items: center!important;
+}
+
+.justify-content-between {
+    justify-content: space-between!important;
+}
+
+.d-flex {
+    display: flex!important;
+}
+
+.react-date-picker, .react-date-picker *, .react-date-picker :after, .react-date-picker :before {
+    box-sizing: border-box;
+}
+
+.react-date-picker {
+    display: inline-flex;
+    position: relative;
+}
+
+.react-date-picker__wrapper {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+    border: thin solid ;
+}
+
+.react-date-picker__inputGroup {
+    min-width: calc((4px * 3) + 0.54em * 8 + 0.217em * 2);
+    flex-grow: 1;
+    padding: 0 2px;
+    box-sizing: content-box;
+}
+
+.react-date-picker__inputGroup__divider {
+    padding: 1px 0;
+    white-space: pre;
+}
+
+.react-date-picker__inputGroup__input {
+    min-width: 0.54em;
+    height: 100%;
+    position: relative;
+    padding: 0 1px;
+    border: 0;
+    background: none;
+    font: inherit;
+    box-sizing: content-box;
+}
+
+.react-date-picker__button:enabled {
+    cursor: pointer;
+}
+
+.react-date-picker__button {
+    border: 0;
+    background: transparent;
+    padding: 4px 6px;
+}
+
+
+.btn-click-bottom-blue {
+    background-color: rgb(85, 85, 250);
+    border-radius: 16px;
+}
+
+.waitXacNhan {
+    text-align: center;
+    padding-top: 12px;
+}
+
+/* .color-love-click {
+    color: #ccc;
+} */
+
+
+/*  */
+
+#header {
+    height: 132px;
+    background-color: blue;
+}
+
+#main-content {
+    flex-grow: 1;
+}
+
+.container {
+    padding-right: 44px;
+    padding-left: 44px;
+    box-sizing: border-box;
+}
+
+/* .Breadcrumbs  {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 1rem 0;
+}
+
+.Breadcrumbs .Breadcrumbs-item {
+    display: flex;
+    align-items: center;
+    color: #112950;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    opacity: .3;
+    text-decoration: none;
+}
+
+.Breadcrumbs .Breadcrumbs-item a {
+    color: #112950;
+    text-decoration: none!important;
+}
+
+.Breadcrumbs .Breadcrumbs-item::before {
+    float: left;
+    margin-bottom: 7px;
+    padding: 8px;
+    content: url(https://www.pharmacity.vn/icons/breadcrumb-dot.svg);
+} */
+
+.Desktop-account {
+    position: relative;
+    font-style: normal;
+    letter-spacing: 0;
+    color: #112950;
+}
+
+.Desktop-account button {
+    border: none;
+    cursor: pointer;
+    margin: 0;
+    font-family: inherit;
+}
+
+.Desktop-box {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 50px 0;
+}
+
+/* start anpha */
+
+.Desktop-anpha {
+    flex: 0 0 420px;
+}
+
+.AccountMenu {
+    min-width: 420px;
+}
+
+.AccountMenu .Account-head {
+    color: #fff;
+    border-radius: 12px 12px 0 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+}
+
+.AvtAndName {
+    text-align: center;
+}
+
+.AvtAndName .imgAvtName {
+   font-size: 64px;
+}
+
+.AvtAndName .fullName {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: normal;
+    padding-top: 3px;
+    padding-bottom: 8px;
+    margin-bottom: 2px;
+    color: #fff;
+}
+
+
+
+.Account-box {
+    background-color: #fff;
+    padding-bottom: 20px;
+    border-radius: 0 0 12px 12px;
+}
+
+.Account-box .list {
+    border-bottom: 1px #ccc solid;
+}
+
+.Account-box ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.Account-box ul .AccountMenu-menu-label {
+    display: block;
+    text-decoration: none;
+    color: #112950;
+    padding-top: 8px;
+}
+
+.Account-box ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    cursor: pointer;
+    padding: 0 1.5rem;
+    position: relative;
+}
+
+
+.Account-box ul li h3 {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-right: auto;
+}
+
+
+.AccountMenu_support {
+    text-align: center;
+    display: block;
+    padding-top: 20px;
+    border-top: 1rem solid #ededed;
+}
+
+.AccountMenu_support>div {
+    border-bottom: 1px solid #f2f4f5;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.AccountMenu_support>div .AccountMenu_liveChat {
+    display: flex;
+    align-items: center;
+    padding-right: 40px;
+    border-right: 1px solid #f2f4f5;
+}
+
+.AccountMenu_support>div div {
+    position: relative;
+    padding-left: 36px;
+}
+
+
+.AccountMenu_support>div div b {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 22px;
+    color: blue;
+}
+
+.AccountMenu_support>div .AccountMenu_liveChat p {
+    margin-left: 8px;
+}
+
+.AccountMenu_support button {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #8e9aab;
+    background: none;
+}
+
+/* end anpha */
+
+
+/* Start omega */
+
+.Desktop-omega {
+    flex: 1 1;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-sizing: border-box;
+    /* overflow: hidden; */
+    /*height: -webkit-fit-content;*/
+    /*height: -moz-fit-content;*/
+    height: fit-content;
+    min-height: 300px;
+}
+
+.CommonHeaderMobile_fixed-header {
+    background-color: #fff;
+}
+
+.CommonHeaderMobile_fixed-header .CommonHeaderMobile_common-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 0 0;
+    background-color: #fff;
+}
+
+.CommonHeaderMobile_fixed-header .CommonHeaderMobile_common-header .CommonHeaderMobile_left-content {
+    display: flex;
+    align-items: center;
+    color: #112950;
+}
+
+.AccountDetails_profile {
+    display: flex;
+    justify-content: space-between;
+}
+
+.AccountDetails_info {
+    width: 395px;
+    text-align: center;
+}
+
+.AccountDetails_avatar {
+    margin-bottom: 16px;
+}
+
+
+.AccountDetails_avatar button {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 22px;
+    color: #0f62f9;
+    text-decoration: underline;
+    background: none;
+    margin-top: 20px!important;
+}
+
+.AccountDetails_detail {
+    width: 415px;
+}
+
+
+
+.InputTextField_input-text-field label {
+    font-size: 20px;
+    line-height: 18px;
+}
+
+.InputTextField_input-text-field label span {
+    margin-left: 3px;
+    color: #f33060;
+}
+
+.InputTextField_input-text-field .InputTextField_input-group {
+    position: relative;
+}
+
+/*.InputTextField_input-text-field .InputTextField_input-group input, .InputTextField_input-text-field .InputTextField_input-group textarea {*/
+/*    outline: none;*/
+/*    box-sizing: border-box;*/
+/*    background-color: transparent;*/
+/*    padding: 9px 0;*/
+/*    border: none;*/
+/*    border-top: 1px solid transparent;*/
+/*    border-bottom: 1px solid #e5e5e5;*/
+/*    font-size: 20px;*/
+/*    line-height: 18px;*/
+/*    width: 100%;*/
+/*    border-radius: 0;*/
+/*    font-family: inherit;*/
+/*}*/
+
+.AccountDetails_gender {
+    margin-top: 32px;
+}
+
+.AccountDetails_form>div>label {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 18px;
+    display: inline-block;
+}
+
+.AccountDetails_gender>div {
+    margin-top: 10px;
+   padding-left: 132px;
+}
+
+.AccountDetails_gender>div>div:not(:last-child) {
+    margin-right: 60px;
+    font-size: 20px;
+}
+
+.AccountDetails_gender>div>div {
+    position: relative;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+.RadioButtonField_pc-radio-button {
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.RadioButtonField_pc-radio-button .RadioButtonField_container{
+    margin: 0;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.RadioButtonField_pc-radio-button .RadioButtonField_container .RadioButtonField_checkmark {
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border-radius: 50%;
+    position: relative;
+    margin-right: 16px;
+    flex-shrink: 0;
+}
+
+.AccountDetails_gender>div>div span {
+    margin-right: 8px!important;
+}
+
+.RadioButtonField_pc-radio-button .RadioButtonField_container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.RadioButtonField_pc-radio-button .RadioButtonField_container .RadioButtonField_checkmark:after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.DateField_date-field:not(:first-child) {
+    margin-top: 32px;
+    display: grid;
+}
+
+
+.DateField_date-field label {
+    font-size: 20px;
+    line-height: 18px;
+}
+
+.DateField_date-field label span {
+    margin-left: 3px;
+    color: #f33060;
+}
+
+.DateField_date-field .DateField_group {
+    position: relative;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 10px;
+}
+
+.DateField_date-field .DateField_group>div {
+    width: 100%;
+}
+
+.DateField_date-field .DateField_group [class=react-date-picker__wrapper] {
+    border: none;
+}
+
+.AccountDetails_form .AccountDetails_birthday [class=react-date-picker__inputGroup] {
+    background-color: #fff!important;
+}
+
+.DateField_date-field .DateField_group [class=react-date-picker__wrapper] button {
+    display: none;
+}
+
+.DateField_date-field .DateField_group .DateField_icon-right {
+    position: absolute;
+    right: 4px;
+    width: 20px;
+    pointer-events: none;
+}
+
+svg:not(:root) {
+    overflow-clip-margin: content-box;
+    overflow: hidden;
+}
+
+.InputTextField_input-text-field:not(:first-child) {
+    margin-top: 32px;
+}
+
+
+.InputTextField_input-text-field .InputTextField_input-group {
+    position: relative;
+}
+
+.InputTextField_input-text-field .InputTextField_input-group input, .InputTextField_input-text-field .InputTextField_input-group textarea {
+    outline: none;
+    box-sizing: border-box;
+    background-color: transparent;
+    padding: 9px 0;
+    border: none;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 20px;
+    line-height: 18px;
+    width: 100%;
+    border-radius: 0;
+    font-family: inherit;
+}
+
+.AccountDetails_form .AccountDetails_email {
+    position: relative;
+    margin-top: 32px;
+}
+
+.InputTextField_input-text-field label span {
+    margin-left: 3px;
+    color: #f33060;
+}
+
+.AccountDetails_btn-change-pass {
+    display: flex;
+    font-size: 1.063rem;
+    font-weight: 700;
+    color: blue;
+    margin-top: 20px!important;
+    align-items: center;
+    cursor: pointer;
+}
+
+svg:not(:root) {
+    overflow-clip-margin: content-box;
+    overflow: hidden;
+}
+
+/*.Button_button__primary {*/
+/*    background-color: var(--pmc-color-primary);*/
+/*    color: #fff;*/
+/*    border: 1px solid var(--pmc-color-primary);*/
+/*}*/
+
+/*.Button_button__primary {*/
+/*    background-color: var(--pmc-color-primary);*/
+/*    color: #fff;*/
+/*    border: 1px solid var(--pmc-color-primary);*/
+/*}*/
+
+.Button_button {
+    cursor: pointer;
+    padding: 8px 20px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    border-radius: 0.75rem;
+}
+
+/*.Button_button__primary {*/
+/*    background-color: var(--pmc-color-primary);*/
+/*    color: #fff;*/
+/*    border: 1px solid var(--pmc-color-primary);*/
+/*}*/
+
+.Button_button {
+    cursor: pointer;
+    padding: 8px 20px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    border-radius: 0.75rem;
+}
+
+.AccountDetails_submit {
+    margin: 20px 0 40px!important;
+    background-color: blue;
+    border-radius: 12px;
+    width: 100%;
+    line-height: 54px!important;
+    height: 54px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: inherit!important;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.ListOrder_list-order .ListOrder_order-body {
+    margin-top: 24px;
+}
+
+.ListOrderTab_list-order-tab {
+    position: relative;
+}
+
+.ListOrderTab_list-order-tab .ListOrderTab_tab {
+    display: flex;
+    border-bottom: 1px solid #f2f4f5;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.ListOrderTab_list-order-tab .ListOrderTab_tab .ListOrderTab_tab-item {
+    position: relative;
+}
+
+.ListOrderTab_list-order-tab .ListOrderTab_tab .ListOrderTab_tab-item .ListOrderTab_tab-name:first-child {
+    margin-left: 24px;
+}
+
+
+
+.ListOrderTab_list-order-tab .ListOrderTab_tab .ListOrderTab_tab-item .ListOrderTab_tab-name {
+    margin: 0;
+    padding: 5px 10px;
+    white-space: nowrap;
+    color: #b2bac6;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
+    padding-right: 28px;
+}
+
+
+.ListOrderTab_list-order-tab .ListOrderTab_tab-content {
+    display: block;
+}
+
+.EmptyResult_empty-result {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#avatarInput {
+    width: 90px;
+    padding-top: 16px;
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+
+  .avatar input[type="file"] {
+    margin-left: 10px;
+  }
+
+  #onImg {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-left: 132px;
+  }
+
+
+  /* add address */
+  html {
+    height: 100%;
+  }
+ 
+  .main-address {
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #243b55);
+  }
+  
+  .address-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+      margin-top: 70px;
+  }
+
+  
+  .address-box h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .address-box .user-box {
+    position: relative;
+  }
+  
+  .address-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+  }
+  .address-box .user-box label {
+    position: absolute;
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+  }
+  
+  .address-box .user-box input:focus ~ label,
+  .address-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #03e9f4;
+    font-size: 12px;
+  }
+  
+  .address-box form a {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #03e9f4;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px
+  }
+  
+  .address-box a:hover {
+    background: #03e9f4;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #03e9f4,
+                0 0 25px #03e9f4,
+                0 0 50px #03e9f4,
+                0 0 100px #03e9f4;
+  }
+  
+  .address-box a span {
+    position: absolute;
+    display: block;
+  }
+  
+  .address-box a span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #03e9f4);
+    animation: btn-anim1 1s linear infinite;
+  }
+  
+  @keyframes btn-anim1 {
+    0% {
+      left: -100%;
+    }
+    50%,100% {
+      left: 100%;
+    }
+  }
+  
+  .address-box a span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #03e9f4);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s
+  }
+  
+  @keyframes btn-anim2 {
+    0% {
+      top: -100%;
+    }
+    50%,100% {
+      top: 100%;
+    }
+  }
+  
+  .address-box a span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #03e9f4);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s
+  }
+  
+  @keyframes btn-anim3 {
+    0% {
+      right: -100%;
+    }
+    50%,100% {
+      right: 100%;
+    }
+  }
+  
+  .address-box a span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #03e9f4);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s
+  }
+  
+  @keyframes btn-anim4 {
+    0% {
+      bottom: -100%;
+    }
+    50%,100% {
+      bottom: 100%;
+    }
+  }
+
+  .edit-button-address {
+    background-color: #3F85EA;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    position: relative;
+    left: 129px;
+    top: 24px;
+}
+
+.show-abc {
+    padding: 20px;
+    font-size: 24px;
+}
+  
+  /*  */
+
+
+  /* Mã giảm giá ------------------ */
+
+.row-voucher {
+    width: 100%;
+    display: flex;
+}
+
+.pd-right-28 {
+    padding-right: 28px;
+}
+
+.alizarin {
+	background: #e74c3c;
+}
+.amethyst {
+	background: #9b59b6;
+}
+.emerald {
+	background: #2ecc71;
+}
+.midnight-blue {
+	background: #2c3e50;
+}
+.peter-river {
+	background: #3498db;
+}
+.list-voucher {
+    width: 232px;
+	background: #f0f0f0;
+	padding: 30px 0;
+	border-radius: 20px;
+	position: relative;
+}
+.list-voucher:before {
+	content: " ";
+	height: 20px;
+	width: 20px;
+	background: #ddd;
+	border-radius: 20px;
+	position: absolute;
+	left: 50%;
+	top: 20px;
+	margin-left: -10px;
+}
+.list-voucher .brand {
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	padding: 10px 15px;
+	margin-top: 10px;
+	text-align: center;
+	min-height: 100px;
+}
+.list-voucher .discount {
+	min-height: 50px;
+	position: relative;
+	font-size: 80px;
+	line-height: 80px;
+	text-align: center;
+	font-weight: 700;
+	padding: 20px 15px 0;
+	color: #f1c40f;
+}
+.list-voucher .discount:after {
+	content: " ";
+	border-right: 20px solid transparent;
+	border-left: 20px solid transparent;
+	position: absolute;
+	bottom: -20px;
+	left: 20%;
+}
+.list-voucher .discount.alizarin:after {
+	border-top: 20px solid #e74c3c;
+}
+.list-voucher .discount.peter-river:after {
+	border-top: 20px solid #3498db;
+}
+.list-voucher .discount.emerald:after {
+	border-top: 20px solid #2ecc71;
+}
+.list-voucher .discount.amethyst:after {
+	border-top: 20px solid #9b59b6;
+}
+.list-voucher .discount .type {
+	font-size: 20px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	margin-top: -30px;
+}
+.list-voucher .descr {
+	color: #999;
+	margin-top: 10px;
+	padding: 20px 15px;
+}
+.list-voucher .ends {
+	padding: 0 15px;
+	color: #f1c40f;
+	margin-bottom: 10px;
+}
+.list-voucher .coupon {
+	min-height: 50px;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 18px;
+	padding: 20px 15px;
+}
+
+.list-voucher .coupon a.open-code,
+.list-voucher .coupon a.open-code1,
+.list-voucher .coupon a.open-code2,
+.list-voucher .coupon a.open-code3,
+.list-voucher .coupon a.open-code4 {
+	color: #16a085;
+}
+.list-voucher .coupon .code {
+	letter-spacing: 1px;
+	border-radius: 4px;
+	margin-top: 10px;
+	padding: 10px 15px;
+	color: #f1c40f;
+	background: #f0f0f0;
+}
+
+
+
+  /* ------------------------------------------- */
+
+
+
+  /* css sản phẩm của index.css */
+
+  .a-none-fff {
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .cac-san-pham{
+    width: 100%;
+  }
+  
+  .cac-san-pham ul{
+    display: flex;
+    padding: 0;
+  }
+  
+  .cac-san-pham .san-pham{
+    list-style-type: none;
+    width: 264px;
+    height: 510px;
+    padding: 8px;
+  }
+  
+  .san-pham .link-san-pham{
+    width: 248px;
+    height: 536px;
+    display: block;
+    text-decoration: none;
+    color: black;
+    box-shadow: 5px 5px 10px #888888;
+  }
+  
+  .san-pham .link-san-pham:hover{
+    box-shadow: 5px 5px 10px #000000;
+  }
+  
+  .san-pham .img-san-pham{
+    width: 248px;
+    height: 248px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.san-pham .img-san-pham img {
+    max-width: 100%;
+    max-height: 100%;
+    height: 248px;
+    width: 248px;
+    margin-right: 24px;
+}
+  
+  .san-pham .noi-dung-san-pham{
+    width: 248px;
+    height: 236px;
+    padding: 12px;
+    display: grid;
+    grid-template-rows: 42px 60px 22px 34px 54px;
+  
+  }
+  
+  .noi-dung-san-pham .ten-san-pham a{
+      text-decoration: none;
+      font-size: 16px;
+  }
+  .noi-dung-san-pham .ten-san-pham{
+    font-size: 16px;
+    display: flex;
+    text-align: left;
+    color: #112950;
+      margin-top: -30px;
+  }
+
+  .noi-dung-san-pham .gia-san-pham{
+    display: flex;
+    font-size: 16px;
+    font-weight: bolder;
+    color: #0072bc;
+  }
+
+  .noi-dung-san-pham .them-san-pham{
+    background-color: #5dac46;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 1px 6px;
+    margin: 5px 0;
+    height: 44px;
+  }
+
+  /* --------------------------------------------- */
+

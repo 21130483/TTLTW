@@ -1,0 +1,312 @@
+.noi-dung {
+    height: auto;
+    background-color: #E5E5E5;
+    padding: 32px 0;
+}
+
+.noi-dung .container {
+    height: auto;
+}
+
+.thong-tin-don-hang-va-bang-gia {
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+
+.thong-tin-don-hang {
+    width: 824px;
+    height: auto;
+    background-color: inherit;
+    margin: 0px 10px;
+    display: block;
+
+}
+
+
+.thong-tin-don-hang .title {
+    display: flex;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+.thong-tin-don-hang .box {
+    /* width: 824px;
+    height: auto; */
+
+    width: 100%;
+    height: auto;
+    background-color: white;
+    display: block;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+
+}
+
+.san-pham-muon-mua {
+    width: 100%;
+    height: 100px;
+    padding: 16px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 80px;
+    grid-gap: 19.5px;
+    border-bottom: 1px solid #e4e8ed;
+}
+
+.input-img-ten-san-pham {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    grid-gap: 10px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.input-img-ten-san-pham .img-san-pham {
+    width: 60px;
+    height: 60px;
+    background-color: black;
+
+}
+
+.input-img-ten-san-pham .ten-san-pham {
+    display: block;
+}
+
+.input-img-ten-san-pham .ten-san-pham a {
+    display: flex;
+    text-align: left;
+    font-size: 15px;
+    text-decoration: none;
+    color: black;
+}
+
+.san-pham-muon-mua .cost {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+
+
+}
+
+.san-pham-muon-mua .cost .sale {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.san-pham-muon-mua .cost .origin {
+    font-size: 14px;
+    text-decoration: line-through;
+    margin: 0;
+}
+
+
+.san-pham-muon-mua .unit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: #728091;
+}
+
+
+.box .title {
+    align-items: center;
+    font-size: 20px;
+    font-weight: 100;
+    font-weight: bold;
+}
+
+.address .addressDetail {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    margin-left: 30px;
+    text-align: left;
+}
+
+.address .addressDetail .choose_add{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 20px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.address .addressDetail .choose_add select{
+    border-radius: 5px;
+}
+.address .addressDetail textarea {
+    height: 70px;
+    text-align: left;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+
+.box .title i {
+    color: #3E72D9;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.address .title .between {
+    color: #728091;
+    font-size: 17px;
+    margin: 0 10px;
+}
+
+.address .title .sdt {
+    color: #728091;
+    font-size: 20px;
+}
+
+.address .ghi-chu {
+    width: auto;
+    margin-left: 30px;
+}
+
+.address .ghi-chu textarea {
+    width: 100%;
+    height: 130px;
+    font-size: 20px;
+    text-align: left;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+.thanh-toan li {
+    list-style-type: none;
+    margin: 10px 0;
+
+}
+
+.thanh-toan .type {
+    display: flex;
+    font-size: 18px;
+}
+
+.thanh-toan input {
+    width: 19px;
+    margin-right: 15px;
+}
+
+.thanh-toan i {
+    color: #3E72D9;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.textChoosen{
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+    color: #3E72D9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.bang-gia {
+    width: 478px;
+    height: 100%;
+    background-color: white;
+    margin: 0px 10px;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.bang-gia .title {
+    display: flex;
+    height: auto;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.bang-gia .title p {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.bang-gia .phi-van-chuyen {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.bang-gia .phi-van-chuyen .title {
+    font-size: 16px;
+}
+
+.bang-gia .phi-van-chuyen .cost {
+    font-size: 16px;
+    color: #2b9e02;
+}
+
+
+.bang-gia .thanh-tien {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.bang-gia .thanh-tien .title {
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+.bang-gia .thanh-tien .cost {
+    font-size: 20px;
+    font-weight: bolder;
+    color: #1250dc;
+}
+
+.bang-gia .mua-hang {
+    width: 100%;
+    height: 44px;
+    border: none;
+    border-radius: 22px;
+    background-color: #306de4;
+    font-size: 16px;
+    color: white;
+}
+
+.bang-gia .dieu-khoan {
+    margin-top: 16px;
+    font-size: 15px;
+}
+
+.bang-gia .dieu-khoan a {
+    font-size: 15px;
+}
+

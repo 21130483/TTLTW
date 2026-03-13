@@ -1,0 +1,169 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url("../image/login/bg2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.section {
+    background-color: #f7f7f7;
+    border: 3px solid #bce381; /* Màu viền và độ dày của viền */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    padding: 50px;
+    text-align: center;
+}
+
+.form-title {
+    color: #679210; /* Màu chữ cho tiêu đề "Đăng nhập" */
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin: 10px 0;
+    position: relative;
+}
+
+.form-style {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.input-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #6c6e69; /* Màu chữ cho biểu tượng (icon) */
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #679210;
+    color: #fff; /* Màu chữ cho nút "Đăng nhập" */
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.forgot-pass {
+    color: #007BFF; /* Màu chữ cho liên kết "Quên mật khẩu?" */
+    text-decoration: none;
+}
+
+.forgot-pass:hover {
+    color: #0056b3;
+}
+
+.signup {
+    color: #007BFF; /* Màu chữ cho liên kết "Đăng ký" */
+    text-decoration: none;
+}
+
+.signup:hover {
+    color: #0056b3;
+}
+
+.register-link {
+    margin-top: 20px;
+}
+.login-link{
+    margin-top: 40px;
+}
+
+.text-center {
+    margin: 20px 0;
+}
+
+.form-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.fb-btn, .google-btn {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.fb-btn:hover, .google-btn:hover {
+    border: 1px solid #007bff;
+    color: #007bff;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.icon img {
+    width: 20px;
+    margin-right: 10px;
+}
+.inner-verify {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    padding: 50px;
+    text-align: center;
+    margin: auto; /* Thêm để căn giữa theo chiều ngang */
+    margin-top: 20px; /* Thêm khoảng cách phía trên */
+}
+.title {
+    color: #333; /* Màu chữ cho tiêu đề "Xác thực Email của bạn" */
+    font-size: 24px;
+    margin-top: 10px;
+}
+.caret {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box; /* Thêm để đảm bảo padding không làm tăng kích thước */
+}
+.show-message {
+    color: red; /* Màu chữ cho thông báo lỗi */
+    display: block;
+    margin-top: 5px;
+}
+.bt_sign_up button {
+    width: 100%;
+    padding: 10px;
+    background-color: #679210;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.bt_sign_up button:hover {
+    background-color: #0056b3;
+}

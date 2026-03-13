@@ -1,0 +1,239 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    font-family: Tahoma, Arial, sans-serif;
+    text-align: center;
+
+}
+
+/* .page {
+    display: block;
+    justify-content: center;
+} */
+
+.header {
+    /*width: 1536px;*/
+    width: 100%;
+    height: 116px;
+    /* background-color: #3E72D9; */
+    background-color: #3F85EA;
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.container {
+    width: 1216px;
+}
+
+.icon-input-info-cart {
+    width: 100%;
+    height: 56px;
+    margin: 30px 0;
+    display: grid;
+    grid-template-columns: 200px 1fr 270px;
+}
+
+.logo-shop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-shop .background-logo-shop {
+    width: 200px;
+    height: 56px;
+    background-color: white;
+    border-radius: 30px;
+}
+
+.logo-shop img {
+    width: 180px;
+    height: 50px;
+}
+
+.thanh-tim-san-pham {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-va-button-tim-kiem {
+    width: 658px;
+    height: 52px;
+    padding: 6px 6px 6px 16px;
+    background-color: white;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 25px;
+}
+
+.input-va-button-tim-kiem .input {
+    width: 606px;
+    height: 40px;
+    text-align: left;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.input-va-button-tim-kiem i {
+    background-color: #C1C2E7;
+    padding: 10px;
+    font-size: 20px;
+    color: #4072E2;
+    border-radius: 20px;
+}
+
+.input-va-button-tim-kiem i:active {
+    background-color: #2D5AD3;
+    color: white;
+}
+
+/* .product-suggestions{
+    width: 880px;
+    height: 28px;
+    background-color: inherit;
+    position: absolute;
+    right: 365px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .items-suggestions{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .product-suggestions .item{
+    list-style-type: none;
+    margin-left: 15px;
+  }
+
+  .product-suggestions .item a{
+    text-decoration: none;
+    font-size: 14px;
+    color: white;
+  } */
+
+.info-cart {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.info-cart .button {
+    width: 134px;
+    height: 48px;
+    /* background-color: #305BD4; */
+    background-color: #3E72D9;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-cart .link-button {
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+
+}
+
+.info-cart .span-text {
+    font-size: 18px;
+    color: white;
+    margin-left: 8px;
+}
+
+.info-cart .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-cart .icon i {
+    font-size: 18px;
+    color: white;
+}
+
+.info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info .button {
+    background-color: transparent;
+}
+
+.cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.menu {
+    /*width: 1536px;*/
+    width: 100%;
+    height: auto;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu .container {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu .category-menus {
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    padding-top: 12px;
+}
+
+/* .menu .category-menu{
+    padding: 12px;
+    list-style-type: none;
+    margin: 0 16px;
+  }
+
+  .menu .category-menu a{
+    font-size: 16px;
+    text-decoration: none;
+    color: black;
+  } */
+
+.menu .category-menus li {
+    height: auto;
+    list-style-type: none;
+
+
+}
+
+.menu .category-menus .category-menu {
+    padding: 12px;
+    font-size: 16px;
+    text-decoration: none;
+    color: black;
+    margin: 0 16px;
+
+}
+
+.menu .category-menu:hover {
+    /* border-bottom: #0072bc; */
+    /* background-color: #000000; */
+    color: #3F85EA;
+    border-bottom: 3px solid #3F85EA;
+}

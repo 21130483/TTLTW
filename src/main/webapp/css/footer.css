@@ -1,0 +1,103 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    font-family: Tahoma, Arial, sans-serif;
+    text-align: center;
+
+}
+
+/* .page {
+    display: block;
+    justify-content: center;
+} */
+
+.footer {
+    display: block;
+    padding: 32px 0;
+    background-color: #E5E5E5;
+    border-top: 12px solid #3E72D9;
+}
+
+.footer .container {
+    display: inline-flex;
+    flex-direction: row;
+    border-bottom: 1px solid #b2bac6;
+}
+
+.footer .title {
+    font-weight: bolder;
+    font-size: 20px;
+    color: #5E6F88;
+    display: flex;
+    margin: 16px 0 20px;
+}
+
+.footer a {
+    display: flex;
+    text-decoration: none;
+    color: #7C6F88;
+    margin: 16px 0 20px;
+}
+
+.footer a p {
+    font-size: 16px;
+}
+
+
+.footer .gioi-thieu-cty {
+    width: 238px;
+}
+
+.footer .danh-muc {
+    width: 190px;
+}
+
+.footer .tong-dai {
+    width: 238px;
+}
+
+.tong-dai .phone-tong-dai {
+    color: #0000EE;
+}
+
+.footer .theo-doi-chung-toi-tren {
+    width: 270px;
+}
+
+.theo-doi-chung-toi-tren i {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.footer .ho-tro-thanh-toan {
+    width: 280px;
+}
+
+.ho-tro-thanh-toan .box {
+    width: 100%;
+    display: block;
+}
+
+.ho-tro-thanh-toan .box .logo-bank {
+    width: 36px;
+    margin: 16px 0px;
+}
+
+
+.chi-nhanh-cty .text {
+    color: #7C6F88;
+    font-size: 15px;
+}
+
+.chi-nhanh-cty .ten-cty {
+    margin: 16px 0;
+}
+
+.chi-nhanh-cty .tru-so {
+    margin-top: 16px;
+}
+
+.chi-nhanh-cty .phone-email {
+    margin-bottom: 16px;
+}

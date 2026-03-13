@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <filter>
+      <filter-name>EncodingFilter</filter-name>
+      <filter-class>your.package.EncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+      <filter-name>EncodingFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+  </component>
+</project>
