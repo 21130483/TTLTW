@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `products` (
     `orderedNumbers` int(11) NOT NULL,
     `name` varchar(100) NOT NULL,
     `trademark` varchar(50) NOT NULL,
-    `content` varchar(200) NOT NULL,
+    `content` text NOT NULL,
 
     PRIMARY KEY (`productID`),
     KEY `userID` (`categoryID`),
