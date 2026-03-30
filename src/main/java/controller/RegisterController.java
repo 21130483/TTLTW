@@ -24,32 +24,71 @@ public class RegisterController extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
-        String error = "";
+        String phoneNumbers = req.getParameter("phoneNumbers");
+        String dob = req.getParameter("dob");
+        String gender = req.getParameter("gender");
+
         UserDAO userDAO = new UserDAO();
+        boolean hasError = false;
 
-        if(email.length()==0){
-            req.setAttribute("invalidateEmail", "Vui lòng nhập trường này");
-            req.getRequestDispatcher("register.jsp").forward(req,resp);
+        if (email == null || email.trim().isEmpty()) {
+            req.setAttribute("invalidateEmail", "Vui lòng nhập Email");
+            hasError = true;
+        } else if (!Validator.validateEmail(email)) {
+            req.setAttribute("invalidateEmail", "Email không đúng định dạng");
+            hasError = true;
+        } else if (userDAO.checkEmailExist(email)) { // Gọi hàm từ UserDAO
+            req.setAttribute("invalidateEmail", "Email đã được sử dụng để đăng ký");
+            hasError = true;
         }
 
-        if(!confirmPassword.equals(password)){
-            req.setAttribute("invalidateConfimPassword","Mật khẩu không khớp");
-            req.getRequestDispatcher("register.jsp").forward(req,resp);
+        if (password == null || password.length() < 6) {
+            req.setAttribute("invalidatePassword", "Mật khẩu phải từ 6 kí tự trở lên");
+            hasError = true;
         }
 
-        if (!Validator.validateEmail(email)) {
-            error = "Email không đúng định dạng";
+        if (confirmPassword == null || !confirmPassword.equals(password)) {
+            req.setAttribute("invalidateConfimPassword", "Mật khẩu nhập lại không khớp");
+            hasError = true;
         }
-        if(password.length() <6){
-            req.setAttribute("invalidatePassword","Mật khẩu phải nhiều hơn 6 kí tự");
-            req.getRequestDispatcher("register.jsp").forward(req,resp);
+
+        if (hasError) {
+            req.getRequestDispatcher("/html/register.jsp").forward(req, resp);
+            return;
         }
-        if(userDAO.checkEmailExist(email)){
-            req.setAttribute("invalidateEmail","Email đã được đăng kí");
-            req.getRequestDispatcher("register.jsp").forward(req,resp);
+
+        boolean isSuccess = userDAO.resgisterWithEmail(email, username, password, phoneNumbers, dob, gender);
+
+        if (isSuccess) {
+            req.setAttribute("successMessage", "Đăng ký thành công! Vui lòng đăng nhập.");
+            req.getRequestDispatcher("/html/login.jsp").forward(req, resp);
+        } else {
+            req.setAttribute("error", "Đã có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau.");
+            req.getRequestDispatcher("/html/register.jsp").forward(req, resp);
         }
-        if(userDAO.resgisterWithEmail(email,username,password)){
-            resp.sendRedirect("login.jsp");
-        }
+//        if(email.length()==0){
+//            req.setAttribute("invalidateEmail", "Vui lòng nhập trường này");
+//            req.getRequestDispatcher("register.jsp").forward(req,resp);
+//        }
+//
+//        if(!confirmPassword.equals(password)){
+//            req.setAttribute("invalidateConfimPassword","Mật khẩu không khớp");
+//            req.getRequestDispatcher("register.jsp").forward(req,resp);
+//        }
+//
+//        if (!Validator.validateEmail(email)) {
+//            error = "Email không đúng định dạng";
+//        }
+//        if(password.length() <6){
+//            req.setAttribute("invalidatePassword","Mật khẩu phải nhiều hơn 6 kí tự");
+//            req.getRequestDispatcher("register.jsp").forward(req,resp);
+//        }
+//        if(userDAO.checkEmailExist(email)){
+//            req.setAttribute("invalidateEmail","Email đã được đăng kí");
+//            req.getRequestDispatcher("register.jsp").forward(req,resp);
+//        }
+//        if(userDAO.resgisterWithEmail(email,username,password)){
+//            resp.sendRedirect("login.jsp");
+//        }
     }
 }
