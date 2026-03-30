@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
 
     <title>Login</title>
 </head>
@@ -58,10 +58,10 @@
         <div class="form-icon">
             <button class="fb-btn">
                 <a href="#" class="icon">
-                    <img src="../image/login/fb.png">Đăng nhập bằng Facebook</a></button>
+                    <img src="${pageContext.request.contextPath}/image/login/fb.png">Đăng nhập bằng Facebook</a></button>
             <button class="google-btn">
                 <a href="#" class="icon">
-                    <img src="../image/login/google.png">Đăng nhập bằng Google</a>
+                    <img src="${pageContext.request.contextPath}/image/login/google.png">Đăng nhập bằng Google</a>
             </button>
         </div>
 
