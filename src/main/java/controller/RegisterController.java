@@ -66,29 +66,29 @@ public class RegisterController extends HttpServlet {
             req.setAttribute("error", "Đã có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau.");
             req.getRequestDispatcher("/html/register.jsp").forward(req, resp);
         }
-//        if(email.length()==0){
-//            req.setAttribute("invalidateEmail", "Vui lòng nhập trường này");
-//            req.getRequestDispatcher("register.jsp").forward(req,resp);
-//        }
-//
-//        if(!confirmPassword.equals(password)){
-//            req.setAttribute("invalidateConfimPassword","Mật khẩu không khớp");
-//            req.getRequestDispatcher("register.jsp").forward(req,resp);
-//        }
-//
-//        if (!Validator.validateEmail(email)) {
-//            error = "Email không đúng định dạng";
-//        }
-//        if(password.length() <6){
-//            req.setAttribute("invalidatePassword","Mật khẩu phải nhiều hơn 6 kí tự");
-//            req.getRequestDispatcher("register.jsp").forward(req,resp);
-//        }
-//        if(userDAO.checkEmailExist(email)){
-//            req.setAttribute("invalidateEmail","Email đã được đăng kí");
-//            req.getRequestDispatcher("register.jsp").forward(req,resp);
-//        }
-//        if(userDAO.resgisterWithEmail(email,username,password)){
-//            resp.sendRedirect("login.jsp");
-//        }
+        // if(email.length()==0){
+        // req.setAttribute("invalidateEmail", "Vui lòng nhập trường này");
+        // req.getRequestDispatcher("register.jsp").forward(req,resp);
+        // }
+        //
+        // if(!confirmPassword.equals(password)){
+        // req.setAttribute("invalidateConfimPassword","Mật khẩu không khớp");
+        // req.getRequestDispatcher("register.jsp").forward(req,resp);
+        // }
+        //
+        // if (!Validator.validateEmail(email)) {
+        // error = "Email không đúng định dạng";
+        // }
+        // if(password.length() <6){
+        // req.setAttribute("invalidatePassword","Mật khẩu phải nhiều hơn 6 kí tự");
+        // req.getRequestDispatcher("register.jsp").forward(req,resp);
+        // }
+        // if(userDAO.checkEmailExist(email)){
+        // req.setAttribute("invalidateEmail","Email đã được đăng kí");
+        // req.getRequestDispatcher("register.jsp").forward(req,resp);
+        // }
+        // if(userDAO.resgisterWithEmail(email,username,password)){
+        // resp.sendRedirect("login.jsp");
+        // }
     }
 }

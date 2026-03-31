@@ -186,7 +186,8 @@ public class UserDAO {
         return checkEmail;
     }
 
-    public boolean resgisterWithEmail(String email, String name, String pass) {
+    public boolean resgisterWithEmail(String email, String name, String pass, String phoneNumbers, String dob,
+            String gender) {
         Connection connection = null;
         if (checkEmailExist(email)) {
             return false;
@@ -194,13 +195,21 @@ public class UserDAO {
             try {
                 connection = Connect.getConnection();
                 java.sql.Date sqlDate;
-
+                try {
+                    sqlDate = java.sql.Date.valueOf(dob);
+                } catch (IllegalArgumentException | NullPointerException e) {
+                    sqlDate = new java.sql.Date(System.currentTimeMillis());
+                }
                 String insert = "INSERT INTO users (email, fullName, password, role, access, dob, phoneNumbers, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement preparedStatement1 = connection.prepareStatement(insert);
                 preparedStatement1.setString(1, email);
                 preparedStatement1.setString(2, name);
                 preparedStatement1.setString(3, pass);
-
+                preparedStatement1.setString(4, "false");
+                preparedStatement1.setString(5, "true");
+                preparedStatement1.setDate(6, sqlDate);
+                preparedStatement1.setString(7, phoneNumbers);
+                preparedStatement1.setString(8, gender);
                 int resultSet1 = preparedStatement1.executeUpdate();
 
                 if (resultSet1 > 0) {
