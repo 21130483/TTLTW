@@ -11,9 +11,9 @@
 
 </head>
 <body>
-<!--<%-->
-<!--String err = request.getAttribute("err") == null ? "" : (String) request.getAttribute("err");-->
-<!--%>-->
+<%
+String err = request.getAttribute("err") == null ? "" : (String) request.getAttribute("err");
+%>
 <div class="inner-verify">
 
   <h3 class="title">Xác thực Email của bạn</h3>

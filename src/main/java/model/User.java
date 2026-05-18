@@ -15,6 +15,7 @@ public class User {
     private String gender;
     private boolean role;
     private boolean access;
+    private boolean isVerifyEmail;
 
     public User() {
     }
@@ -109,6 +110,15 @@ public class User {
         this.access = access;
     }
 
+    public boolean isVerifyEmail() {
+        return isVerifyEmail;
+    }
+
+    public void setVerifyEmail(boolean verifyEmail) {
+        isVerifyEmail = verifyEmail;
+    }
+
+
 
 
 
@@ -124,6 +134,7 @@ public class User {
                 ", gender='" + gender + '\'' +
                 ", role='" + role + '\'' +
                 ", access='" + access + '\'' +
+                ", isVerifyEmail=" + isVerifyEmail +
                 '}';
     }
 

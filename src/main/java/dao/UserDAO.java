@@ -200,7 +200,7 @@ public class UserDAO {
                 } catch (IllegalArgumentException | NullPointerException e) {
                     sqlDate = new java.sql.Date(System.currentTimeMillis());
                 }
-                String insert = "INSERT INTO users (email, fullName, password, role, access, dob, phoneNumbers, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                String insert = "INSERT INTO users (email, fullName, password, role, access, dob, phoneNumbers, gender, isVerifyEmail) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement preparedStatement1 = connection.prepareStatement(insert);
                 preparedStatement1.setString(1, email);
                 preparedStatement1.setString(2, name);
@@ -210,6 +210,7 @@ public class UserDAO {
                 preparedStatement1.setDate(6, sqlDate);
                 preparedStatement1.setString(7, phoneNumbers);
                 preparedStatement1.setString(8, gender);
+                preparedStatement1.setString(9, "false");
                 int resultSet1 = preparedStatement1.executeUpdate();
 
                 if (resultSet1 > 0) {
@@ -226,11 +227,73 @@ public class UserDAO {
 
     }
 
+    public boolean registerWithGoogle(String email, String name) {
+        Connection connection = null;
+        if (checkEmailExist(email)) {
+            return false; // Already exists
+        } else {
+            try {
+                connection = Connect.getConnection();
+                java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
+                
+                String insert = "INSERT INTO users (email, fullName, password, role, access, dob, phoneNumbers, gender, isVerifyEmail) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement preparedStatement1 = connection.prepareStatement(insert);
+                preparedStatement1.setString(1, email);
+                preparedStatement1.setString(2, name);
+                preparedStatement1.setString(3, "GoogleLogin123!@#"); // Dummy password
+                preparedStatement1.setString(4, "false"); // role
+                preparedStatement1.setString(5, "true"); // access
+                preparedStatement1.setDate(6, sqlDate); // dob
+                preparedStatement1.setString(7, "0000000000"); // phoneNumbers
+                preparedStatement1.setString(8, "khác"); // gender
+                preparedStatement1.setString(9, "true"); // isVerifyEmail -> Google already verified
+                int resultSet1 = preparedStatement1.executeUpdate();
+
+                if (resultSet1 > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } finally {
+                Connect.closeConnection(connection);
+            }
+        }
+    }
+
+    public User getUserByEmail(String email) {
+        Connection connection = null;
+        try {
+            connection = Connect.getConnection();
+            String sql = "select userID, email, fullName, password, access, role, dob, isVerifyEmail from users where email = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                User user = new User();
+                user.setUserID(resultSet.getInt(1));
+                user.setEmail(resultSet.getString(2));
+                user.setFullName(resultSet.getString(3));
+                user.setAccess(Boolean.parseBoolean(resultSet.getString(5)));
+                user.setRole(Boolean.parseBoolean(resultSet.getString(6)));
+                user.setDob(resultSet.getDate(7));
+                user.setVerifyEmail(Boolean.parseBoolean(resultSet.getString(8)));
+                return user;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            Connect.closeConnection(connection);
+        }
+        return null;
+    }
+
     public User getUserByEmailAndPass(String email, String pass) {
         Connection connection = null;
         try {
             connection = Connect.getConnection();
-            String sql = "select userID, email, fullName, password, access, role, dob from users where email = ? AND password = ?";
+            String sql = "select userID, email, fullName, password, access, role, dob, isVerifyEmail from users where email = ? AND password = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, pass);
@@ -244,6 +307,7 @@ public class UserDAO {
                 user.setAccess(Boolean.parseBoolean(resultSet.getString(5)));
                 user.setRole(Boolean.parseBoolean(resultSet.getString(6)));
                 user.setDob(resultSet.getDate(7));
+                user.setVerifyEmail(Boolean.parseBoolean(resultSet.getString(8)));
 
                 // System.out.println(user);
                 return user;
