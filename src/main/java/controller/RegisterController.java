@@ -1,6 +1,7 @@
 package controller;
 
 import dao.UserDAO;
+import model.User;
 import Services.Connect;
 
 import javax.servlet.ServletException;
@@ -60,35 +61,37 @@ public class RegisterController extends HttpServlet {
         boolean isSuccess = userDAO.resgisterWithEmail(email, username, password, phoneNumbers, dob, gender);
 
         if (isSuccess) {
-            req.setAttribute("successMessage", "Đăng ký thành công! Vui lòng đăng nhập.");
-            req.getRequestDispatcher("/html/login.jsp").forward(req, resp);
+            User user = userDAO.getUserByEmailAndPass(email, password);
+            javax.servlet.http.HttpSession session = req.getSession();
+            session.setAttribute("user", user);
+            resp.sendRedirect(req.getContextPath() + "/verify");
         } else {
             req.setAttribute("error", "Đã có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau.");
             req.getRequestDispatcher("/html/register.jsp").forward(req, resp);
         }
-//        if(email.length()==0){
-//            req.setAttribute("invalidateEmail", "Vui lòng nhập trường này");
-//            req.getRequestDispatcher("register.jsp").forward(req,resp);
-//        }
-//
-//        if(!confirmPassword.equals(password)){
-//            req.setAttribute("invalidateConfimPassword","Mật khẩu không khớp");
-//            req.getRequestDispatcher("register.jsp").forward(req,resp);
-//        }
-//
-//        if (!Validator.validateEmail(email)) {
-//            error = "Email không đúng định dạng";
-//        }
-//        if(password.length() <6){
-//            req.setAttribute("invalidatePassword","Mật khẩu phải nhiều hơn 6 kí tự");
-//            req.getRequestDispatcher("register.jsp").forward(req,resp);
-//        }
-//        if(userDAO.checkEmailExist(email)){
-//            req.setAttribute("invalidateEmail","Email đã được đăng kí");
-//            req.getRequestDispatcher("register.jsp").forward(req,resp);
-//        }
-//        if(userDAO.resgisterWithEmail(email,username,password)){
-//            resp.sendRedirect("login.jsp");
-//        }
+        // if(email.length()==0){
+        // req.setAttribute("invalidateEmail", "Vui lòng nhập trường này");
+        // req.getRequestDispatcher("register.jsp").forward(req,resp);
+        // }
+        //
+        // if(!confirmPassword.equals(password)){
+        // req.setAttribute("invalidateConfimPassword","Mật khẩu không khớp");
+        // req.getRequestDispatcher("register.jsp").forward(req,resp);
+        // }
+        //
+        // if (!Validator.validateEmail(email)) {
+        // error = "Email không đúng định dạng";
+        // }
+        // if(password.length() <6){
+        // req.setAttribute("invalidatePassword","Mật khẩu phải nhiều hơn 6 kí tự");
+        // req.getRequestDispatcher("register.jsp").forward(req,resp);
+        // }
+        // if(userDAO.checkEmailExist(email)){
+        // req.setAttribute("invalidateEmail","Email đã được đăng kí");
+        // req.getRequestDispatcher("register.jsp").forward(req,resp);
+        // }
+        // if(userDAO.resgisterWithEmail(email,username,password)){
+        // resp.sendRedirect("login.jsp");
+        // }
     }
 }

@@ -81,8 +81,8 @@
         <button class="fb-btn">
           <a href="#" class = "icon">
             <img src="${pageContext.request.contextPath}/image/login/fb.png">Đăng nhập bằng Facebook</a></button>
-        <button class="google-btn">
-          <a href="#" class = "icon">
+        <button class="google-btn" type="button">
+          <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/Lab/login-google&response_type=code&client_id=1027545970551-rmqn2hmckrbgkm7um7rukb2t5areoa4l.apps.googleusercontent.com&approval_prompt=force" class="icon">
             <img src="${pageContext.request.contextPath}/image/login/google.png">Đăng nhập bằng Google</a>
         </button>
       </div>
