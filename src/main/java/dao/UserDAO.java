@@ -266,7 +266,7 @@ public class UserDAO {
         Connection connection = null;
         try {
             connection = Connect.getConnection();
-            String sql = "select userID, email, fullName, password, access, role, dob, isVerifyEmail from users where email = ?";
+            String sql = "select userID, email, fullName, password, access, role, dob, isVerifyEmail, gender, phoneNumbers from users where email = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -275,10 +275,13 @@ public class UserDAO {
                 user.setUserID(resultSet.getInt(1));
                 user.setEmail(resultSet.getString(2));
                 user.setFullName(resultSet.getString(3));
+                user.setPassword(resultSet.getString(4));
                 user.setAccess(Boolean.parseBoolean(resultSet.getString(5)));
                 user.setRole(Boolean.parseBoolean(resultSet.getString(6)));
                 user.setDob(resultSet.getDate(7));
                 user.setVerifyEmail(Boolean.parseBoolean(resultSet.getString(8)));
+                user.setGender(resultSet.getString("gender"));
+                user.setPhoneNumbers(resultSet.getString("phoneNumbers"));
                 return user;
             }
         } catch (SQLException e) {
@@ -293,7 +296,7 @@ public class UserDAO {
         Connection connection = null;
         try {
             connection = Connect.getConnection();
-            String sql = "select userID, email, fullName, password, access, role, dob, isVerifyEmail from users where email = ? AND password = ?";
+            String sql = "select userID, email, fullName, password, access, role, dob, isVerifyEmail, gender, phoneNumbers from users where email = ? AND password = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, pass);
@@ -303,11 +306,13 @@ public class UserDAO {
                 user.setUserID(resultSet.getInt(1));
                 user.setEmail(resultSet.getString(2));
                 user.setFullName(resultSet.getString(3));
-                // user.setPasword(resultSet.getString(4));
+                user.setPassword(resultSet.getString(4));
                 user.setAccess(Boolean.parseBoolean(resultSet.getString(5)));
                 user.setRole(Boolean.parseBoolean(resultSet.getString(6)));
                 user.setDob(resultSet.getDate(7));
                 user.setVerifyEmail(Boolean.parseBoolean(resultSet.getString(8)));
+                user.setGender(resultSet.getString("gender"));
+                user.setPhoneNumbers(resultSet.getString("phoneNumbers"));
 
                 // System.out.println(user);
                 return user;
