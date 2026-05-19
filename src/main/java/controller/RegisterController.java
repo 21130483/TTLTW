@@ -43,8 +43,8 @@ public class RegisterController extends HttpServlet {
             hasError = true;
         }
 
-        if (password == null || password.length() < 6) {
-            req.setAttribute("invalidatePassword", "Mật khẩu phải từ 6 kí tự trở lên");
+        if (password == null || !password.matches("^(?=.*[a-z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}$")) {
+            req.setAttribute("invalidatePassword", "Mật khẩu phải từ 8 kí tự, gồm ít nhất 1 chữ thường, 1 số và 1 ký tự đặc biệt");
             hasError = true;
         }
 
