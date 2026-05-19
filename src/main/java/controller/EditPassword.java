@@ -26,10 +26,14 @@ public class EditPassword extends HttpServlet {
 //            userDAO.updatePassword(user, newpass1);
 //        }
         if (user.getPassword().equals(oldpass)) {
-            if (newpass1.equals(newpass2) && newpass1!=null) {
-                userDAO.updatePassword(user, newpass1);
-            }else{
-                req.setAttribute("errorSamePass","Xác nhận mật khẩu thất bại");
+            if (newpass1 != null && newpass1.matches("^(?=.*[a-z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}$")) {
+                if (newpass1.equals(newpass2)) {
+                    userDAO.updatePassword(user, newpass1);
+                } else {
+                    req.setAttribute("errorSamePass", "Xác nhận mật khẩu thất bại");
+                }
+            } else {
+                req.setAttribute("errorSamePass", "Mật khẩu phải từ 8 kí tự, gồm ít nhất 1 chữ thường, 1 số và 1 ký tự đặc biệt");
             }
         }else{
             req.setAttribute("errorOldPass","Mật khẩu cũ không đúng");

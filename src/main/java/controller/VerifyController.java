@@ -16,8 +16,6 @@ import java.util.Random;
 
 @WebServlet(name = "VerifyController", value = "/verify")
 public class VerifyController extends HttpServlet {
-    Random random = new Random();
-    int code = random.nextInt(89999) + 10000;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,29 +24,48 @@ public class VerifyController extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         if(user == null) {
-            resp.sendRedirect("login.jsp");
+            resp.sendRedirect(req.getContextPath() + "/html/login.jsp");
             return;
         }
+
+        Random random = new Random();
+        int code = random.nextInt(89999) + 10000;
+        session.setAttribute("verifyCode", code);
+
         SendEmail email = new SendEmail();
         email.sendEmail(Security.EMAIL, Security.PASS,user.getEmail(),"Xác thực Email",String.valueOf(code));
-        req.getRequestDispatcher("VerifyEmail.jsp").forward(req,resp);
+        req.getRequestDispatcher("/html/VerifyEmail.jsp").forward(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-        int codeVerify = Integer.parseInt(req.getParameter("verify"));
-        if(code != codeVerify){
+        HttpSession session = req.getSession();
+        
+        Integer code = (Integer) session.getAttribute("verifyCode");
+        int codeVerify = 0;
+        try {
+            codeVerify = Integer.parseInt(req.getParameter("verify"));
+        } catch (NumberFormatException e) {
+            // handle parse exception
+        }
+
+        if(code == null || code != codeVerify){
             req.setAttribute("err", "Nhập mã không chính xác");
-            req.getRequestDispatcher("VerifyEmail.jsp").forward(req,resp);
+            req.getRequestDispatcher("/html/VerifyEmail.jsp").forward(req,resp);
         }
         else{
-            HttpSession session = req.getSession();
             User user = (User) session.getAttribute("user");
             UserDAO userDAO = new UserDAO();
             if(userDAO.verifyEmail(user.getEmail())){
-                resp.sendRedirect("index");
+                user.setVerifyEmail(true);
+                session.setAttribute("user", user);
+                session.removeAttribute("verifyCode");
+                resp.sendRedirect(req.getContextPath() + "/html/index.jsp");
+            } else {
+                req.setAttribute("err", "Có lỗi xảy ra, vui lòng thử lại");
+                req.getRequestDispatcher("/html/VerifyEmail.jsp").forward(req,resp);
             }
         }
     }

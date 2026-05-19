@@ -19,18 +19,22 @@ public class LoginController extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         String email = req.getParameter("email");
-        String password = req.getParameter("password");
+        String password = req.getParameter("pass");
         UserDAO userDAO = new UserDAO();
-//        User user =userDAO.getUserByEmailAndPass(email, password);
-//        if(user != null){
-//            HttpSession session = req.getSession();
-//            session.setAttribute("user", user);
-//            session.setMaxInactiveInterval(10 * 60);
-//            resp.sendRedirect("index");
-//        }
-//        else{
-//            req.setAttribute("err", "Email hoặc mật khẩu không đúng");
-//            req.getRequestDispatcher("login.jsp").forward(req, resp);
-//        }
+        User user = userDAO.getUserByEmailAndPass(email, password);
+        if(user != null){
+            HttpSession session = req.getSession();
+            session.setAttribute("user", user);
+            session.setMaxInactiveInterval(30 * 60);
+            if (!user.isVerifyEmail()) {
+                resp.sendRedirect(req.getContextPath() + "/verify");
+            } else {
+                resp.sendRedirect(req.getContextPath() + "/html/index.jsp");
+            }
+        }
+        else{
+            req.setAttribute("content", "Email hoặc mật khẩu không đúng");
+            req.getRequestDispatcher("/html/login.jsp").forward(req, resp);
+        }
     }
 }

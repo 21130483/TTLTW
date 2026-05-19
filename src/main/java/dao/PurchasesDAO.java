@@ -42,13 +42,13 @@ public class PurchasesDAO {
 
     public static List<Purchases> getPurchaseByUserId(int userid) {
         List<Purchases> result = new ArrayList<>();
-        result = handle.select("SELECT * FROM purchases WHERE userID = ? GROUP BY purchaseID;").bind(0, userid).mapToBean(Purchases.class).collect(Collectors.toList());
+        result = handle.select("SELECT p1.* FROM purchases p1 JOIN (SELECT purchaseID, MIN(productID) AS min_prod FROM purchases WHERE userID = ? GROUP BY purchaseID) p2 ON p1.purchaseID = p2.purchaseID AND p1.productID = p2.min_prod;").bind(0, userid).mapToBean(Purchases.class).collect(Collectors.toList());
         return result;
     }
 
     public static List<Purchases> getPurchaseByUserIdAndStatus(int userid,int status) {
         List<Purchases> result = new ArrayList<>();
-        result = handle.select("SELECT * FROM purchases WHERE userID = ? AND status = ? GROUP BY purchaseID;").bind(0, userid).bind(1,status).mapToBean(Purchases.class).collect(Collectors.toList());
+        result = handle.select("SELECT p1.* FROM purchases p1 JOIN (SELECT purchaseID, MIN(productID) AS min_prod FROM purchases WHERE userID = ? AND status = ? GROUP BY purchaseID) p2 ON p1.purchaseID = p2.purchaseID AND p1.productID = p2.min_prod;").bind(0, userid).bind(1,status).mapToBean(Purchases.class).collect(Collectors.toList());
         return result;
     }
 
