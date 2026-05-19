@@ -59,7 +59,7 @@
       <i class="input-icon fa-solid fa-venus-mars"></i>
     </div>
     <div class="form-group">
-      <input type="password" name="password" class="form-style" placeholder="Mật khẩu" id="password" required>
+      <input type="password" name="password" class="form-style" placeholder="Mật khẩu" id="password" pattern="(?=.*[a-z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}" title="Mật khẩu phải từ 8 kí tự, gồm ít nhất 1 chữ thường, 1 số và 1 ký tự đặc biệt" required>
       <i class="input-icon fa-solid fa-unlock-keyhole"></i>
     </div>
     <c:if test="${not empty invalidatePassword}">

@@ -56,8 +56,8 @@ public class ForgotController extends HttpServlet {
             req.setAttribute("invalidateConfimPassword","Vui lòng nhập trường này");
             req.getRequestDispatcher("forgotPassword.jsp").forward(req,resp);
         }
-        if(password.length() <6){
-            req.setAttribute("invalidatePasswordLength","Mật khẩu phải nhiều hơn 6 kí tự");
+        if(password == null || !password.matches("^(?=.*[a-z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}$")){
+            req.setAttribute("invalidatePasswordLength","Mật khẩu phải từ 8 kí tự, gồm ít nhất 1 chữ thường, 1 số và 1 ký tự đặc biệt");
             req.getRequestDispatcher("forgotPassword.jsp").forward(req,resp);
         }
         if(!confimPassword.equals(password)){
