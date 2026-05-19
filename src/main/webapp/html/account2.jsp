@@ -99,6 +99,11 @@
                 <div class="title">
                     Thông tin cá nhân
                 </div>
+                <% if ("update_info".equals(request.getParameter("msg"))) { %>
+                    <div style="color: red; font-weight: bold; margin-bottom: 10px; margin-left: 20px;">
+                        Vui lòng cập nhật đầy đủ thông tin tài khoản của bạn!
+                    </div>
+                <% } %>
 
                 <div class="content">
                     <div class="infor">
