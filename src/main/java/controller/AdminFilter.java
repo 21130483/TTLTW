@@ -48,6 +48,19 @@ public class AdminFilter extends HttpServlet {
                 case "voucher":
                     page = "managerVouchers.jsp";
                     break;
+                case "statistics":
+                    page = "statistics.jsp";
+                    StatisticsDAO statisticsDAO = new StatisticsDAO();
+                    statisticsDAO.checkAndCreateCreatedAtColumn();
+                    req.setAttribute("dailyRevenue", statisticsDAO.getDailyRevenue());
+                    req.setAttribute("monthlyRevenue", statisticsDAO.getMonthlyRevenue());
+                    req.setAttribute("yearlyRevenue", statisticsDAO.getYearlyRevenue());
+                    req.setAttribute("avgOrderValue", statisticsDAO.getAverageOrderValue());
+                    req.setAttribute("dailyNewCustomers", statisticsDAO.getDailyNewCustomers());
+                    req.setAttribute("monthlyNewCustomers", statisticsDAO.getMonthlyNewCustomers());
+                    req.setAttribute("yearlyNewCustomers", statisticsDAO.getYearlyNewCustomers());
+                    req.setAttribute("topProducts", statisticsDAO.getTopSellingProducts());
+                    break;
                 default:
                     System.out.println("sai cau lenh");
             }
@@ -87,6 +100,19 @@ public class AdminFilter extends HttpServlet {
                     break;
                 case "voucher":
                     page = "managerVouchers.jsp";
+                    break;
+                case "statistics":
+                    page = "statistics.jsp";
+                    StatisticsDAO statisticsDAO = new StatisticsDAO();
+                    statisticsDAO.checkAndCreateCreatedAtColumn();
+                    req.setAttribute("dailyRevenue", statisticsDAO.getDailyRevenue());
+                    req.setAttribute("monthlyRevenue", statisticsDAO.getMonthlyRevenue());
+                    req.setAttribute("yearlyRevenue", statisticsDAO.getYearlyRevenue());
+                    req.setAttribute("avgOrderValue", statisticsDAO.getAverageOrderValue());
+                    req.setAttribute("dailyNewCustomers", statisticsDAO.getDailyNewCustomers());
+                    req.setAttribute("monthlyNewCustomers", statisticsDAO.getMonthlyNewCustomers());
+                    req.setAttribute("yearlyNewCustomers", statisticsDAO.getYearlyNewCustomers());
+                    req.setAttribute("topProducts", statisticsDAO.getTopSellingProducts());
                     break;
                 default:
                     System.out.println("sai cau lenh");
