@@ -59,6 +59,22 @@
                 </a>
             </li>
 
+            <li class="button-muc-luc">
+                <a href="admin?page=inventory">
+                    <div class="a">
+                        Quản lý tồn kho
+                    </div>
+                </a>
+            </li>
+
+            <li class="button-muc-luc">
+                <a href="admin?page=statistics">
+                    <div class="a">
+                        Thống kê
+                    </div>
+                </a>
+            </li>
+
             <li class="button-muc-luc" style="margin-top: 50px;">
                 <a href="index.jsp">
                     <div class="a">

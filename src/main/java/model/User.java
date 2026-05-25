@@ -16,6 +16,8 @@ public class User {
     private boolean role;
     private boolean access;
     private boolean isVerifyEmail;
+    private String resetToken;
+    private java.sql.Timestamp resetTokenExpiry;
 
     public User() {
     }
@@ -118,6 +120,21 @@ public class User {
         isVerifyEmail = verifyEmail;
     }
 
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+    public java.sql.Timestamp getResetTokenExpiry() {
+        return resetTokenExpiry;
+    }
+
+    public void setResetTokenExpiry(java.sql.Timestamp resetTokenExpiry) {
+        this.resetTokenExpiry = resetTokenExpiry;
+    }
 
 
 

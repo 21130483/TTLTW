@@ -266,7 +266,7 @@ public class UserDAO {
         Connection connection = null;
         try {
             connection = Connect.getConnection();
-            String sql = "select userID, email, fullName, password, access, role, dob, isVerifyEmail from users where email = ?";
+            String sql = "select userID, email, fullName, password, access, role, dob, isVerifyEmail, gender, phoneNumbers from users where email = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -275,10 +275,13 @@ public class UserDAO {
                 user.setUserID(resultSet.getInt(1));
                 user.setEmail(resultSet.getString(2));
                 user.setFullName(resultSet.getString(3));
+                user.setPassword(resultSet.getString(4));
                 user.setAccess(Boolean.parseBoolean(resultSet.getString(5)));
                 user.setRole(Boolean.parseBoolean(resultSet.getString(6)));
                 user.setDob(resultSet.getDate(7));
                 user.setVerifyEmail(Boolean.parseBoolean(resultSet.getString(8)));
+                user.setGender(resultSet.getString("gender"));
+                user.setPhoneNumbers(resultSet.getString("phoneNumbers"));
                 return user;
             }
         } catch (SQLException e) {
@@ -293,7 +296,7 @@ public class UserDAO {
         Connection connection = null;
         try {
             connection = Connect.getConnection();
-            String sql = "select userID, email, fullName, password, access, role, dob, isVerifyEmail from users where email = ? AND password = ?";
+            String sql = "select userID, email, fullName, password, access, role, dob, isVerifyEmail, gender, phoneNumbers from users where email = ? AND password = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, pass);
@@ -303,11 +306,13 @@ public class UserDAO {
                 user.setUserID(resultSet.getInt(1));
                 user.setEmail(resultSet.getString(2));
                 user.setFullName(resultSet.getString(3));
-                // user.setPasword(resultSet.getString(4));
+                user.setPassword(resultSet.getString(4));
                 user.setAccess(Boolean.parseBoolean(resultSet.getString(5)));
                 user.setRole(Boolean.parseBoolean(resultSet.getString(6)));
                 user.setDob(resultSet.getDate(7));
                 user.setVerifyEmail(Boolean.parseBoolean(resultSet.getString(8)));
+                user.setGender(resultSet.getString("gender"));
+                user.setPhoneNumbers(resultSet.getString("phoneNumbers"));
 
                 // System.out.println(user);
                 return user;
@@ -584,5 +589,64 @@ public class UserDAO {
                     .bind(1, user.getUserID()).execute() > 0;
         });
         return check;
+    }
+
+    public boolean updateResetToken(String email, String token, java.sql.Timestamp expiry) {
+        Connection connection = null;
+        try {
+            connection = Connect.getConnection();
+            String sql = "UPDATE users SET reset_token = ?, reset_token_expiry = ? WHERE email = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, token);
+            preparedStatement.setTimestamp(2, expiry);
+            preparedStatement.setString(3, email);
+            int check = preparedStatement.executeUpdate();
+            return check > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            Connect.closeConnection(connection);
+        }
+    }
+
+    public User getUserByResetToken(String token) {
+        Connection connection = null;
+        try {
+            connection = Connect.getConnection();
+            String sql = "SELECT * FROM users WHERE reset_token = ? AND reset_token_expiry > NOW()";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, token);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                User user = new User();
+                user.setUserID(resultSet.getInt("userID"));
+                user.setEmail(resultSet.getString("email"));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Connect.closeConnection(connection);
+        }
+        return null;
+    }
+
+    public boolean updatePasswordAndClearToken(int userId, String hashedPassword) {
+        Connection connection = null;
+        try {
+            connection = Connect.getConnection();
+            String sql = "UPDATE users SET password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE userID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, hashedPassword);
+            preparedStatement.setInt(2, userId);
+            int check = preparedStatement.executeUpdate();
+            return check > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            Connect.closeConnection(connection);
+        }
     }
 }

@@ -48,6 +48,72 @@ public class AdminFilter extends HttpServlet {
                 case "voucher":
                     page = "managerVouchers.jsp";
                     break;
+                // Thong ke
+                case "statistics":
+                    page = "statistics.jsp";
+                    StatisticsDAO statisticsDAO = new StatisticsDAO();
+                    statisticsDAO.checkAndCreateCreatedAtColumn();
+                    req.setAttribute("dailyRevenue", statisticsDAO.getDailyRevenue());
+                    req.setAttribute("monthlyRevenue", statisticsDAO.getMonthlyRevenue());
+                    req.setAttribute("yearlyRevenue", statisticsDAO.getYearlyRevenue());
+                    req.setAttribute("avgOrderValue", statisticsDAO.getAverageOrderValue());
+                    req.setAttribute("dailyNewCustomers", statisticsDAO.getDailyNewCustomers());
+                    req.setAttribute("monthlyNewCustomers", statisticsDAO.getMonthlyNewCustomers());
+                    req.setAttribute("yearlyNewCustomers", statisticsDAO.getYearlyNewCustomers());
+                    req.setAttribute("topProducts", statisticsDAO.getTopSellingProducts());
+                    break;
+                Ton kho
+                case "inventory":
+                    ProductDAO inventoryProductDAO = new ProductDAO();
+                    List<Product> inventoryProducts = inventoryProductDAO.getAllProduct();
+                    
+                    String searchIdStr = req.getParameter("searchId");
+                    String searchName = req.getParameter("searchName");
+                    
+                    List<Product> filteredProducts = new java.util.ArrayList<>();
+                    for (Product p : inventoryProducts) {
+                        boolean matches = true;
+                        if (searchIdStr != null && !searchIdStr.trim().isEmpty()) {
+                            try {
+                                int searchId = Integer.parseInt(searchIdStr.trim());
+                                if (p.getProductID() != searchId) {
+                                    matches = false;
+                                }
+                            } catch (NumberFormatException e) {
+                                // ignore
+                            }
+                        }
+                        if (searchName != null && !searchName.trim().isEmpty()) {
+                            if (!p.getName().toLowerCase().contains(searchName.toLowerCase())) {
+                                matches = false;
+                            }
+                        }
+                        if (matches) {
+                            filteredProducts.add(p);
+                        }
+                    }
+                    
+                    int totalStock = 0;
+                    int lowStockCount = 0;
+                    int outOfStockCount = 0;
+                    
+                    for (Product p : inventoryProducts) {
+                        totalStock += p.getQuantity();
+                        if (p.getQuantity() == 0) {
+                            outOfStockCount++;
+                        } else if (p.getQuantity() < 20) {
+                            lowStockCount++;
+                        }
+                    }
+                    
+                    req.setAttribute("getAllProducts", filteredProducts);
+                    req.setAttribute("totalStock", totalStock);
+                    req.setAttribute("lowStockCount", lowStockCount);
+                    req.setAttribute("outOfStockCount", outOfStockCount);
+                    req.setAttribute("totalProducts", inventoryProducts.size());
+                    
+                    page = "managerInventory.jsp";
+                    break;
                 default:
                     System.out.println("sai cau lenh");
             }
@@ -87,6 +153,80 @@ public class AdminFilter extends HttpServlet {
                     break;
                 case "voucher":
                     page = "managerVouchers.jsp";
+                    break;
+                case "statistics":
+                    page = "statistics.jsp";
+                    StatisticsDAO statisticsDAO = new StatisticsDAO();
+                    statisticsDAO.checkAndCreateCreatedAtColumn();
+                    req.setAttribute("dailyRevenue", statisticsDAO.getDailyRevenue());
+                    req.setAttribute("monthlyRevenue", statisticsDAO.getMonthlyRevenue());
+                    req.setAttribute("yearlyRevenue", statisticsDAO.getYearlyRevenue());
+                    req.setAttribute("avgOrderValue", statisticsDAO.getAverageOrderValue());
+                    req.setAttribute("dailyNewCustomers", statisticsDAO.getDailyNewCustomers());
+                    req.setAttribute("monthlyNewCustomers", statisticsDAO.getMonthlyNewCustomers());
+                    req.setAttribute("yearlyNewCustomers", statisticsDAO.getYearlyNewCustomers());
+                    req.setAttribute("topProducts", statisticsDAO.getTopSellingProducts());
+                    break;
+                case "inventory":
+                    String action = req.getParameter("action");
+                    if ("update".equals(action)) {
+                        try {
+                            int prodId = Integer.parseInt(req.getParameter("productID"));
+                            String qtyVal = req.getParameter("quantity");
+                            ProductDAO.updateProduct(prodId, "quantity", qtyVal);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    
+                    ProductDAO postProductDAO = new ProductDAO();
+                    List<Product> postProducts = postProductDAO.getAllProduct();
+                    
+                    String postSearchIdStr = req.getParameter("searchId");
+                    String postSearchName = req.getParameter("searchName");
+                    
+                    List<Product> postFilteredProducts = new java.util.ArrayList<>();
+                    for (Product p : postProducts) {
+                        boolean matches = true;
+                        if (postSearchIdStr != null && !postSearchIdStr.trim().isEmpty()) {
+                            try {
+                                int searchId = Integer.parseInt(postSearchIdStr.trim());
+                                if (p.getProductID() != searchId) {
+                                    matches = false;
+                                }
+                            } catch (NumberFormatException e) {
+                            }
+                        }
+                        if (postSearchName != null && !postSearchName.trim().isEmpty()) {
+                            if (!p.getName().toLowerCase().contains(postSearchName.toLowerCase())) {
+                                matches = false;
+                            }
+                        }
+                        if (matches) {
+                            postFilteredProducts.add(p);
+                        }
+                    }
+                    
+                    int postTotalStock = 0;
+                    int postLowStockCount = 0;
+                    int postOutOfStockCount = 0;
+                    
+                    for (Product p : postProducts) {
+                        postTotalStock += p.getQuantity();
+                        if (p.getQuantity() == 0) {
+                            postOutOfStockCount++;
+                        } else if (p.getQuantity() < 20) {
+                            postLowStockCount++;
+                        }
+                    }
+                    
+                    req.setAttribute("getAllProducts", postFilteredProducts);
+                    req.setAttribute("totalStock", postTotalStock);
+                    req.setAttribute("lowStockCount", postLowStockCount);
+                    req.setAttribute("outOfStockCount", postOutOfStockCount);
+                    req.setAttribute("totalProducts", postProducts.size());
+                    
+                    page = "managerInventory.jsp";
                     break;
                 default:
                     System.out.println("sai cau lenh");

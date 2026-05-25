@@ -39,6 +39,11 @@ public class LoginGoogleController extends HttpServlet {
                 boolean isSuccess = userDAO.registerWithGoogle(email, name);
                 if (isSuccess) {
                     user = userDAO.getUserByEmail(email);
+                    HttpSession session = req.getSession();
+                    session.setAttribute("user", user);
+                    session.setMaxInactiveInterval(30 * 60);
+                    resp.sendRedirect(req.getContextPath() + "/html/account?msg=update_info");
+                    return;
                 } else {
                     req.setAttribute("content", "Lỗi tạo tài khoản từ Google.");
                     req.getRequestDispatcher("/html/login.jsp").forward(req, resp);
