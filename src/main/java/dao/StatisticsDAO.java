@@ -72,7 +72,7 @@ public class StatisticsDAO {
             return totalRevenue;
         }
     }
-
+// Error: Khi mở bảng thống kê thì nó mới tạo created_at(thời gian tạo user mới)
     public void checkAndCreateCreatedAtColumn() {
         Connection conn = null;
         try {
