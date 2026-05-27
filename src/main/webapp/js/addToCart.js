@@ -16,18 +16,22 @@ function addToCart(event, productId) {
         data: { productId: productId },
         success: function(sizeCart) {
             $("#sizeCart").text(sizeCart);
-            alert("Đã thêm sản phẩm vào giỏ hàng thành công!");
+            $("#cartDialog").css("display", "flex");
         },
         error: function(xhr) {
             // Trường hợp xảy ra lỗi từ phía Server trả về
             if (xhr.status === 401) {
                 // Nhận diện lỗi 401 (Chưa đăng nhập) -> Thông báo và lập tức chuyển hướng
-                alert("Bạn cần phải đăng nhập để thêm sản phẩm vào giỏ hàng!");
+                // alert("Bạn cần phải đăng nhập để thêm sản phẩm vào giỏ hàng!");
                 window.location.href = "login.jsp";
             } else {
                 // Các lỗi hệ thống khác nếu có (ví dụ 500, 404, 400)
-                alert("Đã xảy ra lỗi hệ thống. Vui lòng thử lại sau!");
+                // alert("Đã xảy ra lỗi hệ thống. Vui lòng thử lại sau!");
             }
         }
     });
+}
+
+function closeCartDialog() {
+    $("#cartDialog").css("display", "none");
 }
