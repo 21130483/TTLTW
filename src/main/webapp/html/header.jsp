@@ -57,7 +57,7 @@
 
                 <div class="cart">
                     <div class="button">
-                        <a href="cart.jsp" class="link-button">
+                        <a href="carts" class="link-button">
                             <div class="icon">
                                 <i class="fa-solid fa-cart-shopping" style="position: relative; display: inline-block;">
                                     <%
@@ -66,13 +66,13 @@
                                     %>
 
                                     <%
-                                        if (cart.sizeCart() != 0) {
+//                                        if (cart.sizeCart() != 0) {
                                     %>
                                     <p id="sizeCart" style="position: absolute; top: -10px; right: -10px; background-color: red; color: white; border-radius: 50%; padding: 2px;">
-                                        <%=cart.sizeCart()%>
+<%--                                        <%=cart.sizeCart()%>--%>
                                     </p>
                                     <%
-                                        }
+//                                        }
                                     %>
 
                                 </i>

@@ -1,203 +1,85 @@
 package model;
 
-import java.util.*;
+import static database.TableCarts.USER_ID;
+import static database.TableCarts.PRODUCT_ID;
+import static database.TableCarts.QUANTITY;
+
+import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 public class Cart {
-    private static Map<Product, Integer> cart = new HashMap<>();
-    private static List<Integer> productChecked = new ArrayList<>();
+    @ColumnName(USER_ID)
+    private int userId;
+
+    @ColumnName(PRODUCT_ID)
+    private int productId;
+
+    @ColumnName(QUANTITY)
+    private int quantity;
+
+    private Product product;
+
+    private boolean checked = false;
 
     public Cart() {
+        super();
+    }
+
+    public Cart(int userId, int productId, int quantity) {
+        super();
+        this.userId = userId;
+        this.productId = productId;
+        this.quantity = quantity;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
 
-    public int sizeCart() {
-        return cart.size();
+    public Product getProduct() {
+        return product;
     }
 
-    public Map<Product, Integer> getCart() {
-        return cart;
-    }
-
-    public static List<Integer> getProductChecked() {
-        return productChecked;
-    }
-
-    public static void setProductChecked(List<Integer> productChecked) {
-        Cart.productChecked = productChecked;
-    }
-
-    public void setCart(Map<Product, Integer> cart) {
-        this.cart = cart;
-    }
-
-    public static void addProduct(Product product) {
-        if (cart.containsKey(product)) {
-            cart.put(product, cart.get(product) + 1);
-        } else {
-            cart.put(product, 1);
-        }
-    }
-
-    public static void removeProduct(Product product, boolean clearAll) {
-        if (cart.containsKey(product)) {
-            if (clearAll || cart.get(product) == 1) {
-                cart.remove(product);
-                removeProductChecked(product.getProductID());
-            } else {
-                cart.put(product, cart.get(product) - 1);
-            }
-        }
-    }
-
-    public void addProductChecked(int id) {
-        productChecked.add(id);
-    }
-
-    public static void removeProductChecked(int id) {
-        if (productChecked.contains(id)) {
-            System.out.println("co");
-            productChecked.remove(productChecked.indexOf(id));
-
-        } else {
-            System.out.println("ko");
-        }
-
-    }
-
-    public void addAll() {
-        for (Product p : cart.keySet()) {
-            if (!productChecked.contains(p.getProductID())) {
-                productChecked.add(p.getProductID());
-            }
-        }
-    }
-
-    public void removeAll() {
-        productChecked.clear();
-    }
-
-    public boolean cartEqualChecked() {
-        if (cart.size() != 0 && cart.size() == productChecked.size()) {
-            return true;
-        }
-        return false;
-    }
-
-    public static int getTotalPrices() {
-        int result = 0;
-        for (Product product : cart.keySet()) {
-            if (productChecked.contains(product.getProductID())) {
-                result += product.getPrice() * cart.get(product);
-            }
-
-        }
-        return result;
-    }
-
-    public static String getTotalPricesHaveDots() {
-        String result = "";
-        String priceString = String.valueOf(getTotalPrices());
-        int dots = priceString.length() - 1 / 3;
-        int remainder = priceString.length() % 3;
-        for (int i = 0; i < priceString.length(); i++) {
-            if (i % 3 == remainder && i != 0) {
-
-                result += ".";
-            }
-            result += priceString.charAt(i);
-
-        }
-        result += " Đồng";
-        return result;
-    }
-
-    public static String getTotalPricesWithDeliveryHaveDots() {
-        String result = "";
-        String priceString = String.valueOf(getTotalPrices() + 25000);
-        int dots = priceString.length() - 1 / 3;
-        int remainder = priceString.length() % 3;
-        for (int i = 0; i < priceString.length(); i++) {
-            if (i % 3 == remainder && i != 0) {
-
-                result += ".";
-            }
-            result += priceString.charAt(i);
-
-        }
-        result += " Đồng";
-        return result;
-    }
-
-    public static int getTotalSales() {
-        int result = 0;
-        for (Product product : cart.keySet()) {
-            if (productChecked.contains(product.getProductID())) {
-                result += product.getSale() * cart.get(product);
-            }
-        }
-        return result;
-    }
-
-    public static String getTotalSalesHaveDots() {
-        String result = "";
-        String priceString = String.valueOf(getTotalSales());
-        int dots = priceString.length() - 1 / 3;
-        int remainder = priceString.length() % 3;
-        for (int i = 0; i < priceString.length(); i++) {
-            if (i % 3 == remainder && i != 0) {
-
-                result += ".";
-            }
-            result += priceString.charAt(i);
-
-        }
-        result += " Đồng";
-        return result;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
 
-    public static int getTotalRealPrices() {
-        return getTotalPrices() + getTotalSales();
+    public boolean isChecked() {
+        return checked;
     }
 
-    public static String getTotalRealPricesHaveDots() {
-        String result = "";
-        String priceString = String.valueOf(getTotalRealPrices());
-        int dots = priceString.length() - 1 / 3;
-        int remainder = priceString.length() % 3;
-        for (int i = 0; i < priceString.length(); i++) {
-            if (i % 3 == remainder && i != 0) {
-
-                result += ".";
-            }
-            result += priceString.charAt(i);
-
-        }
-        result += " Đồng";
-        return result;
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 
-    public List<Product> listProductBuy() {
-        List<Product> result = new ArrayList<>();
-        for (Product p : cart.keySet()) {
-            if (productChecked.contains(p.getProductID())) {
-                result.add(p);
-            }
-        }
-        return result;
+    public int totalPrice(){
+        return product.getPrice() * quantity;
     }
 
-
-
-    public void deletedProdcutBuyFromCart() {
-        Iterator<Product> iterator = cart.keySet().iterator();
-        while (iterator.hasNext()) {
-            Product p = iterator.next();
-            if (productChecked.contains(p.getProductID())) {
-                iterator.remove();
-            }
-        }
-        productChecked.clear();
+    @Override
+    public String toString() {
+        return "Cart [userId=" + userId + ", productId=" + productId + ", quantity=" + quantity
+                + ", product=" + (product != null ? product.getName() : "null") + "]";
     }
-
 }

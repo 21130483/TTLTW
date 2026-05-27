@@ -1,6 +1,9 @@
-<%@ page import="model.Cart" %>
 <%@ page import="model.Product" %>
 <%@ page import="java.io.File" %>
+<%@ page import="model.Cart" %>
+<%@ page import="java.util.List" %>
+<%@ page import="dao.ProductDAO" %>
+<%@ page import="model.Carts" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
@@ -30,7 +33,7 @@
 <div class="page">
     <jsp:include page="header.jsp"></jsp:include>
     <%
-        Cart cart = (Cart) session.getAttribute("cart");
+        Carts carts = (Carts) request.getAttribute("carts");
     %>
 
 
@@ -46,11 +49,11 @@
 
                                     <input type="checkbox" class="input" id="checkedAll" data-hrf="index.jsp"
                                         <%
-                                            if (cart!=null && cart.cartEqualChecked()){
+//                                            if (cart!=null && cart.cartEqualChecked()){
                                         %>
                                            checked
                                         <%
-                                            }
+//                                            }
                                         %>
                                     >
                                 </div>
@@ -78,8 +81,13 @@
 
 
                         <%
-                            if (cart != null && cart.sizeCart() != 0) {
-                                for (Product p : cart.getCart().keySet()) {
+                            if (carts == null || carts.getCarts().isEmpty()) {
+                        %>
+                        <p>Giỏ hàng của bạn đang trống rỗng!</p>
+                        <%
+                        } else {
+                            for (Cart cart : carts.getCarts()) {
+                                Product p = cart.getProduct();
                         %>
 
                         <li class="san-pham-muon-mua">
@@ -89,7 +97,7 @@
                                            data-href="buy-product?active=normal&id=<%=p.getProductID()%>"
                                            value="<%=p.getProductID()%>"
                                         <%
-                                            if (cart.getProductChecked().contains(p.getProductID())){
+                                            if (cart.isChecked()){
                                             %>
                                            checked
                                         <%
@@ -125,7 +133,7 @@
                                         <button class="down"><i class="fa-solid fa-minus"></i></button>
                                     </form>
 
-                                    <input type="text" class="quantity" value="<%=cart.getCart().get(p)%>">
+                                    <input type="text" class="quantity" value="<%=cart.getQuantity()%>">
 
 
                                     <form action="cart?id=<%=p.getProductID()%>&active=add&page=cart" method="post">
@@ -199,13 +207,13 @@
                 <div class="bang-gia">
                     <div class="title">
                         <p>Tổng tiền</p>
-                        <p><%=cart.getTotalRealPricesHaveDots()%>
+                        <p><%=carts.getTotalRealPricesHaveDots()%>
                         </p>
                     </div>
 
                     <div class="title">
                         <p>Giảm giá trực tiếp</p>
-                        <p><%=cart.getTotalSalesHaveDots()%>
+                        <p><%=carts.getTotalSalesHaveDots()%>
                         </p>
                     </div>
 
@@ -216,13 +224,13 @@
 
                     <div class="title">
                         <p>Tiết kiệm được</p>
-                        <p><%=cart.getTotalSalesHaveDots()%>
+                        <p><%=carts.getTotalSalesHaveDots()%>
                         </p>
                     </div>
 
                     <div class="tam-tinh">
                         <p class="title">Tạm tính</p>
-                        <p class="cost"><%=cart.getTotalPricesHaveDots()%>
+                        <p class="cost"><%=carts.getTotalPricesHaveDots()%>
                         </p>
                     </div>
                     <%
