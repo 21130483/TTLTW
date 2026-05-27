@@ -288,3 +288,16 @@ CREATE TABLE IF NOT EXISTS `verify` (
     KEY `userID` (`userID`),
     CONSTRAINT `verify_fk_userID` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=UTF8MB4_UNICODE_CI;
+
+
+CREATE TABLE IF NOT EXISTS `carts` (
+                                       `userID` int(11) NOT NULL,
+    `productID` int(11) NOT NULL,
+    `quantity` int(11) NOT NULL DEFAULT 1,
+
+    PRIMARY KEY (`userID`, `productID`),
+    KEY `userID` (`userID`),
+    KEY `productID` (`productID`),
+    CONSTRAINT `carts_fk_userID` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE,
+    CONSTRAINT `carts_fk_productID` FOREIGN KEY (`productID`) REFERENCES `products` (`productID`) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
