@@ -60,20 +60,11 @@
                         <a href="carts" class="link-button">
                             <div class="icon">
                                 <i class="fa-solid fa-cart-shopping" style="position: relative; display: inline-block;">
-                                    <%
-                                        Cart cart = session.getAttribute("cart")!=null? (Cart) session.getAttribute("cart") :new Cart();
-//                                        System.out.println(cart.getCart().size());
-                                    %>
 
-                                    <%
-//                                        if (cart.sizeCart() != 0) {
-                                    %>
                                     <p id="sizeCart" style="position: absolute; top: -10px; right: -10px; background-color: red; color: white; border-radius: 50%; padding: 2px;">
-<%--                                        <%=cart.sizeCart()%>--%>
+                                        <%= session.getAttribute("sizeCart") != null ? session.getAttribute("sizeCart") : 0 %>
                                     </p>
-                                    <%
-//                                        }
-                                    %>
+
 
                                 </i>
                             </div>

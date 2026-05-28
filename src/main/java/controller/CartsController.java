@@ -58,6 +58,8 @@ public class CartsController extends HttpServlet {
                 List<Cart> currentCart = CartsDAO.getCartByUserId(user.getUserID());
                 int totalSize = currentCart.size();
 
+                session.setAttribute("sizeCart", totalSize);
+
                 resp.setContentType("text/plain");
                 resp.setCharacterEncoding("UTF-8");
                 resp.getWriter().write(String.valueOf(totalSize));

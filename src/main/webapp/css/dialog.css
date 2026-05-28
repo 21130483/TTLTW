@@ -1,0 +1,97 @@
+/* Nền tối bao phủ toàn bộ màn hình */
+.modal-cart {
+    position: fixed;
+    z-index: 99999; /* Đảm bảo nổi lên trên tất cả mọi thứ */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Nền đen mờ 50% */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Hộp thoại màu trắng ở giữa */
+.modal-cart-content {
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 16px;
+    width: 360px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.3s ease-in-out;
+}
+
+/* Nút X để đóng */
+.close-dialog {
+    position: absolute;
+    right: 16px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #aaa;
+}
+.close-dialog:hover { color: #333; }
+
+/* Icon dấu tích xanh */
+.icon-success {
+    width: 50px;
+    height: 50px;
+    background-color: #5dac46;
+    color: white;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 50px;
+    margin: 0 auto 15px;
+}
+
+.modal-cart-body p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Khu vực nút bấm hàng dưới */
+.modal-cart-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn-continue, .btn-go-to-cart {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+}
+
+.btn-continue {
+    background-color: #e5e5e5;
+    color: #333;
+}
+.btn-continue:hover { background-color: #d8d8d8; }
+
+.btn-go-to-cart {
+    background-color: #0072bc;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 20px;
+}
+.btn-go-to-cart:hover { background-color: #005a96; }
+
+/* Hiệu ứng chuyển động mượt */
+@keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
