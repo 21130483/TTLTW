@@ -32,4 +32,28 @@ public class ManagerBill extends HttpServlet {
         req.getRequestDispatcher("admin?page=bill").forward(req,resp);
 
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            int userID = Integer.parseInt(req.getParameter("userID"));
+            int productID = Integer.parseInt(req.getParameter("productID"));
+            int quantity = Integer.parseInt(req.getParameter("quantity"));
+            int price = Integer.parseInt(req.getParameter("price"));
+            String address = req.getParameter("address");
+            String comment = req.getParameter("comment");
+
+            int newPurchaseId = PurchasesDAO.newPurchaseID();
+            boolean success = PurchasesDAO.addPurchase(newPurchaseId, productID, userID, quantity, price, address, comment);
+            
+            if (success) {
+                resp.setStatus(HttpServletResponse.SC_OK);
+            } else {
+                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
 }

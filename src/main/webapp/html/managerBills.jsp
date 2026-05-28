@@ -4,208 +4,216 @@
 <%@ page import="dao.UserDAO" %>
 <%@ page import="model.Product" %>
 <%@ page import="dao.ProductDAO" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    String searchBillId = request.getParameter("searchBillId") != null ? request.getParameter("searchBillId") : "";
+    String searchCusId = request.getParameter("searchCusId") != null ? request.getParameter("searchCusId") : "";
+    String searchCusName = request.getParameter("searchCusName") != null ? request.getParameter("searchCusName") : "";
+    String searchStatus = request.getParameter("searchStatus") != null ? request.getParameter("searchStatus") : "";
+%>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link rel="stylesheet" href="../css/managerBills.css">
-
-
-</head>
-
-<body>
-<div class="noi-dung">
-    <div class="muc-luc">
+<div class="quan-ly-san-pham">
+    <div class="header-container">
         <div class="title">
-            <p>Quản lý</p>
+            <p>Quản lý hóa đơn</p>
         </div>
-        <ul>
-            <li class="button-muc-luc">
-                <a href="admin?page=product">
-                    <div class="a">
-                        Quản lý sản phẩm
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc">
-                <a href="admin?page=user">
-                    <div class="a">
-                        Quản lý thành viên
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc">
-                <a href="admin?page=bill">
-                    <div class="a" style="background-color: #007bff;">
-                        Quản lý hóa đơn
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc">
-                <a href="admin?page=voucher">
-                    <div class="a">
-                        Quản lý loại sản phẩm
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc" style="margin-top: 50px;">
-                <a href="index.jsp">
-                    <div class="a">
-                        Quay về trang chủ
-                    </div>
-                </a>
-            </li>
-        </ul>
+        <button class="btn-add-invoice" onclick="openInvoiceModal()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Thêm hóa đơn
+        </button>
     </div>
 
-    <div class="quan-ly">
-        <div class="quan-ly-san-pham">
-            <div class="title">
-                <p>Quản lý hóa đơn</p>
-            </div>
+    <div class="filter-section">
+        <form id="search-invoice-form" action="admin" method="get" class="filter-form">
+            <input type="hidden" name="page" value="bill">
+            <input type="text" name="searchBillId" value="<%= searchBillId %>" placeholder="ID Hóa đơn" class="filter-input">
+            <input type="text" name="searchCusId" value="<%= searchCusId %>" placeholder="ID Khách hàng" class="filter-input">
+            <input type="text" name="searchCusName" value="<%= searchCusName %>" placeholder="Tên khách hàng" class="filter-input">
+            <select name="searchStatus" class="filter-input">
+                <option value="">-- Trạng thái --</option>
+                <option value="0" <%= "0".equals(searchStatus) ? "selected" : "" %>>Chờ xác nhận</option>
+                <option value="1" <%= "1".equals(searchStatus) ? "selected" : "" %>>Đang giao</option>
+                <option value="2" <%= "2".equals(searchStatus) ? "selected" : "" %>>Hoàn thành</option>
+                <option value="-1" <%= "-1".equals(searchStatus) ? "selected" : "" %>>Đã hủy</option>
+            </select>
+            <button type="submit" class="btn-search">Tìm kiếm</button>
+            <% if (!searchBillId.isEmpty() || !searchCusId.isEmpty() || !searchCusName.isEmpty() || !searchStatus.isEmpty()) { %>
+                <a href="admin?page=bill" class="btn-search" style="background-color: #6c757d; text-decoration: none;">Xóa lọc</a>
+            <% } %>
+        </form>
+    </div>
 
-            <div class="danh-muc-san-pham">
-                <div class="ten-cot">
-                    <input type="text" placeholder="Id hóa đơn">
-                    <input type="text" placeholder="Id khách hàng">
-                    <input type="text" placeholder="Tên khách hàng">
-                    <input type="text" placeholder="Tổng giá">
-                    <input type="text" placeholder="Trạng thái">
-                    <!-- <input type="text" placeholder=""> -->
-                    <div class="button">
-                        <button>Tìm kiếm</button>
-                    </div>
-                </div>
-
-                <ul>
-                    <%
-                        List<Purchases> purchases = (List) request.getAttribute("getAllPurchases");
-                        UserDAO userDAO = new UserDAO();
-                        ProductDAO productDAO = new ProductDAO();
-                        if (purchases != null) {
-                            for (Purchases p : purchases) {
-                                User user = userDAO.getUserById(p.getUserID());
-                                Product product = productDAO.getProductById(p.getProductID());
-
-                    %>
-
-                    <li class="box-san-pham">
-                        <div class="san-pham">
-                            <p><%=p.getPurchaseID()%>
-                            </p>
-                            <p style="overflow: hidden; text-overflow: ellipsis;  white-space: nowrap;"><%=product.getName()%>
-                            </p>
-                            <p><%=user.getFullName()%>
-                            </p>
-                            <p><%=p.getPrice()%>
-                            </p>
-                            <div class="center">
-                                <span class="cho-xac-nhan" style="
-                                    <%
-                                            if (p.getStatus() == 0) {
-                                        %>
-                                        background-color: yellow;
-                                    <%} else if (p.getStatus() == 1) {%>
-                                        background-color: #3498db;
-                                    <%
-                                        } else if (p.getStatus() == 2) {
-                                        %>
-                                        background-color: #00FF00;
-                                    <%
-                                        } else {
-                                        %>
-                                        background-color: red;
-                                    <%}%>
-                                        ">
-                                    <%=p.getStatusString()%>
-                                </span>
-                            </div>
-
-                            <!-- <p>11/1/2023</p> -->
-                            <div class="box-button">
-                                <%
-                                    if (p.getStatus() == 0) {
-                                %>
-                                <a href="bill?active=confirm&purchaseid=<%=p.getPurchaseID()%>&userid=<%=p.getUserID()%>&productid=<%=p.getProductID()%>">
-                                    <button style="background-color: #007bff">Xác nhận</button>
-                                </a>
-                                <a href="bill?active=cancel&purchaseid=<%=p.getPurchaseID()%>&userid=<%=p.getUserID()%>&productid=<%=p.getProductID()%>">
-                                    <button style="margin: 0 20px 0;background-color: red">Hủy</button>
-                                </a>
-
-
-                                <%
-                                } else if (p.getStatus() == 1) {
-                                %>
-                                <a href="bill?active=confirm&purchaseid=<%=p.getPurchaseID()%>&userid=<%=p.getUserID()%>&productid=<%=p.getProductID()%>">
-                                    <button style="background-color: #007bff">Hoàn thành</button>
-                                </a>
-                                <a href="bill?active=cancel&purchaseid=<%=p.getPurchaseID()%>&userid=<%=p.getUserID()%>&productid=<%=p.getProductID()%>">
-                                    <button style="margin: 0 20px 0;background-color: red">Hủy</button>
-                                </a>
-
-
-                                <%
-                                    }
-                                %>
-                                <%--                                <button>Chi tiết</button>--%>
-                            </div>
+    <div class="table-container">
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên Sản phẩm</th>
+                    <th>Tên Khách hàng</th>
+                    <th>Ngày đặt</th>
+                    <th>Tổng giá</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    List<Purchases> purchases = (List) request.getAttribute("getAllPurchases");
+                    UserDAO userDAO = new UserDAO();
+                    ProductDAO productDAO = new ProductDAO();
+                    if (purchases != null && !purchases.isEmpty()) {
+                        for (Purchases p : purchases) {
+                            User user = userDAO.getUserById(p.getUserID());
+                            Product product = productDAO.getProductById(p.getProductID());
+                            
+                            String badgeClass = "status-pending";
+                            if (p.getStatus() == 1) badgeClass = "status-delivering";
+                            else if (p.getStatus() == 2) badgeClass = "status-completed";
+                            else if (p.getStatus() == -1) badgeClass = "status-cancelled";
+                %>
+                <tr>
+                    <td><strong>#<%= p.getPurchaseID() %></strong></td>
+                    <td>
+                        <div style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="<%= product != null ? product.getName() : "N/A" %>">
+                            <%= product != null ? product.getName() : "N/A" %>
                         </div>
-
-                    </li>
-                    <%
-                            }
+                    </td>
+                    <td><%= user != null ? user.getFullName() : "N/A" %></td>
+                    <td><%= p.getOrderDate() != null ? p.getOrderDate() : "N/A" %></td>
+                    <td style="font-weight: bold; color: #d35400;"><%= p.getPrice() %> ₫</td>
+                    <td><span class="status-badge <%= badgeClass %>"><%= p.getStatusString() %></span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <% if (p.getStatus() == 0) { %>
+                                <a href="bill?active=confirm&purchaseid=<%=p.getPurchaseID()%>&userid=<%=p.getUserID()%>&productid=<%=p.getProductID()%>" class="btn-action btn-confirm" onclick="return confirmAction(event, this.href)">Xác nhận</a>
+                                <a href="bill?active=cancel&purchaseid=<%=p.getPurchaseID()%>&userid=<%=p.getUserID()%>&productid=<%=p.getProductID()%>" class="btn-action btn-cancel" onclick="return confirmAction(event, this.href)">Hủy</a>
+                            <% } else if (p.getStatus() == 1) { %>
+                                <a href="bill?active=confirm&purchaseid=<%=p.getPurchaseID()%>&userid=<%=p.getUserID()%>&productid=<%=p.getProductID()%>" class="btn-action btn-confirm" onclick="return confirmAction(event, this.href)">Hoàn thành</a>
+                                <a href="bill?active=cancel&purchaseid=<%=p.getPurchaseID()%>&userid=<%=p.getUserID()%>&productid=<%=p.getProductID()%>" class="btn-action btn-cancel" onclick="return confirmAction(event, this.href)">Hủy</a>
+                            <% } else { %>
+                                <span style="color: #999; font-size: 13px;">Không có</span>
+                            <% } %>
+                        </div>
+                    </td>
+                </tr>
+                <%
                         }
-                    %>
-                    <%--                    <li class="box-san-pham">--%>
-                    <%--                        <div class="san-pham">--%>
-                    <%--                            <p>123</p>--%>
-                    <%--                            <p>123</p>--%>
-                    <%--                            <p>Nguyễn Thanh Lưu</p>--%>
-                    <%--                            <p>10.000.000</p>--%>
-                    <%--                            <div class="center">--%>
-                    <%--                                <span class="dang-giao">Đang giao</span>--%>
-                    <%--                            </div>--%>
-                    <%--                            <!-- <p>11/1/2023</p> -->--%>
-                    <%--                            <div class="box-button">--%>
-                    <%--                                <button>Chi tiết</button>--%>
-                    <%--                            </div>--%>
-                    <%--                        </div>--%>
-                    <%--                    </li>--%>
-
-                    <%--                    <li class="box-san-pham">--%>
-                    <%--                        <div class="san-pham">--%>
-                    <%--                            <p>123</p>--%>
-                    <%--                            <p>123</p>--%>
-                    <%--                            <p>Hồng Phúc Long</p>--%>
-                    <%--                            <p>10.000.000</p>--%>
-                    <%--                            <div class="center">--%>
-                    <%--                                <span class="hoan-thanh">Hoàn thành</span>--%>
-                    <%--                            </div>--%>
-                    <%--                            <!-- <p>11/1/2023</p> -->--%>
-                    <%--                            <div class="box-button">--%>
-                    <%--                                <button>Chi tiết</button>--%>
-                    <%--                            </div>--%>
-                    <%--                        </div>--%>
-                    <%--                    </li>--%>
-
-
-                </ul>
-            </div>
-        </div>
+                    } else {
+                %>
+                <tr>
+                    <td colspan="7" style="text-align: center; color: #888; padding: 30px;">Không tìm thấy hóa đơn nào phù hợp.</td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
     </div>
 </div>
-</body>
 
-</html>
+<!-- Add Invoice Modal -->
+<div id="addInvoiceModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Tạo Hóa đơn Mới</h3>
+            <button class="btn-close" onclick="closeInvoiceModal()">&times;</button>
+        </div>
+        <form id="add-invoice-form" onsubmit="submitAddInvoice(event)">
+            <div class="form-group">
+                <label for="userID">ID Khách hàng</label>
+                <input type="number" id="userID" name="userID" required>
+            </div>
+            <div class="form-group">
+                <label for="productID">ID Sản phẩm</label>
+                <input type="number" id="productID" name="productID" required>
+            </div>
+            <div class="form-group" style="display: flex; gap: 15px;">
+                <div style="flex: 1;">
+                    <label for="quantity">Số lượng</label>
+                    <input type="number" id="quantity" name="quantity" min="1" required>
+                </div>
+                <div style="flex: 1;">
+                    <label for="price">Tổng giá (₫)</label>
+                    <input type="number" id="price" name="price" min="0" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address">Địa chỉ giao hàng</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+            <div class="form-group">
+                <label for="comment">Ghi chú (Tùy chọn)</label>
+                <textarea id="comment" name="comment" rows="2"></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Lưu Hóa Đơn</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Since this is loaded via AJAX, we need to bind form submission manually
+    document.getElementById('search-invoice-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const url = new URL(this.action);
+        const formData = new FormData(this);
+        const search = new URLSearchParams(formData).toString();
+        const targetUrl = url.pathname + '?' + search;
+        
+        fetch(targetUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('main-content').innerHTML = html;
+                window.history.pushState({page: 'bill'}, '', targetUrl);
+            });
+    });
+
+    function openInvoiceModal() {
+        document.getElementById('addInvoiceModal').classList.add('active');
+    }
+
+    function closeInvoiceModal() {
+        document.getElementById('addInvoiceModal').classList.remove('active');
+        document.getElementById('add-invoice-form').reset();
+    }
+
+    function submitAddInvoice(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const data = new URLSearchParams(formData);
+        
+        fetch('bill', {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then(response => {
+            if(response.ok) {
+                closeInvoiceModal();
+                // Reload bill page
+                fetch('admin?page=bill', { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                    .then(res => res.text())
+                    .then(html => {
+                        document.getElementById('main-content').innerHTML = html;
+                    });
+            } else {
+                alert("Có lỗi xảy ra khi tạo hóa đơn.");
+            }
+        });
+    }
+
+    function confirmAction(e, url) {
+        e.preventDefault();
+        if(confirm("Bạn có chắc chắn muốn thực hiện hành động này?")) {
+            fetch(url)
+            .then(() => {
+                // Reload bill page
+                fetch(window.location.href, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                    .then(res => res.text())
+                    .then(html => {
+                        document.getElementById('main-content').innerHTML = html;
+                    });
+            });
+        }
+        return false;
+    }
+</script>

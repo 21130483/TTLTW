@@ -5,67 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link rel="stylesheet" href="../css/managerProducts.css">
-
-
-</head>
-
-<body>
-<div class="noi-dung">
-    <div class="muc-luc">
-        <div class="title">
-            <p>Quản lý</p>
-        </div>
-        <ul>
-            <li class="button-muc-luc">
-                <a href="admin?page=product">
-                    <div class="a" style="background-color: #007bff;">
-                        Quản lý sản phẩm
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc">
-                <a href="admin?page=user">
-                    <div class="a">
-                        Quản lý thành viên
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc">
-                <a href="admin?page=bill">
-                    <div class="a">
-                        Quản lý hóa đơn
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc">
-                <a href="admin?page=voucher">
-                    <div class="a">
-                        Quản lý loại sản phẩm
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc" style="margin-top: 50px;">
-                <a href="index.jsp">
-                    <div class="a">
-                        Quay về trang chủ
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div>
 
     <div class="quan-ly">
         <div class="quan-ly-san-pham">
@@ -160,8 +100,4 @@
                 </ul>
             </div>
         </div>
-    </div>
-</div>
-</body>
-
-</html>
+    </div>

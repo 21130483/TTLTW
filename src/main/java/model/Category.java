@@ -3,6 +3,7 @@ package model;
 public class Category {
     private int categoryID;
     private String name;
+    private int isActive;
 
     public Category() {
     }
@@ -21,6 +22,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
     }
 
     @Override

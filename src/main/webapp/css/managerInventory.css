@@ -1,0 +1,299 @@
+
+
+.quan-ly {
+    padding: 40px;
+    background-color: #f4f6f9;
+}
+
+.title-stat {
+    font-weight: 800;
+    font-size: 36px;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #4b5563;
+    margin-bottom: 30px;
+}
+
+/* KPI Summary Cards */
+.kpi-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.kpi-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+    border-left: 6px solid #007bff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+}
+
+.kpi-card.total-prod {
+    border-left-color: #6c5ce7;
+}
+
+.kpi-card.total-stock {
+    border-left-color: #2ecc71;
+}
+
+.kpi-card.low-stock {
+    border-left-color: #f1c40f;
+}
+
+.kpi-card.out-stock {
+    border-left-color: #e74c3c;
+}
+
+.kpi-title {
+    font-size: 13px;
+    color: #8a99ad;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+}
+
+.kpi-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: #2d3748;
+}
+
+/* Filters & Search */
+.filter-box {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+    margin-bottom: 30px;
+}
+
+.filter-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 16px;
+}
+
+.filter-form {
+    display: grid;
+    grid-template-columns: 1fr 2fr auto;
+    gap: 16px;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .filter-form {
+        grid-template-columns: 1fr;
+    }
+}
+
+.filter-input {
+    height: 48px;
+    padding: 0 16px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #4a5568;
+    background-color: #f8fafc;
+    transition: all 0.3s ease;
+}
+
+.filter-input:focus {
+    outline: none;
+    border-color: #007bff;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.filter-btn {
+    height: 48px;
+    padding: 0 28px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+.filter-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+}
+
+.filter-clear-btn {
+    height: 48px;
+    padding: 0 20px;
+    background-color: #e2e8f0;
+    color: #4a5568;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-clear-btn:hover {
+    background-color: #cbd5e1;
+}
+
+/* Data Table Container */
+.table-box {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+    overflow-x: auto;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 15px;
+    color: #2d3748;
+}
+
+.inventory-table th, .inventory-table td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid #edf2f7;
+    vertical-align: middle;
+}
+
+.inventory-table th {
+    background-color: #f7fafc;
+    color: #718096;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+.inventory-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.inventory-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Badges for Stock Level */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-safe {
+    background-color: #e6fffa;
+    color: #047481;
+}
+
+.badge-low {
+    background-color: #fefcbf;
+    color: #975a16;
+}
+
+.badge-out {
+    background-color: #fed7d7;
+    color: #9b2c2c;
+}
+
+/* Inline Edit Stock Form */
+.update-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qty-input {
+    width: 80px;
+    height: 36px;
+    padding: 0 8px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.qty-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+}
+
+.qty-btn {
+    height: 36px;
+    padding: 0 14px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.1);
+}
+
+.qty-btn:hover {
+    background-color: #218838;
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
+}
+
+/* Typography styles */
+.prod-name {
+    font-weight: 600;
+    color: #1a202c;
+    max-width: 320px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.prod-id {
+    color: #718096;
+    font-family: monospace;
+    font-weight: 600;
+}
