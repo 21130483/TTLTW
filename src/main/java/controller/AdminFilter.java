@@ -36,13 +36,58 @@ public class AdminFilter extends HttpServlet {
                     page = "managerProducts.jsp";
                     break;
 
-                case "user":
-//                    int statusUser = Integer.parseInt(req.getParameter("status"));
+                case "user": {
                     UserDAO userDAO = new UserDAO();
                     List<User> users = userDAO.getAllUsers();
-                    req.setAttribute("getAllUsers", users);
+                    String searchUserId = req.getParameter("searchUserId");
+                    String searchEmail = req.getParameter("searchEmail");
+                    String searchName = req.getParameter("searchName");
+                    String searchPhone = req.getParameter("searchPhone");
+                    String searchRole = req.getParameter("searchRole");
+                    String searchAccess = req.getParameter("searchAccess");
+                    List<User> filteredUsers = new java.util.ArrayList<>();
+                    for (User u : users) {
+                        boolean match = true;
+                        if (searchUserId != null && !searchUserId.trim().isEmpty()) {
+                            if (!String.valueOf(u.getUserID()).equals(searchUserId.trim())) {
+                                match = false;
+                            }
+                        }
+                        if (searchEmail != null && !searchEmail.trim().isEmpty()) {
+                            if (!u.getEmail().toLowerCase().contains(searchEmail.trim().toLowerCase())) {
+                                match = false;
+                            }
+                        }
+                        if (searchName != null && !searchName.trim().isEmpty()) {
+                            if (!u.getFullName().toLowerCase().contains(searchName.trim().toLowerCase())) {
+                                match = false;
+                            }
+                        }
+                        if (searchPhone != null && !searchPhone.trim().isEmpty()) {
+                            if (u.getPhoneNumbers() == null || !u.getPhoneNumbers().contains(searchPhone.trim())) {
+                                match = false;
+                            }
+                        }
+                        if (searchRole != null && !searchRole.trim().isEmpty()) {
+                            boolean targetIsAdmin = "admin".equalsIgnoreCase(searchRole.trim());
+                            if (u.getRole() != targetIsAdmin) {
+                                match = false;
+                            }
+                        }
+                        if (searchAccess != null && !searchAccess.trim().isEmpty()) {
+                            boolean targetAccess = Boolean.parseBoolean(searchAccess.trim());
+                            if (u.getAccess() != targetAccess) {
+                                match = false;
+                            }
+                        }
+                        if (match) {
+                            filteredUsers.add(u);
+                        }
+                    }
+                    req.setAttribute("getAllUsers", filteredUsers);
                     page = "managerUsers.jsp";
                     break;
+                }
                 case "bill":
                     page = "managerBills.jsp";
                     PurchasesDAO purchasesDAO = new PurchasesDAO();
@@ -176,13 +221,58 @@ public class AdminFilter extends HttpServlet {
                     page = "managerProducts.jsp";
                     break;
 
-                case "user":
-//                    int statusUser = Integer.parseInt(req.getParameter("status"));
+                case "user": {
                     UserDAO userDAO = new UserDAO();
                     List<User> users = userDAO.getAllUsers();
-                    req.setAttribute("getAllUsers", users);
+                    String searchUserId = req.getParameter("searchUserId");
+                    String searchEmail = req.getParameter("searchEmail");
+                    String searchName = req.getParameter("searchName");
+                    String searchPhone = req.getParameter("searchPhone");
+                    String searchRole = req.getParameter("searchRole");
+                    String searchAccess = req.getParameter("searchAccess");
+                    List<User> filteredUsers = new java.util.ArrayList<>();
+                    for (User u : users) {
+                        boolean match = true;
+                        if (searchUserId != null && !searchUserId.trim().isEmpty()) {
+                            if (!String.valueOf(u.getUserID()).equals(searchUserId.trim())) {
+                                match = false;
+                            }
+                        }
+                        if (searchEmail != null && !searchEmail.trim().isEmpty()) {
+                            if (!u.getEmail().toLowerCase().contains(searchEmail.trim().toLowerCase())) {
+                                match = false;
+                            }
+                        }
+                        if (searchName != null && !searchName.trim().isEmpty()) {
+                            if (!u.getFullName().toLowerCase().contains(searchName.trim().toLowerCase())) {
+                                match = false;
+                            }
+                        }
+                        if (searchPhone != null && !searchPhone.trim().isEmpty()) {
+                            if (u.getPhoneNumbers() == null || !u.getPhoneNumbers().contains(searchPhone.trim())) {
+                                match = false;
+                            }
+                        }
+                        if (searchRole != null && !searchRole.trim().isEmpty()) {
+                            boolean targetIsAdmin = "admin".equalsIgnoreCase(searchRole.trim());
+                            if (u.getRole() != targetIsAdmin) {
+                                match = false;
+                            }
+                        }
+                        if (searchAccess != null && !searchAccess.trim().isEmpty()) {
+                            boolean targetAccess = Boolean.parseBoolean(searchAccess.trim());
+                            if (u.getAccess() != targetAccess) {
+                                match = false;
+                            }
+                        }
+                        if (match) {
+                            filteredUsers.add(u);
+                        }
+                    }
+                    req.setAttribute("getAllUsers", filteredUsers);
                     page = "managerUsers.jsp";
                     break;
+                }
                 case "bill":
                     page = "managerBills.jsp";
                     PurchasesDAO postPurchasesDAO = new PurchasesDAO();

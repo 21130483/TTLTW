@@ -724,4 +724,33 @@ public class UserDAO {
             Connect.closeConnection(connection);
         }
     }
+
+    public static List<Role> getAllRoles() {
+        return connect.withHandle(handle ->
+            handle.createQuery("SELECT * FROM roles")
+                  .mapToBean(Role.class)
+                  .collect(Collectors.toList())
+        );
+    }
+
+    public static boolean updateUserRoles(int userID, List<Integer> roleIDs) {
+        return connect.inTransaction(handle -> {
+            handle.createUpdate("DELETE FROM user_roles WHERE userID = ?").bind(0, userID).execute();
+            if (roleIDs != null) {
+                for (int roleID : roleIDs) {
+                    handle.createUpdate("INSERT INTO user_roles (userID, roleID) VALUES (?, ?)")
+                          .bind(0, userID)
+                          .bind(1, roleID)
+                          .execute();
+                }
+            }
+            boolean hasAdmin = roleIDs != null && roleIDs.contains(1);
+            handle.createUpdate("UPDATE users SET role = ? WHERE userID = ?")
+                  .bind(0, String.valueOf(hasAdmin))
+                  .bind(1, userID)
+                  .execute();
+            return true;
+        });
+    }
 }
+
