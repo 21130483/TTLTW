@@ -4,6 +4,10 @@ package model;
 import java.io.File;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 public class User {
     private int userID;
@@ -96,8 +100,42 @@ public class User {
         this.gender = gender;
     }
 
+    private List<Role> roles = new ArrayList<>();
+    private Set<String> permissions = new HashSet<>();
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Set<String> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<String> permissions) {
+        this.permissions = permissions;
+    }
+
+    public boolean hasRole(String roleName) {
+        if (roles == null) return false;
+        for (Role r : roles) {
+            if (r.getRoleName().equalsIgnoreCase(roleName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasPermission(String permissionName) {
+        if (permissions == null) return false;
+        return permissions.contains(permissionName);
+    }
+
     public boolean getRole() {
-        return role;
+        return hasRole("ADMIN");
     }
 
     public void setRole(boolean role) {

@@ -15,8 +15,12 @@ public class AdminFilter extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        if (user != null && user.getRole()) {
+        if (user != null && (user.getRole() || hasAnyAdminPermission(user))) {
             String page = req.getParameter("page");
+            if (!checkPermissionForPage(user, page)) {
+                resp.sendRedirect("index.jsp");
+                return;
+            }
             switch (page) {
                 case "product":
 //                    int statusProduct = Integer.parseInt(req.getParameter("status"));
@@ -157,8 +161,12 @@ public class AdminFilter extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        if (user != null && user.getRole()) {
+        if (user != null && (user.getRole() || hasAnyAdminPermission(user))) {
             String page = req.getParameter("page");
+            if (!checkPermissionForPage(user, page)) {
+                resp.sendRedirect("index.jsp");
+                return;
+            }
             switch (page) {
                 case "product":
 //                    int statusProduct = Integer.parseInt(req.getParameter("status"));
@@ -269,6 +277,40 @@ public class AdminFilter extends HttpServlet {
             }
         } else {
             resp.sendRedirect("index.jsp");
+        }
+    }
+
+    private boolean hasAnyAdminPermission(User user) {
+        if (user == null) return false;
+        return user.hasPermission("MANAGE_PRODUCTS")
+            || user.hasPermission("MANAGE_USERS")
+            || user.hasPermission("MANAGE_BILLS")
+            || user.hasPermission("MANAGE_VOUCHERS")
+            || user.hasPermission("VIEW_STATISTICS")
+            || user.hasPermission("MANAGE_INVENTORY");
+    }
+
+    private boolean checkPermissionForPage(User user, String page) {
+        if (user == null) return false;
+        if (user.getRole()) {
+            return true;
+        }
+        if (page == null) return false;
+        switch (page) {
+            case "product":
+                return user.hasPermission("MANAGE_PRODUCTS");
+            case "user":
+                return user.hasPermission("MANAGE_USERS");
+            case "bill":
+                return user.hasPermission("MANAGE_BILLS");
+            case "voucher":
+                return user.hasPermission("MANAGE_VOUCHERS");
+            case "statistics":
+                return user.hasPermission("VIEW_STATISTICS");
+            case "inventory":
+                return user.hasPermission("MANAGE_INVENTORY");
+            default:
+                return false;
         }
     }
 }
