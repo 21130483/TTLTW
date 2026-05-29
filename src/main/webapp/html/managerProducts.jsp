@@ -46,29 +46,30 @@
                     <%
                         for (Product p : list) {
                     %>
-                    <li class="box-san-pham">
+                    <li class="box-san-pham" style="<%= p.isHidden() ? "opacity: 0.45;" : "" %>">
                         <div class="san-pham">
-                            <p><%=p.getProductID()%>
+                            <p><%= p.getProductID() %>
                             </p>
                             <p style="overflow: hidden; text-overflow: ellipsis;  white-space: nowrap;">
-                                <%=p.getName()%>
+                                <%= p.getName() %>
+                                <% if (p.isHidden()) { %>
+                                    <span style="font-size:11px; color:#e53e3e; font-weight:600; margin-left:6px;">[Đang ẩn]</span>
+                                <% } %>
                             </p>
-                            <p><%=categoryDAO.getCategoryById(p.getCategoryID()).getName()%>
+                            <p><%= categoryDAO.getCategoryById(p.getCategoryID()).getName() %>
                             </p>
-                            <p><%=p.getDateAdded()%>
+                            <p><%= p.getDateAdded() %>
                             </p>
                             <p>
-                                <%=originDAO.getOriginById(p.getOriginID()).getName()%>
+                                <%= originDAO.getOriginById(p.getOriginID()).getName() %>
                             </p>
-                            <!-- <p>11/1/2023</p> -->
                             <div class="sua-xoa">
-                                <a href="add-edit-delete?active=edit&id=<%=p.getProductID()%>">
+                                <a href="add-edit-delete?active=edit&id=<%= p.getProductID() %>">
                                     <button class="sua">Sửa</button>
                                 </a>
-                                <a href="add-edit-delete?active=delete&id=<%=p.getProductID()%>">
-                                    <button class="xoa">Xóa</button>
+                                <a href="add-edit-delete?active=hide&id=<%= p.getProductID() %>" onclick="return confirm('<%= p.isHidden() ? "Hiện sản phẩm này?" : "Ẩn sản phẩm này?" %>')">
+                                    <button class="<%= p.isHidden() ? "hien" : "xoa" %>"><%= p.isHidden() ? "Hiện" : "Ẩn" %></button>
                                 </a>
-
                             </div>
                         </div>
 

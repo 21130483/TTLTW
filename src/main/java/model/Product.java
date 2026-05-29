@@ -19,6 +19,7 @@ public class Product {
     private String name;
     private String trademark;
     private String content;
+    private boolean isHidden;
 
     public Product() {
     }
@@ -74,6 +75,14 @@ public class Product {
 
     public int getPrice() {
         return price;
+    }
+
+    public boolean isHidden() {
+        return isHidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        isHidden = hidden;
     }
 
     public String getPriceHaveDots() {
