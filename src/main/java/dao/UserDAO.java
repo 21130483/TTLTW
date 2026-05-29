@@ -114,7 +114,7 @@ package dao;
 //}
 
 import database.JDBIConnector;
-import model.User;
+import model.*;
 
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.Handle;
@@ -139,25 +139,54 @@ public class UserDAO {
     public UserDAO() {
     }
 
+    public static List<Role> getRolesByUserId(int userId) {
+        return connect.withHandle(handle ->
+            handle.createQuery("SELECT r.* FROM roles r JOIN user_roles ur ON r.roleID = ur.roleID WHERE ur.userID = ?")
+                  .bind(0, userId)
+                  .mapToBean(Role.class)
+                  .collect(Collectors.toList())
+        );
+    }
+
+    public static java.util.Set<String> getPermissionsByUserId(int userId) {
+        return connect.withHandle(handle ->
+            handle.createQuery("SELECT DISTINCT p.permissionName FROM permissions p " +
+                               "JOIN role_permissions rp ON p.permissionID = rp.permissionID " +
+                               "JOIN user_roles ur ON rp.roleID = ur.roleID " +
+                               "WHERE ur.userID = ?")
+                  .bind(0, userId)
+                  .mapTo(String.class)
+                  .collect(Collectors.toSet())
+        );
+    }
+
     public static User getUserById(int id) {
         User result = handle.select("SELECT * FROM users WHERE userID = ?").bind(0, id).mapToBean(User.class).findOne()
                 .orElse(null);
+        if (result != null) {
+            result.setRoles(getRolesByUserId(result.getUserID()));
+            result.setPermissions(getPermissionsByUserId(result.getUserID()));
+        }
         return result;
     }
 
     public static List<User> getAllUsers() {
         List<User> users = handle.select("SELECT * FROM users").mapToBean(User.class).collect(Collectors.toList());
-        ;
+        for (User u : users) {
+            u.setRoles(getRolesByUserId(u.getUserID()));
+            u.setPermissions(getPermissionsByUserId(u.getUserID()));
+        }
         return users;
     }
 
     public static User checkLogin(String email, String pass) {
-
         // List<User> users = null;
         List<User> users = handle.select("SELECT * FROM users").mapToBean(User.class).collect(Collectors.toList());
         for (User user : users) {
             if (user.getEmail().equals(email)) {
                 if (user.getPassword().equals(pass)) {
+                    user.setRoles(getRolesByUserId(user.getUserID()));
+                    user.setPermissions(getPermissionsByUserId(user.getUserID()));
                     return user;
                 }
             }
@@ -214,6 +243,15 @@ public class UserDAO {
                 int resultSet1 = preparedStatement1.executeUpdate();
 
                 if (resultSet1 > 0) {
+                    User newUser = getUserByEmail(email);
+                    if (newUser != null) {
+                        connect.useHandle(h -> 
+                            h.createUpdate("INSERT IGNORE INTO user_roles (userID, roleID) VALUES (?, ?)")
+                             .bind(0, newUser.getUserID())
+                             .bind(1, 2) // USER role
+                             .execute()
+                        );
+                    }
                     return true;
                 } else {
                     return false;
@@ -250,6 +288,15 @@ public class UserDAO {
                 int resultSet1 = preparedStatement1.executeUpdate();
 
                 if (resultSet1 > 0) {
+                    User newUser = getUserByEmail(email);
+                    if (newUser != null) {
+                        connect.useHandle(h -> 
+                            h.createUpdate("INSERT IGNORE INTO user_roles (userID, roleID) VALUES (?, ?)")
+                             .bind(0, newUser.getUserID())
+                             .bind(1, 2) // USER role
+                             .execute()
+                        );
+                    }
                     return true;
                 } else {
                     return false;
@@ -282,6 +329,8 @@ public class UserDAO {
                 user.setVerifyEmail(Boolean.parseBoolean(resultSet.getString(8)));
                 user.setGender(resultSet.getString("gender"));
                 user.setPhoneNumbers(resultSet.getString("phoneNumbers"));
+                user.setRoles(getRolesByUserId(user.getUserID()));
+                user.setPermissions(getPermissionsByUserId(user.getUserID()));
                 return user;
             }
         } catch (SQLException e) {
@@ -313,7 +362,8 @@ public class UserDAO {
                 user.setVerifyEmail(Boolean.parseBoolean(resultSet.getString(8)));
                 user.setGender(resultSet.getString("gender"));
                 user.setPhoneNumbers(resultSet.getString("phoneNumbers"));
-
+                user.setRoles(getRolesByUserId(user.getUserID()));
+                user.setPermissions(getPermissionsByUserId(user.getUserID()));
                 // System.out.println(user);
                 return user;
             }
@@ -472,6 +522,8 @@ public class UserDAO {
                 user.setAccess(Boolean.parseBoolean(resultSetGetUser.getString("access")));
                 user.setRole(Boolean.parseBoolean(resultSetGetUser.getString("role")));
                 user.setDob(resultSetGetUser.getDate("dob"));
+                user.setRoles(getRolesByUserId(user.getUserID()));
+                user.setPermissions(getPermissionsByUserId(user.getUserID()));
                 listUser.add(user);
             }
             for (User user : listUser) {
@@ -490,6 +542,29 @@ public class UserDAO {
 
     //
     public boolean updateUser(int userID, String nameColumn, String value) {
+        if ("role".equalsIgnoreCase(nameColumn)) {
+            boolean isTrue = Boolean.parseBoolean(value);
+            return connect.inTransaction(handle -> {
+                handle.createUpdate("DELETE FROM user_roles WHERE userID = ?").bind(0, userID).execute();
+                
+                if (isTrue) {
+                    handle.createUpdate("INSERT INTO user_roles (userID, roleID) VALUES (?, ?), (?, ?)")
+                          .bind(0, userID).bind(1, 1)
+                          .bind(2, userID).bind(3, 2)
+                          .execute();
+                } else {
+                    handle.createUpdate("INSERT INTO user_roles (userID, roleID) VALUES (?, ?)")
+                          .bind(0, userID).bind(1, 2)
+                          .execute();
+                }
+                
+                handle.createUpdate("UPDATE users SET role = ? WHERE userID = ?")
+                      .bind(0, value)
+                      .bind(1, userID)
+                      .execute();
+                return true;
+            });
+        }
         boolean check = connect.inTransaction(handle -> {
             return handle.createUpdate("UPDATE users SET " + nameColumn + "=? WHERE userID =?").bind(0, value)
                     .bind(1, userID).execute() > 0;
@@ -649,4 +724,33 @@ public class UserDAO {
             Connect.closeConnection(connection);
         }
     }
+
+    public static List<Role> getAllRoles() {
+        return connect.withHandle(handle ->
+            handle.createQuery("SELECT * FROM roles")
+                  .mapToBean(Role.class)
+                  .collect(Collectors.toList())
+        );
+    }
+
+    public static boolean updateUserRoles(int userID, List<Integer> roleIDs) {
+        return connect.inTransaction(handle -> {
+            handle.createUpdate("DELETE FROM user_roles WHERE userID = ?").bind(0, userID).execute();
+            if (roleIDs != null) {
+                for (int roleID : roleIDs) {
+                    handle.createUpdate("INSERT INTO user_roles (userID, roleID) VALUES (?, ?)")
+                          .bind(0, userID)
+                          .bind(1, roleID)
+                          .execute();
+                }
+            }
+            boolean hasAdmin = roleIDs != null && roleIDs.contains(1);
+            handle.createUpdate("UPDATE users SET role = ? WHERE userID = ?")
+                  .bind(0, String.valueOf(hasAdmin))
+                  .bind(1, userID)
+                  .execute();
+            return true;
+        });
+    }
 }
+

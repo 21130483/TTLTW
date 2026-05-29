@@ -11,6 +11,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../css/product.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../js/addToCart.js"></script>
+    <link rel="stylesheet" href="../css/dialog.css">
     <title>Chi Tiết Sản Phẩm</title>
 </head>
 <body>
@@ -105,20 +109,7 @@
                                 </div>
                             </div>
                         </div>
-
-
-                        <form action="cart?id=<%=product.getProductID()%>&active=add&page=product" method="post">
-
-
-                            <%--                            <div class="quantity mt-3">--%>
-                            <%--                                <span class="description fw-bold">Số lượng: </span>--%>
-                            <%--                                <div class="quantity-form">--%>
-                            <%--                                    <button class="btn minus-btn" onclick="decreaseQuantity()">-</button>--%>
-                            <%--                                    <input name="quantity" class="input-quanlity" type="text" value="1" id="quantity">--%>
-                            <%--                                    <button class="btn plus-btn" onclick="increaseQuantity()">+</button>--%>
-                            <%--                                </div>--%>
-                            <%--                            </div>--%>
-                            <button type="submit" class="add-to-cart-btn  mt-3">
+                            <button type="button" class="add-to-cart-btn  mt-3" onclick="addToCart(event, <%=product.getProductID()%>)">
                                 <div class="col-2">
                                     <i class="fas fa-shopping-cart cart-icon"></i>
                                 </div>
@@ -126,9 +117,6 @@
                                     <span class="fw-bold">Thêm vào giỏ hàng</span><br>
                                 </div>
                             </button>
-
-                        </form>
-
                         <div class="sale-box">
                             <div class="sale-title bg-primary-green">
                                 <i class="fa-solid fa-gift" style="font-size: 25px;"></i> Khuyến mãi đặc biệt !!!
@@ -293,6 +281,22 @@
     <jsp:include page="footer.jsp"></jsp:include>
 
 </div>
+
+
+<div id="cartDialog" class="modal-cart" style="display: none;">
+    <div class="modal-cart-content">
+        <span class="close-dialog" onclick="closeCartDialog()">&times;</span>
+        <div class="modal-cart-body">
+            <div class="icon-success">✓</div>
+            <p>Đã thêm sản phẩm vào giỏ hàng thành công!</p>
+        </div>
+        <div class="modal-cart-footer">
+            <button class="btn-continue" onclick="closeCartDialog()">Tiếp tục mua sắm</button>
+            <a href="carts" class="btn-go-to-cart">Xem giỏ hàng</a>
+        </div>
+    </div>
+</div>
+
 
 <script>
     function changeBigImage(event) {

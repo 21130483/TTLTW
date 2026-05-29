@@ -1,6 +1,8 @@
 package controller;
 
+import dao.CartsDAO;
 import dao.UserDAO;
+import model.Cart;
 import model.User;
 
 import javax.servlet.ServletException;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/html/login")
 public class Login extends HttpServlet {
@@ -30,6 +33,9 @@ public class Login extends HttpServlet {
             if (user.getAccess()) {
                 HttpSession session = req.getSession();
                 session.setAttribute("user", user);
+                List<Cart> carts = CartsDAO.getCartByUserId(user.getUserID());
+
+                session.setAttribute("sizeCart", carts.size());
                 resp.sendRedirect("index.jsp");
             }else{
                 req.setAttribute("content","Tài khoản của bạn đã bị cấm");

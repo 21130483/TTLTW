@@ -1,10 +1,15 @@
 package dao;
 
+import Services.Connect;
 import database.JDBIConnector;
 import model.Product;
 import model.User;
 import org.jdbi.v3.core.Handle;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +31,12 @@ public class ProductDAO {
     }
 
     public static List<Product> getAllProduct() {
+        List<Product> result = new ArrayList<>();
+        result = handle.select("SELECT * FROM products WHERE isHidden = 0 OR isHidden IS NULL").mapToBean(Product.class).collect(Collectors.toList());
+        return result;
+    }
+
+    public static List<Product> getAllProductIncludeHidden() {
         List<Product> result = new ArrayList<>();
         result = handle.select("SELECT * FROM products").mapToBean(Product.class).collect(Collectors.toList());
         return result;
@@ -89,6 +100,40 @@ public class ProductDAO {
     public static boolean deleteProduct(int id) {
         boolean check = handle.execute("DELETE FROM products WHERE productID = ?",id) > 0;
         return check;
+    }
+
+    public static boolean hideProduct(int id) {
+        boolean check = handle.execute("UPDATE products SET isHidden = 1 WHERE productID = ?", id) > 0;
+        return check;
+    }
+
+    public static boolean showProduct(int id) {
+        boolean check = handle.execute("UPDATE products SET isHidden = 0 WHERE productID = ?", id) > 0;
+        return check;
+    }
+
+    public static boolean isProductHidden(int id) {
+        Product p = getProductById(id);
+        return p != null && p.isHidden();
+    }
+
+    public void checkAndCreateIsHiddenColumn() {
+        Connection conn = null;
+        try {
+            conn = Connect.getConnection();
+            DatabaseMetaData md = conn.getMetaData();
+            try (ResultSet rs = md.getColumns(null, null, "products", "isHidden")) {
+                if (!rs.next()) {
+                    try (Statement stmt = conn.createStatement()) {
+                        stmt.executeUpdate("ALTER TABLE products ADD COLUMN isHidden TINYINT(1) DEFAULT 0");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Connect.closeConnection(conn);
+        }
     }
 
     public static int getNewProductID() {

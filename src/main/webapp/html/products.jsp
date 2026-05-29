@@ -18,6 +18,7 @@
     <title>Nhà Thuốc</title>
 
     <link rel="stylesheet" href="../css/products.css">
+    <link rel="stylesheet" href="../css/dialog.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
           integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -26,6 +27,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../js/addToCart.js"></script>
 </head>
 
 <body>
@@ -276,12 +279,9 @@
                                         <%=p.getPriceHaveDots()%>
                                     </div>
 
-                                    <form action="cart?id=<%=p.getProductID()%>&active=add&page=products" method="post"
-                                          style="width: 100%; height: 100%">
-                                        <button type="submit" class="them-san-pham">
-                                            Thêm vào giỏ hàng
-                                        </button>
-                                    </form>
+                                    <button type="button" class="them-san-pham" onclick="addToCart(event, <%=p.getProductID()%>)">
+                                        Thêm vào giỏ hàng
+                                    </button>
 
 
                                 </div>
@@ -345,6 +345,20 @@
 
         </div>
 
+    </div>
+
+    <div id="cartDialog" class="modal-cart" style="display: none;">
+        <div class="modal-cart-content">
+            <span class="close-dialog" onclick="closeCartDialog()">&times;</span>
+            <div class="modal-cart-body">
+                <div class="icon-success">✓</div>
+                <p>Đã thêm sản phẩm vào giỏ hàng thành công!</p>
+            </div>
+            <div class="modal-cart-footer">
+                <button class="btn-continue" onclick="closeCartDialog()">Tiếp tục mua sắm</button>
+                <a href="carts" class="btn-go-to-cart">Xem giỏ hàng</a>
+            </div>
+        </div>
     </div>
 
 

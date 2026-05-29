@@ -5,83 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link rel="stylesheet" href="../css/managerProducts.css">
-
-
-</head>
-
-<body>
-<div class="noi-dung">
-    <div class="muc-luc">
-        <div class="title">
-            <p>Quản lý</p>
-        </div>
-        <ul>
-            <li class="button-muc-luc">
-                <a href="admin?page=product">
-                    <div class="a" style="background-color: #007bff;">
-                        Quản lý sản phẩm
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc">
-                <a href="admin?page=user">
-                    <div class="a">
-                        Quản lý thành viên
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc">
-                <a href="admin?page=bill">
-                    <div class="a">
-                        Quản lý hóa đơn
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc">
-                <a href="admin?page=voucher">
-                    <div class="a">
-                        Quản lý loại sản phẩm
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc">
-                <a href="admin?page=inventory">
-                    <div class="a">
-                        Quản lý tồn kho
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc">
-                <a href="admin?page=statistics">
-                    <div class="a">
-                        Thống kê
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc" style="margin-top: 50px;">
-                <a href="index.jsp">
-                    <div class="a">
-                        Quay về trang chủ
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div>
 
     <div class="quan-ly">
         <div class="quan-ly-san-pham">
@@ -122,29 +46,30 @@
                     <%
                         for (Product p : list) {
                     %>
-                    <li class="box-san-pham">
+                    <li class="box-san-pham" style="<%= p.isHidden() ? "opacity: 0.45;" : "" %>">
                         <div class="san-pham">
-                            <p><%=p.getProductID()%>
+                            <p><%= p.getProductID() %>
                             </p>
                             <p style="overflow: hidden; text-overflow: ellipsis;  white-space: nowrap;">
-                                <%=p.getName()%>
+                                <%= p.getName() %>
+                                <% if (p.isHidden()) { %>
+                                    <span style="font-size:11px; color:#e53e3e; font-weight:600; margin-left:6px;">[Đang ẩn]</span>
+                                <% } %>
                             </p>
-                            <p><%=categoryDAO.getCategoryById(p.getCategoryID()).getName()%>
+                            <p><%= categoryDAO.getCategoryById(p.getCategoryID()).getName() %>
                             </p>
-                            <p><%=p.getDateAdded()%>
+                            <p><%= p.getDateAdded() %>
                             </p>
                             <p>
-                                <%=originDAO.getOriginById(p.getOriginID()).getName()%>
+                                <%= originDAO.getOriginById(p.getOriginID()).getName() %>
                             </p>
-                            <!-- <p>11/1/2023</p> -->
                             <div class="sua-xoa">
-                                <a href="add-edit-delete?active=edit&id=<%=p.getProductID()%>">
+                                <a href="add-edit-delete?active=edit&id=<%= p.getProductID() %>">
                                     <button class="sua">Sửa</button>
                                 </a>
-                                <a href="add-edit-delete?active=delete&id=<%=p.getProductID()%>">
-                                    <button class="xoa">Xóa</button>
+                                <a href="add-edit-delete?active=hide&id=<%= p.getProductID() %>" onclick="return confirm('<%= p.isHidden() ? "Hiện sản phẩm này?" : "Ẩn sản phẩm này?" %>')">
+                                    <button class="<%= p.isHidden() ? "hien" : "xoa" %>"><%= p.isHidden() ? "Hiện" : "Ẩn" %></button>
                                 </a>
-
                             </div>
                         </div>
 
@@ -176,8 +101,4 @@
                 </ul>
             </div>
         </div>
-    </div>
-</div>
-</body>
-
-</html>
+    </div>

@@ -205,6 +205,20 @@
     margin: 5px 0;
 }
 
+/* 2. Hiệu ứng KHI DI CHUỘT QUA (Hover) - Nút sẽ sáng lên một chút */
+.noi-dung-san-pham .them-san-pham:hover {
+    background-color: #6ec254; /* Màu xanh sáng hơn màu gốc một chút */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Đổ bóng nhẹ tạo cảm giác nút nổi lên */
+}
+
+/* 3. Hiệu ứng KHI ẤN NÚT (Active) - Nút co nhỏ lại và lún xuống */
+.noi-dung-san-pham .them-san-pham:active {
+    transform: scale(0.96); /* Thu nhỏ nút lại 4% tạo hiệu ứng "lún xuống" cực chân thực */
+    background-color: #4f9339; /* Màu xanh đậm hơn do bị ấn */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Giảm độ đổ bóng xuống */
+}
+
+
 
 .so-trang-san-pham {
     display: flex;

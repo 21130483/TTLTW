@@ -26,82 +26,7 @@
     
     java.text.DecimalFormat df = new java.text.DecimalFormat("#,###");
 %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý Tồn kho - Admin</title>
-    <link rel="stylesheet" href="../css/managerInventory.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
-</head>
-<body>
-<div class="noi-dung">
-    <!-- Sidebar Menu -->
-    <div class="muc-luc">
-        <div class="title">
-            <p>Quản lý</p>
-        </div>
-        <ul>
-            <li class="button-muc-luc">
-                <a href="admin?page=product">
-                    <div class="a">
-                        Quản lý sản phẩm
-                    </div>
-                </a>
-            </li>
 
-            <li class="button-muc-luc">
-                <a href="admin?page=user">
-                    <div class="a">
-                        Quản lý thành viên
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc">
-                <a href="admin?page=bill">
-                    <div class="a">
-                        Quản lý hóa đơn
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc">
-                <a href="admin?page=voucher">
-                    <div class="a">
-                        Quản lý loại sản phẩm
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc">
-                <a href="admin?page=inventory">
-                    <div class="a" style="background-color: #ffffff; color: #007bff;">
-                        Quản lý tồn kho
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc">
-                <a href="admin?page=statistics">
-                    <div class="a">
-                        Thống kê
-                    </div>
-                </a>
-            </li>
-
-            <li class="button-muc-luc" style="margin-top: 50px;">
-                <a href="index.jsp">
-                    <div class="a">
-                        Quay về trang chủ
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div>
-
-    <!-- Main Content Area -->
     <div class="quan-ly">
         <h1 class="title-stat">Quản lý Kho hàng &amp; Tồn kho</h1>
         <p class="subtitle">Theo dõi số lượng, tình trạng và thực hiện cập nhật nhập kho trực tiếp.</p>
@@ -216,6 +141,3 @@
             </table>
         </div>
     </div>
-</div>
-</body>
-</html>

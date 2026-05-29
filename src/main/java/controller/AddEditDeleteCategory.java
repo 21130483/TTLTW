@@ -1,9 +1,7 @@
 package controller;
 
 import dao.CategoryDAO;
-import dao.ProductDAO;
 import model.Category;
-import model.Product;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,46 +15,62 @@ public class AddEditDeleteCategory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String active = req.getParameter("active");
+        if (active == null) active = "";
+
         switch (active) {
-            case "add":
-                req.setAttribute("active", active);
-                req.getRequestDispatcher("addEditVoucher.jsp").forward(req, resp);
-                break;
             case "edit":
                 int id = Integer.parseInt(req.getParameter("id"));
                 req.setAttribute("id", id);
                 req.setAttribute("active", active);
                 req.getRequestDispatcher("addEditVoucher.jsp").forward(req, resp);
                 break;
+
             case "delete":
                 int idDelete = Integer.parseInt(req.getParameter("id"));
-                ProductDAO productDAO = new ProductDAO();
-                if (productDAO.countProductByCategory(idDelete) == 0) {
-                    CategoryDAO categoryDAO = new CategoryDAO();
-                    categoryDAO.deleteCategory(idDelete);
-                }
-                req.getRequestDispatcher("admin?page=voucher").forward(req, resp);
+                CategoryDAO.softDeleteCategory(idDelete);
+                resp.sendRedirect("admin?page=voucher");
                 break;
+
+            case "restore":
+                int idRestore = Integer.parseInt(req.getParameter("id"));
+                CategoryDAO.restoreCategory(idRestore);
+                resp.sendRedirect("admin?page=voucher");
+                break;
+
             default:
+                resp.sendRedirect("admin?page=voucher");
         }
     }
 
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String active = req.getParameter("active");
         CategoryDAO categoryDAO = new CategoryDAO();
-        int id = Integer.parseInt(req.getParameter("id"));
-        String name = req.getParameter("name");
 
-
-        if (active.equals("edit")) {
-            Category category = categoryDAO.getCategoryById(id);
-            if (!category.getName().equals(name)) {
-                categoryDAO.updateCategory(id, name);
+        if ("add".equals(active)) {
+            String name = req.getParameter("name");
+            if (name != null && !name.trim().isEmpty()) {
+                int newId = CategoryDAO.getIdNewCategory();
+                CategoryDAO.addCategory(newId, name.trim());
             }
-        } else {
-            categoryDAO.addCategory(id, name);
+        } else if ("edit".equals(active)) {
+            int id = Integer.parseInt(req.getParameter("id"));
+            String name = req.getParameter("name");
+            Category category = CategoryDAO.getCategoryById(id);
+            if (category != null && name != null && !name.trim().isEmpty()) {
+                if (!category.getName().equals(name.trim())) {
+                    CategoryDAO.updateCategory(id, name.trim());
+                }
+            }
         }
 
-        req.getRequestDispatcher("admin?page=voucher").forward(req, resp);
+        String requestedWith = req.getHeader("X-Requested-With");
+        if ("XMLHttpRequest".equals(requestedWith)) {
+            resp.setStatus(HttpServletResponse.SC_OK);
+            resp.getWriter().write("success");
+        } else {
+            resp.sendRedirect("admin?page=voucher");
+        }
     }
 }

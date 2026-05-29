@@ -288,3 +288,66 @@ CREATE TABLE IF NOT EXISTS `verify` (
     KEY `userID` (`userID`),
     CONSTRAINT `verify_fk_userID` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=UTF8MB4_UNICODE_CI;
+
+
+CREATE TABLE IF NOT EXISTS `carts` (
+                                       `userID` int(11) NOT NULL,
+    `productID` int(11) NOT NULL,
+    `quantity` int(11) NOT NULL DEFAULT 1,
+
+    PRIMARY KEY (`userID`, `productID`),
+    KEY `userID` (`userID`),
+    KEY `productID` (`productID`),
+    CONSTRAINT `carts_fk_userID` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE,
+    CONSTRAINT `carts_fk_productID` FOREIGN KEY (`productID`) REFERENCES `products` (`productID`) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE IF NOT EXISTS `roles` (
+    `roleID` int(11) NOT NULL AUTO_INCREMENT,
+    `roleName` varchar(50) NOT NULL UNIQUE,
+    `description` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`roleID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `permissions` (
+    `permissionID` int(11) NOT NULL AUTO_INCREMENT,
+    `permissionName` varchar(100) NOT NULL UNIQUE,
+    `description` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`permissionID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `user_roles` (
+    `userID` int(11) NOT NULL,
+    `roleID` int(11) NOT NULL,
+    PRIMARY KEY (`userID`, `roleID`),
+    CONSTRAINT `fk_ur_userID` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE,
+    CONSTRAINT `fk_ur_roleID` FOREIGN KEY (`roleID`) REFERENCES `roles` (`roleID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `role_permissions` (
+    `roleID` int(11) NOT NULL,
+    `permissionID` int(11) NOT NULL,
+    PRIMARY KEY (`roleID`, `permissionID`),
+    CONSTRAINT `fk_rp_roleID` FOREIGN KEY (`roleID`) REFERENCES `roles` (`roleID`) ON DELETE CASCADE,
+    CONSTRAINT `fk_rp_permissionID` FOREIGN KEY (`permissionID`) REFERENCES `permissions` (`permissionID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT IGNORE INTO `roles` (`roleID`, `roleName`, `description`) VALUES
+(1, 'ADMIN', 'Administrator with full system control'),
+(2, 'USER', 'Regular customer with basic access');
+
+INSERT IGNORE INTO `permissions` (`permissionID`, `permissionName`, `description`) VALUES
+(1, 'MANAGE_PRODUCTS', 'Manage products (add, edit, delete)'),
+(2, 'MANAGE_USERS', 'Manage users (view, modify access, assign roles)'),
+(3, 'MANAGE_BILLS', 'Manage purchase bills'),
+(4, 'MANAGE_VOUCHERS', 'Manage discount vouchers'),
+(5, 'VIEW_STATISTICS', 'Access administrative dashboards & revenue reports'),
+(6, 'MANAGE_INVENTORY', 'Manage product warehouse and stock levels');
+
+INSERT IGNORE INTO `role_permissions` (`roleID`, `permissionID`) VALUES
+(1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6);
+
+INSERT IGNORE INTO `user_roles` (`userID`, `roleID`) VALUES
+(1, 1), (1, 2),
+(2, 1), (2, 2);

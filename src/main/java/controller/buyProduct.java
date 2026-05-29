@@ -17,26 +17,26 @@ public class buyProduct extends HttpServlet {
         String active = req.getParameter("active");
         HttpSession session = req.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
-        switch (active) {
-            case "all":
-                if (cart.cartEqualChecked()) {
-                    cart.removeAll();
-                } else {
-                    cart.addAll();
-
-                }
-                break;
-            case "normal":
-                int productID = Integer.parseInt(req.getParameter("id"));
-                if (cart.getProductChecked().contains(productID)) {
-                    cart.removeProductChecked(productID);
-                } else {
-                    cart.addProductChecked(productID);
-                }
-                break;
-
-            default:
-        }
+//        switch (active) {
+//            case "all":
+//                if (cart.cartEqualChecked()) {
+//                    cart.removeAll();
+//                } else {
+//                    cart.addAll();
+//
+//                }
+//                break;
+//            case "normal":
+//                int productID = Integer.parseInt(req.getParameter("id"));
+//                if (cart.getProductChecked().contains(productID)) {
+//                    cart.removeProductChecked(productID);
+//                } else {
+//                    cart.addProductChecked(productID);
+//                }
+//                break;
+//
+//            default:
+//        }
         session.setAttribute("cart",cart);
         req.getRequestDispatcher("cart.jsp").forward(req,resp);
     }
