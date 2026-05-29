@@ -1,116 +1,248 @@
-.quan-ly-thanh-vien{
-    height: 1000px;
+.quan-ly-thanh-vien {
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #2d3748;
+}
+
+.quan-ly-thanh-vien .header-section {
+    margin-bottom: 24px;
+}
+
+.quan-ly-thanh-vien .page-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0 0 6px 0;
+}
+
+.quan-ly-thanh-vien .subtitle {
+    font-size: 14px;
+    color: #718096;
+    margin: 0;
+}
+
+.quan-ly-thanh-vien .filter-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
     padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.quan-ly-thanh-vien .title{
+.quan-ly-thanh-vien .filter-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    color: #4a5568;
+}
+
+.quan-ly-thanh-vien .filter-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    align-items: flex-end;
+}
+
+.quan-ly-thanh-vien .filter-input,
+.quan-ly-thanh-vien .filter-select {
     width: 100%;
-    margin-top: 20px;
-
+    height: 40px;
+    padding: 8px 12px;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #2d3748;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.quan-ly-thanh-vien .title p{
-    font-weight: bolder;
-    font-size: 40px;
+.quan-ly-thanh-vien .filter-input:focus,
+.quan-ly-thanh-vien .filter-select:focus {
+    border-color: #3182ce;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
 }
 
-.quan-ly-thanh-vien .danh-sach-block{
+.quan-ly-thanh-vien .filter-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.quan-ly-thanh-vien .filter-btn {
+    height: 40px;
+    padding: 0 20px;
+    background-color: #3182ce;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.quan-ly-thanh-vien .filter-btn:hover {
+    background-color: #2b6cb0;
+}
+
+.quan-ly-thanh-vien .filter-clear-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 16px;
+    background-color: #edf2f7;
+    color: #4a5568;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: background-color 0.2s;
+}
+
+.quan-ly-thanh-vien .filter-clear-btn:hover {
+    background-color: #e2e8f0;
+}
+
+.quan-ly-thanh-vien .table-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.quan-ly-thanh-vien .user-table {
     width: 100%;
-    margin-top: 20px;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
 }
 
-.quan-ly-thanh-vien .danh-sach-block a{
+.quan-ly-thanh-vien .user-table th {
+    background-color: #f7fafc;
+    color: #4a5568;
+    font-weight: 600;
+    padding: 14px 16px;
+    border-bottom: 2px solid #edf2f7;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.quan-ly-thanh-vien .user-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #edf2f7;
+    vertical-align: middle;
+}
+
+.quan-ly-thanh-vien .user-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.quan-ly-thanh-vien .user-id {
+    font-family: monospace;
+    font-weight: bold;
+    color: #4a5568;
+}
+
+.quan-ly-thanh-vien .user-name {
+    font-weight: 600;
+    color: #1a202c;
+}
+
+.quan-ly-thanh-vien .user-email {
+    color: #4a5568;
+}
+
+.quan-ly-thanh-vien .badge-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.quan-ly-thanh-vien .badge {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.quan-ly-thanh-vien .badge-admin {
+    background-color: #feebc8;
+    color: #c05621;
+}
+
+.quan-ly-thanh-vien .badge-user {
+    background-color: #e2e8f0;
+    color: #4a5568;
+}
+
+.quan-ly-thanh-vien .badge-active {
+    background-color: #c6f6d5;
+    color: #22543d;
+}
+
+.quan-ly-thanh-vien .badge-blocked {
+    background-color: #fed7d7;
+    color: #9b2c2c;
+}
+
+.quan-ly-thanh-vien .perms-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 350px;
+}
+
+.quan-ly-thanh-vien .perm-tag {
+    display: inline-block;
+    padding: 2px 6px;
+    font-size: 11px;
+    background-color: #ebf8ff;
+    color: #2b6cb0;
+    border-radius: 4px;
+    border: 1px solid #bee3f8;
+}
+
+.quan-ly-thanh-vien .perm-tag.all-perms {
+    background-color: #ebf8ff;
+    color: #2b6cb0;
+    border-color: #bee3f8;
+    font-weight: 600;
+}
+
+.quan-ly-thanh-vien .perm-tag.none-perms {
+    background-color: #f7fafc;
+    color: #a0aec0;
+    border-color: #e2e8f0;
+    font-style: italic;
+}
+
+.quan-ly-thanh-vien .action-btn-link {
     text-decoration: none;
 }
 
-.quan-ly-thanh-vien .danh-sach-block a .a{
-    width: 150px;
-    height: 50px;
-    font-size: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: azure;
-    color: black;
-    border: 1px solid black;
+.quan-ly-thanh-vien .sua-btn {
+    padding: 6px 12px;
+    background-color: #fff;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    color: #4a5568;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-
-
-.quan-ly-thanh-vien .danh-muc-thanh-vien{
-    margin-top: 20px;
-}
-
-.danh-muc-thanh-vien .ten-cot{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 200px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.danh-muc-thanh-vien .ten-cot input{
-    width: 100%;
-    height: 40px;
-    text-align: center;
-    font-size: 20px;
-    border: none;
-
-}
-
-.danh-muc-thanh-vien .ten-cot input::placeholder{
-    color: black;
-}
-
-.danh-muc-thanh-vien .ten-cot .button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.danh-muc-thanh-vien .ten-cot button{
-    width: 100px;
-    height: 40px;
-    font-size: 18px;
-
-}
-
-/* .danh-muc-thanh-vien .ten-cot p{
-    font-size: 20px;
-} */
-
-.danh-muc-thanh-vien .box-thanh-vien{
-    border-top: 1px solid black;
-    list-style-type: none;
-}
-
-.danh-muc-thanh-vien .thanh-vien{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 200px;
-    text-align: center;
-}
-
-.danh-muc-thanh-vien .thanh-vien p{
-    font-size: 20px;
-    padding: 20px 0;
-}
-
-.danh-muc-thanh-vien .thanh-vien .sua-block{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.danh-muc-thanh-vien .thanh-vien .sua-block button{
-    width: 60px;
-    height: 40px;
-    font-size: 18px;
-}
-
-.danh-muc-thanh-vien .thanh-vien .sua-block .sua{
-    margin-right: 20px;
-    background-color: #007bff;
-}
-
-.danh-muc-thanh-vien .thanh-vien .sua-block .block{
-    background-color: red;
+.quan-ly-thanh-vien .sua-btn:hover {
+    background-color: #3182ce;
+    border-color: #3182ce;
+    color: #fff;
 }
