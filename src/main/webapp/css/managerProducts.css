@@ -110,3 +110,8 @@
 .danh-muc-san-pham .san-pham .sua-xoa .xoa {
     background-color: red;
 }
+
+.danh-muc-san-pham .san-pham .sua-xoa .hien {
+    background-color: #38a169;
+    color: #fff;
+}

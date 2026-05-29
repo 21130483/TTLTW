@@ -50,10 +50,13 @@ public class AddEditDeleteProduct extends HttpServlet {
                 req.setAttribute("getOrigins", origins);
                 req.getRequestDispatcher("addEditProduct.jsp").forward(req, resp);
                 break;
-            case "delete":
-                int deleteProductID = Integer.parseInt(req.getParameter("id"));
-                productDAO.deleteProduct(deleteProductID);
-                deleteImageProduct(req.getServletContext().getRealPath("")+"/image/product/"+deleteProductID);
+            case "hide":
+                int hideProductID = Integer.parseInt(req.getParameter("id"));
+                if (ProductDAO.isProductHidden(hideProductID)) {
+                    ProductDAO.showProduct(hideProductID);
+                } else {
+                    ProductDAO.hideProduct(hideProductID);
+                }
                 req.getRequestDispatcher("admin?page=product").forward(req, resp);
                 break;
             default:

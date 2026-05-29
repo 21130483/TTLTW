@@ -23,13 +23,13 @@ public class AdminFilter extends HttpServlet {
             }
             switch (page) {
                 case "product":
-//                    int statusProduct = Integer.parseInt(req.getParameter("status"));
                     ProductDAO productDAO = new ProductDAO();
+                    productDAO.checkAndCreateIsHiddenColumn();
                     CategoryDAO categoryDAO = new CategoryDAO();
                     OriginDAO originDAO = new OriginDAO();
                     List<Category> categories = categoryDAO.getAllCategory();
                     List<Origin> origins = originDAO.getAllOrigin();
-                    List<Product> products = productDAO.getAllProduct();
+                    List<Product> products = ProductDAO.getAllProductIncludeHidden();
                     req.setAttribute("getAllProducts", products);
                     req.setAttribute("getAllCategory", categories);
                     req.setAttribute("getAllOrigin", origins);
@@ -214,9 +214,9 @@ public class AdminFilter extends HttpServlet {
             }
             switch (page) {
                 case "product":
-//                    int statusProduct = Integer.parseInt(req.getParameter("status"));
                     ProductDAO productDAO = new ProductDAO();
-                    List<Product> products = productDAO.getAllProduct();
+                    productDAO.checkAndCreateIsHiddenColumn();
+                    List<Product> products = ProductDAO.getAllProductIncludeHidden();
                     req.setAttribute("getAllProducts", products);
                     page = "managerProducts.jsp";
                     break;
