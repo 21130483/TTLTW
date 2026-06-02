@@ -73,6 +73,7 @@ public class FindProduct extends HttpServlet {
             case "category":
                 System.out.println("active " + active);
                 categoryID = Integer.parseInt(req.getParameter("categoryID"));
+                textFindProducts = "";
                 listByCategory();
                 countNumberPages();
                 currentPage = 1;

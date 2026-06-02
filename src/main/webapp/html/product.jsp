@@ -1,4 +1,6 @@
 <%@ page import="model.Product" %>
+<%@ page import="model.Review" %>
+<%@ page import="model.User" %>
 <%@ page import="java.io.File" %>
 <%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -24,6 +26,14 @@
     <%
         Product product = (Product) request.getAttribute("productDetail");
         List<Product> ListProdcutRelated = (List) request.getAttribute("getProductRelated");
+        List<Review> reviews = (List<Review>) request.getAttribute("reviews");
+        Double avgRatingObj = (Double) request.getAttribute("avgRating");
+        double avgRating = avgRatingObj != null ? avgRatingObj : 0.0;
+        Integer reviewCountObj = (Integer) request.getAttribute("reviewCount");
+        int reviewCount = reviewCountObj != null ? reviewCountObj : 0;
+        Boolean hasPurchasedObj = (Boolean) request.getAttribute("hasPurchased");
+        boolean hasPurchased = hasPurchasedObj != null ? hasPurchasedObj : false;
+        User loggedInUser = (User) session.getAttribute("user");
     %>
 
     <div class="product-container">
@@ -173,6 +183,122 @@
                         <%--                                Màn hình cảm ứng 3,5 inch hiển thị thông số rõ nét, dễ dàng tùy chỉnh và theo dõi.--%>
                         <%--                            </p>--%>
                         <%--                        </div>--%>
+                    <!-- Bắt đầu phần đánh giá sản phẩm -->
+                    <div class="product-reviews-section" style="margin-top: 30px; padding: 20px; background: #fff; border-radius: 8px; border: 1px solid #e0e0e0;">
+                        <h3 style="font-size: 20px; font-weight: bold; border-bottom: 2px solid #00a046; padding-bottom: 10px; margin-bottom: 20px; color: #333;">Đánh giá & Bình luận sản phẩm</h3>
+                        
+                        <!-- Thống kê tổng quan -->
+                        <div class="reviews-summary" style="display: flex; align-items: center; gap: 20px; margin-bottom: 25px; background: #f9f9f9; padding: 15px; border-radius: 6px;">
+                            <div style="text-align: center; border-right: 1px solid #e0e0e0; padding-right: 20px;">
+                                <span style="font-size: 36px; font-weight: bold; color: #00a046;"><%= String.format("%.1f", avgRating) %></span>
+                                <span style="font-size: 16px; color: #666;">/ 5</span>
+                            </div>
+                            <div>
+                                <div style="color: #ff9800; font-size: 18px; margin-bottom: 5px;">
+                                    <% 
+                                        int fullStars = (int) Math.round(avgRating);
+                                        for (int i = 1; i <= 5; i++) {
+                                            if (i <= fullStars) {
+                                    %>
+                                                <i class="fa-solid fa-star"></i>
+                                    <% 
+                                            } else {
+                                    %>
+                                                <i class="fa-regular fa-star"></i>
+                                    <% 
+                                            }
+                                        }
+                                    %>
+                                </div>
+                                <span style="color: #666; font-size: 14px;"><%= reviewCount %> lượt đánh giá</span>
+                            </div>
+                        </div>
+
+                        <!-- Danh sách đánh giá -->
+                        <div class="reviews-list" style="margin-bottom: 30px;">
+                            <% 
+                                if (reviews == null || reviews.isEmpty()) {
+                            %>
+                                <p style="color: #777; font-style: italic;">Chưa có đánh giá nào cho sản phẩm này.</p>
+                            <% 
+                                } else {
+                                    for (Review r : reviews) {
+                            %>
+                                        <div class="review-item" style="border-bottom: 1px solid #f0f0f0; padding: 15px 0;">
+                                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                                                <span style="font-weight: bold; color: #333;"><%= r.getFullName() %></span>
+                                                <span style="font-size: 12px; color: #999;"><%= r.getDateAdded() %></span>
+                                            </div>
+                                            <div style="color: #ff9800; font-size: 14px; margin-bottom: 8px;">
+                                                <% 
+                                                    for (int i = 1; i <= 5; i++) {
+                                                        if (i <= r.getRating()) {
+                                                %>
+                                                            <i class="fa-solid fa-star"></i>
+                                                <% 
+                                                        } else {
+                                                %>
+                                                            <i class="fa-regular fa-star"></i>
+                                                <% 
+                                                        }
+                                                    }
+                                                %>
+                                            </div>
+                                            <p style="color: #555; margin: 0; line-height: 1.5;"><%= r.getContent() %></p>
+                                        </div>
+                            <% 
+                                    }
+                                }
+                            %>
+                        </div>
+
+                        <!-- Form gửi đánh giá -->
+                        <div class="add-review-form" style="border-top: 1px solid #e0e0e0; padding-top: 20px;">
+                            <h4 style="font-size: 16px; font-weight: bold; margin-bottom: 15px; color: #333;">Gửi đánh giá của bạn</h4>
+                            <% 
+                                if (loggedInUser == null) {
+                            %>
+                                <div style="background: #fff8e1; border: 1px solid #ffe082; padding: 12px; border-radius: 4px; color: #b78103;">
+                                    Bạn cần <a href="login.jsp" style="font-weight: bold; color: #00a046; text-decoration: underline;">Đăng nhập</a> để gửi đánh giá cho sản phẩm này.
+                                </div>
+                            <% 
+                                } else if (!hasPurchased) {
+                            %>
+                                <div style="background: #ffebee; border: 1px solid #ffcdd2; padding: 12px; border-radius: 4px; color: #c62828;">
+                                    Bạn chỉ có thể đánh giá sản phẩm này sau khi đã mua hàng thành công.
+                                </div>
+                            <% 
+                                } else {
+                            %>
+                                <form action="add-review" method="POST">
+                                    <input type="hidden" name="productID" value="<%= product.getProductID() %>">
+                                    
+                                    <div style="margin-bottom: 15px;">
+                                        <label for="rating" style="display: block; font-weight: bold; margin-bottom: 5px; color: #555;">Chọn mức độ đánh giá:</label>
+                                        <select name="rating" id="rating" style="padding: 8px 12px; border-radius: 4px; border: 1px solid #ccc; background: #fff; width: 200px;">
+                                            <option value="5">5 Sao (Rất tốt)</option>
+                                            <option value="4">4 Sao (Tốt)</option>
+                                            <option value="3">3 Sao (Bình thường)</option>
+                                            <option value="2">2 Sao (Tệ)</option>
+                                            <option value="1">1 Sao (Rất tệ)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div style="margin-bottom: 15px;">
+                                        <label for="content" style="display: block; font-weight: bold; margin-bottom: 5px; color: #555;">Nội dung bình luận:</label>
+                                        <textarea name="content" id="content" rows="4" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; resize: vertical;" placeholder="Chia sẻ nhận xét của bạn về sản phẩm này..." required></textarea>
+                                    </div>
+                                    
+                                    <button type="submit" style="background: #00a046; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: background 0.2s;">
+                                        Gửi đánh giá
+                                    </button>
+                                </form>
+                            <% 
+                                }
+                            %>
+                        </div>
+                    </div>
+                    <!-- Kết thúc phần đánh giá sản phẩm -->
 
                         <div class="relative-product">
                             <div class="group_title mt-5">
