@@ -14,31 +14,50 @@ import java.io.IOException;
 public class buyProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String active = req.getParameter("active");
         HttpSession session = req.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
-//        switch (active) {
-//            case "all":
-//                if (cart.cartEqualChecked()) {
-//                    cart.removeAll();
-//                } else {
-//                    cart.addAll();
-//
-//                }
-//                break;
-//            case "normal":
-//                int productID = Integer.parseInt(req.getParameter("id"));
-//                if (cart.getProductChecked().contains(productID)) {
-//                    cart.removeProductChecked(productID);
-//                } else {
-//                    cart.addProductChecked(productID);
-//                }
-//                break;
-//
-//            default:
-//        }
-        session.setAttribute("cart",cart);
-        req.getRequestDispatcher("cart.jsp").forward(req,resp);
+        model.User user = (model.User) session.getAttribute("user");
+        if (user == null) {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
+
+        String active = req.getParameter("active");
+        java.util.Set<Integer> checkedProductIds = (java.util.Set<Integer>) session.getAttribute("checkedProductIds");
+        if (checkedProductIds == null) {
+            checkedProductIds = new java.util.HashSet<>();
+        }
+
+        if ("all".equals(active)) {
+            java.util.List<Cart> cartList = dao.CartsDAO.getCartByUserId(user.getUserID());
+            boolean allChecked = true;
+            for (Cart c : cartList) {
+                if (!checkedProductIds.contains(c.getProductId())) {
+                    allChecked = false;
+                    break;
+                }
+            }
+            if (allChecked) {
+                checkedProductIds.clear();
+            } else {
+                for (Cart c : cartList) {
+                    checkedProductIds.add(c.getProductId());
+                }
+            }
+        } else if ("normal".equals(active)) {
+            try {
+                int productID = Integer.parseInt(req.getParameter("id"));
+                if (checkedProductIds.contains(productID)) {
+                    checkedProductIds.remove(productID);
+                } else {
+                    checkedProductIds.add(productID);
+                }
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+
+        session.setAttribute("checkedProductIds", checkedProductIds);
+        resp.sendRedirect("carts");
     }
 
 
