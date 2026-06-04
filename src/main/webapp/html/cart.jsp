@@ -47,13 +47,20 @@
                             <div class="input-text">
                                 <div class="box-input">
 
-                                    <input type="checkbox" class="input" id="checkedAll" data-hrf="index.jsp"
+                                     <input type="checkbox" class="input" id="checkedAll" data-hrf="index.jsp"
                                         <%
-//                                            if (cart!=null && cart.cartEqualChecked()){
-                                        %>
-                                           checked
-                                        <%
-//                                            }
+                                            if (carts != null && !carts.getCarts().isEmpty()) {
+                                                boolean allChecked = true;
+                                                for (Cart c : carts.getCarts()) {
+                                                    if (!c.isChecked()) {
+                                                        allChecked = false;
+                                                        break;
+                                                    }
+                                                }
+                                                if (allChecked) {
+                                                    out.print("checked");
+                                                }
+                                            }
                                         %>
                                     >
                                 </div>
