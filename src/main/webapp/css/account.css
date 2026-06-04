@@ -1117,6 +1117,7 @@ html {
 .cac-san-pham ul {
     display: flex;
     padding: 0;
+    flex-wrap: wrap;
 }
 
 .cac-san-pham .san-pham {
