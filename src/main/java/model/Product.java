@@ -254,12 +254,14 @@ public class Product {
         return result;
     }
     public String getPathFirstImage1() {
-        File folderImg = new File( "D:/project_web/target/Lab/image/product/" + productID);
+        File folderImg = new File("c:/Users/admin/OneDrive/Desktop/TTLTW/src/main/webapp/image/product/" + productID);
         String result = "../image/product/"+productID+"/";
 
-        if (folderImg.exists()) {
+        if (folderImg.exists() && folderImg.isDirectory()) {
             File[] files = folderImg.listFiles();
-            result += files[0].getName();
+            if (files != null && files.length > 0) {
+                result += files[0].getName();
+            }
         }
         return result;
     }
