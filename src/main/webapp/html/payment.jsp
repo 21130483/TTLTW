@@ -212,12 +212,7 @@
                                                                                                         value="new">
                                                                                                     <% } %>
 
-                                                                                                        <div class="addressDetail"
-                                                                                                            id="newAddressSection"
-                                                                                                            style="<%= (userAddresses != null && !userAddresses.isEmpty()) ? "
-                                                                                                            display:
-                                                                                                            none;" : ""
-                                                                                                            %>">
+                                                                                                        <div class="addressDetail" id="newAddressSection" style="<%= (userAddresses != null && !userAddresses.isEmpty()) ? "display: none;" : "" %>">
                                                                                                             <div
                                                                                                                 class="choose_add">
                                                                                                                 <select
@@ -267,14 +262,13 @@
                                                                                                         <div
                                                                                                             class="title">
                                                                                                             <i
-                                                                                                                class="fa-solid fa-user-large"></i>Nguyễn
-                                                                                                            Hữu Phước
+                                                                                                                class="fa-solid fa-user-large"></i><%= user.getFullName() %>
                                                                                                             <div
                                                                                                                 class="between">
                                                                                                                 |</div>
                                                                                                             <div
                                                                                                                 class="sdt">
-                                                                                                                0986216717
+                                                                                                                <%= user.getPhoneNumbers() %>
                                                                                                             </div>
                                                                                                         </div>
 
