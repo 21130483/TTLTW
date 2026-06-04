@@ -14,18 +14,16 @@ public class paymentFilter extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        Cart cart = (Cart) session.getAttribute("cart");
         if (user != null) {
-//            if (cart.getProductChecked().size() != 0){
-//                resp.sendRedirect("payment.jsp");
-//            }else {
-//                req.setAttribute("content","Bạn chưa chọn sản phẩm nào để mua");
-//                req.getRequestDispatcher("cart.jsp").forward(req, resp);
-//            }
+            java.util.Set<Integer> checkedProductIds = (java.util.Set<Integer>) session.getAttribute("checkedProductIds");
+            if (checkedProductIds != null && !checkedProductIds.isEmpty()) {
+                resp.sendRedirect("payment.jsp");
+            } else {
+                req.setAttribute("content", "Bạn chưa chọn sản phẩm nào để mua");
+                req.getRequestDispatcher("carts").forward(req, resp);
+            }
         } else {
             resp.sendRedirect("login.jsp");
         }
-
-
     }
 }

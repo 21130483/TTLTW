@@ -19,6 +19,15 @@ public class AddressDAO {
         return result;
     }
 
+    public static List<Address> getAddressByUserId(int userId) {
+        try (Handle handle = JDBIConnector.getConnect().open()) {
+            return handle.select("SELECT * FROM address WHERE userID = ?")
+                    .bind(0, userId)
+                    .mapToBean(Address.class)
+                    .list();
+        }
+    }
+
 
 
     public static boolean addAddress(int userId, String city, String district, String ward, String detail) {

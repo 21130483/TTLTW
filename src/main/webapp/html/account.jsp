@@ -40,6 +40,7 @@
                         <% User user=(User) session.getAttribute("user"); %>
                             <%@ page import="model.Account" %>
                                 <%@ page import="model.Order" %>
+                                <%@ page import="model.Address" %>
                                     <%@ page import="java.util.List" %>
                                         <%@ page import="model.Product" %>
                                             <% Account acInfo=(Account)
@@ -1396,6 +1397,10 @@
 
                                                                                     <div
                                                                                         class="ListOrderTab_tab-content">
+                                                                                        <%
+                                                                                            List<Address> addressesList = (List<Address>) request.getAttribute("addresses");
+                                                                                            if (addressesList == null || addressesList.isEmpty()) {
+                                                                                        %>
                                                                                         <div class="EmptyResult_empty-result luuidol-empty3"
                                                                                             style="display: grid;">
                                                                                             <div><img
@@ -1410,6 +1415,36 @@
                                                                                                 Thêm địa chỉ nhận hàng
                                                                                             </button>
                                                                                         </div>
+                                                                                        <%
+                                                                                            } else {
+                                                                                        %>
+                                                                                            <div style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
+                                                                                                <button class="btn-add-address" style="width: 250px; height: 40px; background-color: #5dac46; color: #fff; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; align-self: flex-end; margin-bottom: 10px;">
+                                                                                                    + Thêm địa chỉ mới
+                                                                                                </button>
+                                                                                                <%
+                                                                                                    for (Address addr : addressesList) {
+                                                                                                %>
+                                                                                                    <div class="box-address-item" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: #f9f9f9; display: flex; justify-content: space-between; align-items: center; box-shadow: 2px 2px 5px rgba(0,0,0,0.05);">
+                                                                                                        <div>
+                                                                                                            <p style="margin: 0; font-size: 16px; font-weight: bold; color: #333;"><i class="fa-solid fa-location-dot" style="margin-right: 8px; color: #5dac46;"></i><%=addr.getDetail()%></p>
+                                                                                                            <p style="margin: 5px 0 0 20px; font-size: 14px; color: #666;"><%=addr.getWard()%>, <%=addr.getDistrict()%>, <%=addr.getCity()%></p>
+                                                                                                        </div>
+                                                                                                        <div style="display: flex; gap: 10px;">
+                                                                                                            <form action="address-controller?active=remove&addressId=<%=addr.getAddressID()%>" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn xóa địa chỉ này?');">
+                                                                                                                <button type="submit" style="background: #e74c3c; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 13px;">
+                                                                                                                    Xóa
+                                                                                                                </button>
+                                                                                                            </form>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                <%
+                                                                                                    }
+                                                                                                %>
+                                                                                            </div>
+                                                                                        <%
+                                                                                            }
+                                                                                        %>
 
                                                                                     </div>
                                                                                 </div>
@@ -1672,11 +1707,9 @@
                                         <input id="email-address" type="text" name="detail" required="">
                                         <label for="email-address">Chi tiết</label>
                                     </div>
-                                    <a href="" class="btn-save-address">
-                                        <button type="submit" style="background: inherit;border: none">
-                                            Lưu
-                                        </button>
-                                    </a>
+                                    <button type="submit" class="btn-save-address" style="background: transparent; border: 1.5px solid #03e9f4; padding: 10px 20px; color: #03e9f4; font-size: 16px; text-transform: uppercase; letter-spacing: 4px; border-radius: 5px; cursor: pointer; margin-top: 40px; display: inline-block;">
+                                        Lưu
+                                    </button>
 
                                 </form>
                             </div>
