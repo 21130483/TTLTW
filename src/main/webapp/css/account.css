@@ -595,6 +595,16 @@ svg:not(:root) {
     font-family: inherit;
 }
 
+.InputTextField_input-text-field .InputTextField_input-group input[readonly] {
+    background-color: #f5f6f8;
+    color: #8899a6;
+    cursor: not-allowed;
+    border-bottom: 1px dashed #cbd5e1;
+    padding-left: 8px;
+    border-radius: 4px;
+}
+
+
 .AccountDetails_form .AccountDetails_email {
     position: relative;
     margin-top: 32px;

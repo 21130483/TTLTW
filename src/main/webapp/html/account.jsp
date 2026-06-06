@@ -1310,7 +1310,7 @@
                                                                                                 tháng năm sinh
                                                                                                 <span>*</span></label>
                                                                                             <input type="date"
-                                                                                                name="date"
+                                                                                                name="dob"
                                                                                                 value="<%=user.getDobString()%>"
                                                                                                 style="    width: 136px;
                                                     height: 40px;
@@ -1333,7 +1333,8 @@
                                                                                                     name="phone_number"
                                                                                                     type="text" class=""
                                                                                                     value="0<%=user.getPhoneNumbers()%>"
-                                                                                                    placeholder="Vui lòng nhập số điện thoại">
+                                                                                                    placeholder="Vui lòng nhập số điện thoại"
+                                                                                                    readonly>
                                                                                             </div>
                                                                                         </div>
                                                                                         <div
@@ -1350,7 +1351,8 @@
                                                                                                         type="email"
                                                                                                         autocomplete="on"
                                                                                                         class=""
-                                                                                                        value="<%=user.getEmail()%>">
+                                                                                                        value="<%=user.getEmail()%>"
+                                                                                                        readonly>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>

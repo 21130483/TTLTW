@@ -21,24 +21,37 @@ public class UserEdit extends HttpServlet {
     PurchasesDAO purchasesDAO = new PurchasesDAO();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        HttpSession session = req.getSession();
-//        User user = (User) req.getSession().getAttribute("user");
+        HttpSession session = req.getSession();
+        User sessionUser = (User) session.getAttribute("user");
+        if (sessionUser == null) {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
+
         UserDAO userDAO = new UserDAO();
-        String userId = req.getParameter("userId");
-        User user = userDAO.getUserById(Integer.parseInt(userId));
-                String fullName = req.getParameter("full_name");
-                String gender = req.getParameter("gender");
-                String dobString = req.getParameter("dob");
-                String phone = req.getParameter("phone_number");
-                String email = req.getParameter("email");
-                user.setFullName(fullName);
-                user.setGender(gender);
-                user.setDob(Date.valueOf(dobString));
-                user.setPhoneNumbers(phone);
-                user.setEmail(email);
-                userDAO.updateUser1(user);
-        req.setAttribute("listOrderItem", purchasesDAO.getAllPurchases(user.getUserID()));
-        req.getSession().setAttribute("user", user);
-        req.getRequestDispatcher("account").forward(req, resp);
+        User user = userDAO.getUserById(sessionUser.getUserID());
+        if (user != null) {
+            String fullName = req.getParameter("full_name");
+            String gender = req.getParameter("gender");
+            String dobString = req.getParameter("dob");
+
+            user.setFullName(fullName);
+            user.setGender(gender);
+            if (dobString != null && !dobString.trim().isEmpty()) {
+                try {
+                    user.setDob(Date.valueOf(dobString));
+                } catch (IllegalArgumentException e) {
+                    // keep previous dob if parsing fails
+                }
+            }
+            userDAO.updateUser1(user);
+
+            User updatedUser = userDAO.getUserById(user.getUserID());
+            session.setAttribute("user", updatedUser);
+            req.setAttribute("listOrderItem", purchasesDAO.getAllPurchases(updatedUser.getUserID()));
+            req.getRequestDispatcher("account").forward(req, resp);
+        } else {
+            resp.sendRedirect("login.jsp");
+        }
     }
 }
