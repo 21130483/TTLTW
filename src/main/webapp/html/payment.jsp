@@ -313,6 +313,7 @@
                                                                                                         <input
                                                                                                             type="radio"
                                                                                                             name="payment"
+                                                                                                            value="cash"
                                                                                                             checked>
                                                                                                         <i
                                                                                                             class="fa-solid fa-money-bill-wave"></i>Thanh
@@ -325,7 +326,20 @@
                                                                                                     <div class="type">
                                                                                                         <input
                                                                                                             type="radio"
-                                                                                                            name="payment">
+                                                                                                            name="payment"
+                                                                                                            value="bank_transfer">
+                                                                                                        <i
+                                                                                                            class="fa-solid fa-building-columns"></i>Thanh
+                                                                                                        toán chuyển khoản ngân hàng (VietQR)
+                                                                                                    </div>
+                                                                                                </li>
+
+                                                                                                <li>
+                                                                                                    <div class="type">
+                                                                                                        <input
+                                                                                                            type="radio"
+                                                                                                            name="payment"
+                                                                                                            value="credit_card">
                                                                                                         <i
                                                                                                             class="fa-solid fa-credit-card"></i>Thanh
                                                                                                         toán bằng thẻ

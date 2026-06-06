@@ -54,17 +54,20 @@ public class PurchasesController extends HttpServlet {
             }
         }
         String comment = (req.getParameter("comment") != null) ? req.getParameter("comment") : "";
+        String paymentMethod = req.getParameter("payment");
 
         List<Cart> cartList = CartsDAO.getCartByUserId(user.getUserID());
         Set<Integer> checkedProductIds = (Set<Integer>) session.getAttribute("checkedProductIds");
         
         int newPurchaseId = PurchasesDAO.newPurchaseID();
+        int totalAmount = 0;
 
         if (checkedProductIds != null && !checkedProductIds.isEmpty()) {
             for (Cart c : cartList) {
                 if (checkedProductIds.contains(c.getProductId())) {
                     Product p = c.getProduct();
                     int itemTotal = p.getPrice() * c.getQuantity();
+                    totalAmount += itemTotal;
 
                     PurchasesDAO.addPurchase(newPurchaseId, p.getProductID(), user.getUserID(), c.getQuantity(), itemTotal, address, comment);
                     
@@ -78,10 +81,17 @@ public class PurchasesController extends HttpServlet {
             session.setAttribute("checkedProductIds", checkedProductIds);
         }
 
+        totalAmount += 25000;
 
         List<Cart> remainingCart = CartsDAO.getCartByUserId(user.getUserID());
         session.setAttribute("sizeCart", remainingCart.size());
 
-        resp.sendRedirect("account");
+        if ("bank_transfer".equals(paymentMethod)) {
+            session.setAttribute("lastOrderAmount", totalAmount);
+            session.setAttribute("lastOrderId", newPurchaseId);
+            resp.sendRedirect("bank-payment.jsp");
+        } else {
+            resp.sendRedirect("account");
+        }
     }
 }
