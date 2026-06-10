@@ -74,7 +74,12 @@ public class PurchasesDAO {
     }
 
     public static boolean updatePurchase(int purchaseID,int userID,int productID, String nameColumn, String value){
-        boolean check = handle.execute("UPDATE purchases SET " + nameColumn + "=? WHERE purchaseID = ? AND userID = ? AND productID = ?", value, purchaseID,userID,productID) > 0;
+        boolean check;
+        if ("status".equals(nameColumn)) {
+            check = handle.execute("UPDATE purchases SET status = ? WHERE purchaseID = ?", Integer.parseInt(value), purchaseID) > 0;
+        } else {
+            check = handle.execute("UPDATE purchases SET " + nameColumn + "=? WHERE purchaseID = ? AND userID = ? AND productID = ?", value, purchaseID,userID,productID) > 0;
+        }
         return check;
     }
 
