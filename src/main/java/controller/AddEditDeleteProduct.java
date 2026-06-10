@@ -57,7 +57,7 @@ public class AddEditDeleteProduct extends HttpServlet {
                 } else {
                     ProductDAO.hideProduct(hideProductID);
                 }
-                req.getRequestDispatcher("admin?page=product").forward(req, resp);
+                resp.sendRedirect("admin?page=product");
                 break;
             default:
         }
@@ -123,7 +123,7 @@ public class AddEditDeleteProduct extends HttpServlet {
                 }
             }
         }
-        req.getRequestDispatcher("admin?page=product").forward(req, resp);
+        resp.sendRedirect("admin?page=product");
     }
 
 

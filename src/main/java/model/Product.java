@@ -85,6 +85,14 @@ public class Product {
         isHidden = hidden;
     }
 
+    public boolean getIsHidden() {
+        return isHidden;
+    }
+
+    public void setIsHidden(boolean isHidden) {
+        this.isHidden = isHidden;
+    }
+
     public String getPriceHaveDots() {
         String result = "";
         String priceString = String.valueOf(price);
