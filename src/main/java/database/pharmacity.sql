@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     `gender` varchar(20) NOT NULL,
     `role` varchar(20) NOT NULL,
     `access` varchar(20) NOT NULL,
-
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`userID`)
     ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
