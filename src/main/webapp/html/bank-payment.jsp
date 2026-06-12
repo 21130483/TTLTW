@@ -224,7 +224,7 @@
 
     function confirmPayment() {
         alert("Cảm ơn bạn đã thanh toán! Hệ thống đang kiểm tra giao dịch của bạn. Đơn hàng sẽ được duyệt ngay sau khi tiền vào tài khoản.");
-        location.href = "account";
+        location.href = "listbill?action=confirmPayment&purchaseID=<%= orderId %>";
     }
 </script>
 </body>

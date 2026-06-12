@@ -52,6 +52,7 @@
                     <th>Tên Khách hàng</th>
                     <th>Ngày đặt</th>
                     <th>Tổng giá</th>
+                    <th>Thanh toán</th>
                     <th>Trạng thái</th>
                     <th>Hành động</th>
                 </tr>
@@ -81,7 +82,22 @@
                     <td><%= user != null ? user.getFullName() : "N/A" %></td>
                     <td><%= p.getOrderDate() != null ? p.getOrderDate() : "N/A" %></td>
                     <td style="font-weight: bold; color: #d35400;"><%= p.getPrice() %> ₫</td>
-                    <td><span class="status-badge <%= badgeClass %>"><%= p.getStatusString() %></span></td>
+                    <td>
+                        <div style="font-size: 13px; font-weight: bold; color: #34495e;">
+                            <%= p.getPaymentMethodString() %>
+                        </div>
+                        <span style="font-size: 12px; font-weight: bold; color: <%= p.getPaymentStatus() == 1 ? "#27ae60" : "#e74c3c" %>;">
+                            <%= p.getPaymentStatusString() %>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="status-badge <%= badgeClass %>"><%= p.getStatusString() %></span>
+                        <% if (p.getStatus() == -1 && p.getCancelReason() != null) { %>
+                            <div style="font-size: 12px; color: #dc3545; margin-top: 4px; max-width: 150px; white-space: normal; word-wrap: break-word;">
+                                Lý do: <%= p.getCancelReason() %>
+                            </div>
+                        <% } %>
+                    </td>
                     <td>
                         <div class="action-buttons">
                             <% if (p.getStatus() == 0) { %>
@@ -101,7 +117,7 @@
                     } else {
                 %>
                 <tr>
-                    <td colspan="7" style="text-align: center; color: #888; padding: 30px;">Không tìm thấy hóa đơn nào phù hợp.</td>
+                    <td colspan="8" style="text-align: center; color: #888; padding: 30px;">Không tìm thấy hóa đơn nào phù hợp.</td>
                 </tr>
                 <% } %>
             </tbody>

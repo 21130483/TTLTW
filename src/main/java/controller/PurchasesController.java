@@ -55,6 +55,13 @@ public class PurchasesController extends HttpServlet {
         }
         String comment = (req.getParameter("comment") != null) ? req.getParameter("comment") : "";
         String paymentMethod = req.getParameter("payment");
+        if (paymentMethod == null || paymentMethod.isEmpty()) {
+            paymentMethod = "cash";
+        }
+        int paymentStatus = 0;
+        if ("credit_card".equals(paymentMethod)) {
+            paymentStatus = 1;
+        }
 
         List<Cart> cartList = CartsDAO.getCartByUserId(user.getUserID());
         Set<Integer> checkedProductIds = (Set<Integer>) session.getAttribute("checkedProductIds");
@@ -69,7 +76,7 @@ public class PurchasesController extends HttpServlet {
                     int itemTotal = p.getPrice() * c.getQuantity();
                     totalAmount += itemTotal;
 
-                    PurchasesDAO.addPurchase(newPurchaseId, p.getProductID(), user.getUserID(), c.getQuantity(), itemTotal, address, comment);
+                    PurchasesDAO.addPurchase(newPurchaseId, p.getProductID(), user.getUserID(), c.getQuantity(), itemTotal, address, comment, paymentMethod, paymentStatus);
                     
                     ProductDAO.updateProduct(p.getProductID(), "quantity", String.valueOf(p.getQuantity() - c.getQuantity()));
                     
