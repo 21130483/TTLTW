@@ -30,6 +30,9 @@ public class Purchases {
     private String comment;
     private String address;
     private Date dateRated;
+    private String paymentMethod;
+    private int paymentStatus;
+    private String cancelReason;
 
     public Purchases() {
     }
@@ -226,14 +229,57 @@ public class Purchases {
                 return "Đang giao";
             case 2:
                 return "Giao thành công";
+            case -1:
+                if (cancelReason != null && !cancelReason.trim().isEmpty()) {
+                    return "Đã hủy bởi User";
+                }
+                return "Đã hủy bởi Admin";
             default:
-                return "Hủy đơn hàng";
+                return "Đã hủy";
         }
 
         //-1 là hủy đơn hàng
         //0 là chờ xác nhận
         //1 là đang giao
         //2 là giao thành côn
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public int getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(int paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public String getCancelReason() {
+        return cancelReason;
+    }
+
+    public void setCancelReason(String cancelReason) {
+        this.cancelReason = cancelReason;
+    }
+
+    public String getPaymentStatusString() {
+        return paymentStatus == 1 ? "Đã thanh toán" : "Chưa thanh toán";
+    }
+
+    public String getPaymentMethodString() {
+        if ("bank_transfer".equals(paymentMethod)) {
+            return "Chuyển khoản ngân hàng (VietQR)";
+        } else if ("credit_card".equals(paymentMethod)) {
+            return "Thẻ tín dụng";
+        } else {
+            return "Thanh toán tiền mặt khi nhận hàng (COD)";
+        }
     }
 
     @Override
@@ -252,6 +298,9 @@ public class Purchases {
                 ", comment='" + comment + '\'' +
                 ", address='" + address + '\'' +
                 ", dateRated=" + dateRated +
+                ", paymentMethod='" + paymentMethod + '\'' +
+                ", paymentStatus=" + paymentStatus +
+                ", cancelReason='" + cancelReason + '\'' +
                 '}';
     }
 

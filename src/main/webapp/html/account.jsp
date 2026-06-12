@@ -362,11 +362,7 @@
                                                                                                                                     nhận....
                                                                                                                                 </p>
 
-                                                                                                                                <form
-                                                                                                                                    action="<c:url value="
-                                                                                                                                    /html/cancel" />
-                                                                                                                                "
-                                                                                                                                method="post">
+                                                                                                                                <form action="cancel" method="post">
                                                                                                                                 <input
                                                                                                                                     type="hidden"
                                                                                                                                     name="purchaseID"
