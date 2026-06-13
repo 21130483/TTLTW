@@ -38,17 +38,20 @@
             </div>
 
 
-            <form action="findProduct" method="post">
+            <form action="findProduct" method="post" style="position: relative;">
                 <div class="thanh-tim-san-pham">
                         <span class="input-va-button-tim-kiem">
-                            <input class="input" type="text" name="textFindProduct"
-                                   placeholder="Tìm tên thuốc, bệnh lý, thực phẩm chức năng..." required>
+                            <input class="input" type="text" name="textFindProduct" id="textFindProduct"
+                                   placeholder="Tìm tên thuốc, bệnh lý, thực phẩm chức năng..." required
+                                   oninput="searchAjax(this.value)">
 
                             <button type="submit" style="border: none; background: transparent"><i
                                     class="fa-solid fa-magnifying-glass"></i></button>
 
                         </span>
                 </div>
+                <ul id="product-suggestions" class="product-suggestions" style="position: absolute; top: 60px; left: 0; right: 0; background: white; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: none; flex-direction: column; z-index: 1000; text-align: left; padding: 10px 0; margin: 0; list-style: none;">
+                </ul>
             </form>
 
 
@@ -113,5 +116,37 @@
 </div>
 <!-- </div> -->
 </body>
+
+<script>
+    function searchAjax(text) {
+        var suggestions = document.getElementById('product-suggestions');
+        if (text.trim() === '') {
+            suggestions.style.display = 'none';
+            return;
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'searchAjax?text=' + encodeURIComponent(text), true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = xhr.responseText.trim();
+                if (response !== '') {
+                    suggestions.innerHTML = response;
+                    suggestions.style.display = 'flex';
+                } else {
+                    suggestions.style.display = 'none';
+                }
+            }
+        };
+        xhr.send();
+    }
+
+    document.addEventListener('click', function(event) {
+        var suggestions = document.getElementById('product-suggestions');
+        var input = document.getElementById('textFindProduct');
+        if (event.target !== input && event.target !== suggestions && !suggestions.contains(event.target)) {
+            suggestions.style.display = 'none';
+        }
+    });
+</script>
 
 </html>

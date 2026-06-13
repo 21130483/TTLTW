@@ -21,7 +21,7 @@ public class AddressController extends HttpServlet {
         String active = req.getParameter("active");
         if (active.equals("remove")) {
             int addressId = Integer.parseInt(req.getParameter("addressId"));
-
+            AddressDAO.removeAddress(addressId);
         } else {
             String city = req.getParameter("city");
             String district = req.getParameter("district");

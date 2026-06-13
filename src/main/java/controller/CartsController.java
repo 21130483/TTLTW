@@ -24,6 +24,24 @@ public class CartsController extends HttpServlet {
         if (user != null) {
             List<Cart> cartList = CartsDAO.getCartByUserId(user.getUserID());
             System.out.println(cartList.size());
+
+            java.util.Set<Integer> checkedProductIds = (java.util.Set<Integer>) session.getAttribute("checkedProductIds");
+            if (checkedProductIds == null) {
+                checkedProductIds = new java.util.HashSet<>();
+                for (Cart c : cartList) {
+                    checkedProductIds.add(c.getProductId());
+                }
+                session.setAttribute("checkedProductIds", checkedProductIds);
+            }
+
+            for (Cart c : cartList) {
+                if (checkedProductIds.contains(c.getProductId())) {
+                    c.setChecked(true);
+                } else {
+                    c.setChecked(false);
+                }
+            }
+
             Carts carts = new Carts();
             carts.setCarts(cartList);
             req.setAttribute("carts", carts);
@@ -38,23 +56,17 @@ public class CartsController extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
 
-        // 1. KIỂM TRA ĐĂNG NHẬP
         if (user == null) {
-            // Trả về mã lỗi 401 để thông báo cho AJAX biết là chưa đăng nhập
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return; // Dừng xử lý các câu lệnh phía dưới
+            return;
         }
 
-        // 2. NẾU ĐÃ ĐĂNG NHẬP, TIẾP TỤC XỬ LÝ THÊM VÀO GIỎ HÀNG
         try {
             int productId = Integer.parseInt(req.getParameter("productId"));
-            int quantity = 1; // Mặc định thêm 1 sản phẩm
-
-            // Gọi DAO thực hiện thêm vào cơ sở dữ liệu
+            int quantity = 1;
             boolean success = CartsDAO.addToCart(user.getUserID(), productId, quantity);
 
             if (success) {
-                // Lấy lại danh sách giỏ để cập nhật số lượng hiển thị trên icon giỏ hàng
                 List<Cart> currentCart = CartsDAO.getCartByUserId(user.getUserID());
                 int totalSize = currentCart.size();
 

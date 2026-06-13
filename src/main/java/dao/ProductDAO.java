@@ -45,44 +45,44 @@ public class ProductDAO {
 
     public static List<Product> getBestSelling(int limit) {
         List<Product> result = new ArrayList<>();
-        result = handle.select("SELECT * FROM products ORDER BY orderedNumbers DESC LIMIT ?").bind(0, limit).mapToBean(Product.class).collect(Collectors.toList());
+        result = handle.select("SELECT * FROM products WHERE isHidden = 0 OR isHidden IS NULL ORDER BY orderedNumbers DESC LIMIT ?").bind(0, limit).mapToBean(Product.class).collect(Collectors.toList());
         return result;
     }
 
 
     public static List<Product> getBestFaceMask(int limit) {
         List<Product> result = new ArrayList<>();
-        result = handle.select("SELECT * FROM products WHERE categoryID = ? ORDER BY orderedNumbers DESC LIMIT ?").bind(0, 1).bind(1, limit).mapToBean(Product.class).collect(Collectors.toList());
+        result = handle.select("SELECT * FROM products WHERE categoryID = ? AND (isHidden = 0 OR isHidden IS NULL) ORDER BY orderedNumbers DESC LIMIT ?").bind(0, 1).bind(1, limit).mapToBean(Product.class).collect(Collectors.toList());
         return result;
     }
 
 
     public static List<Product> getNewProduct(int limit) {
         List<Product> result = new ArrayList<>();
-        result = handle.select("SELECT * FROM products ORDER BY dateAdded DESC LIMIT ?").bind(0, limit).mapToBean(Product.class).collect(Collectors.toList());
+        result = handle.select("SELECT * FROM products WHERE isHidden = 0 OR isHidden IS NULL ORDER BY dateAdded DESC LIMIT ?").bind(0, limit).mapToBean(Product.class).collect(Collectors.toList());
         return result;
     }
 
     public static List<Product> getFindProducts(String textFindProduct) {
         List<Product> result = new ArrayList<>();
-        result = handle.select("SELECT * FROM products WHERE name LIKE ? ").bind(0, "%" + textFindProduct + "%").mapToBean(Product.class).collect(Collectors.toList());
+        result = handle.select("SELECT * FROM products WHERE name LIKE ? AND (isHidden = 0 OR isHidden IS NULL)").bind(0, "%" + textFindProduct + "%").mapToBean(Product.class).collect(Collectors.toList());
         return result;
     }
 
     public static List<Product> getProductsCategory(int categoryID) {
         List<Product> result = new ArrayList<>();
-        result = handle.select("SELECT * FROM products WHERE categoryID = ? ").bind(0,categoryID).mapToBean(Product.class).collect(Collectors.toList());
+        result = handle.select("SELECT * FROM products WHERE categoryID = ? AND (isHidden = 0 OR isHidden IS NULL)").bind(0,categoryID).mapToBean(Product.class).collect(Collectors.toList());
         return result;
     }
 
     public static List<Product> getFindProductsCategory(String textFindProduct,int categoryID) {
         List<Product> result = new ArrayList<>();
-        result = handle.select("SELECT * FROM products WHERE categoryID = ? AND name LIKE ? ").bind(0,categoryID).bind(1, "%" + textFindProduct + "%").mapToBean(Product.class).collect(Collectors.toList());
+        result = handle.select("SELECT * FROM products WHERE categoryID = ? AND name LIKE ? AND (isHidden = 0 OR isHidden IS NULL)").bind(0,categoryID).bind(1, "%" + textFindProduct + "%").mapToBean(Product.class).collect(Collectors.toList());
         return result;
     }
     public static List<Product> getRelateProduct(Product product, int limit) {
         List<Product> result = new ArrayList<>();
-        result = handle.select("SELECT * FROM products WHERE categoryID = ? and productID != ? LIMIT ?").bind(0, product.getCategoryID()).bind(1, product.getProductID()).bind(2, limit).mapToBean(Product.class).collect(Collectors.toList());
+        result = handle.select("SELECT * FROM products WHERE categoryID = ? and productID != ? AND (isHidden = 0 OR isHidden IS NULL) LIMIT ?").bind(0, product.getCategoryID()).bind(1, product.getProductID()).bind(2, limit).mapToBean(Product.class).collect(Collectors.toList());
         return result;
     }
 

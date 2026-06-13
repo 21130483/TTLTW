@@ -31,11 +31,12 @@ public class OrderDAO {
         });
     }
 
-    public boolean cancel(int orderId) {
-        String sql = "UPDATE purchases SET STATUS = -1 WHERE purchaseID = ?";
+    public boolean cancel(int orderId, String reason) {
+        String sql = "UPDATE purchases SET STATUS = -1, cancelReason = ? WHERE purchaseID = ? AND STATUS = 0 AND payment_status = 0";
         int result = connect.inTransaction(handle ->
                 handle.createUpdate(sql)
-                        .bind(0, orderId).execute());
+                        .bind(0, reason)
+                        .bind(1, orderId).execute());
         return result > 0;
     }
 }

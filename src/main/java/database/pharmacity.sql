@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     `gender` varchar(20) NOT NULL,
     `role` varchar(20) NOT NULL,
     `access` varchar(20) NOT NULL,
-
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`userID`)
     ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -238,6 +238,9 @@ CREATE TABLE IF NOT EXISTS `purchases` (
     `comment` varchar(100),
     `address` varchar(100),
     `dateRated` date,
+    `paymentMethod` varchar(50) DEFAULT 'cash',
+    `paymentStatus` int DEFAULT 0,
+    `cancelReason` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`purchaseID`,`userID`,`productID`),
     KEY `userID` (`userID`),
     KEY `productID` (`productID`),

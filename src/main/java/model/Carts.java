@@ -24,7 +24,9 @@ public class Carts {
     public static int getTotalPrices() {
         int result = 0;
         for (Cart cart : carts) {
-           if (cart.isChecked()) return result+=cart.totalPrice();
+            if (cart.isChecked()) {
+                result += cart.totalPrice();
+            }
         }
         return result;
     }

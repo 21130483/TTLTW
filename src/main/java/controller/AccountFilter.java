@@ -42,7 +42,10 @@ public class AccountFilter extends HttpServlet {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             AddressDAO addressDAO = new AddressDAO();
-            req.getRequestDispatcher("account2.jsp").forward(req, resp);
+            req.setAttribute("addresses", addressDAO.getAddressByUserId(user.getUserID()));
+            req.setAttribute("listOrderItem", purchasesDAO.getAllPurchases(user.getUserID()));
+            req.setAttribute("getAllProduct", ProductDAO.getAllProduct());
+            req.getRequestDispatcher("account.jsp").forward(req, resp);
         } else {
             resp.sendRedirect("login.jsp");
         }
@@ -54,7 +57,10 @@ public class AccountFilter extends HttpServlet {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             AddressDAO addressDAO = new AddressDAO();
-            req.getRequestDispatcher("account2.jsp").forward(req, resp);
+            req.setAttribute("addresses", addressDAO.getAddressByUserId(user.getUserID()));
+            req.setAttribute("listOrderItem", purchasesDAO.getAllPurchases(user.getUserID()));
+            req.setAttribute("getAllProduct", ProductDAO.getAllProduct());
+            req.getRequestDispatcher("account.jsp").forward(req, resp);
         } else {
             resp.sendRedirect("login.jsp");
         }

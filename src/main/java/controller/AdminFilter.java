@@ -22,7 +22,7 @@ public class AdminFilter extends HttpServlet {
                 return;
             }
             switch (page) {
-                case "product":
+                case "product": {
                     ProductDAO productDAO = new ProductDAO();
                     productDAO.checkAndCreateIsHiddenColumn();
                     CategoryDAO categoryDAO = new CategoryDAO();
@@ -30,11 +30,53 @@ public class AdminFilter extends HttpServlet {
                     List<Category> categories = categoryDAO.getAllCategory();
                     List<Origin> origins = originDAO.getAllOrigin();
                     List<Product> products = ProductDAO.getAllProductIncludeHidden();
-                    req.setAttribute("getAllProducts", products);
+                    
+                    String searchProductId = req.getParameter("searchProductId");
+                    String searchName = req.getParameter("searchName");
+                    String searchCategoryId = req.getParameter("searchCategoryId");
+                    String searchOriginId = req.getParameter("searchOriginId");
+                    String searchStatus = req.getParameter("searchStatus");
+                    
+                    List<Product> filteredProducts = new java.util.ArrayList<>();
+                    for (Product p : products) {
+                        boolean match = true;
+                        if (searchProductId != null && !searchProductId.trim().isEmpty()) {
+                            if (!String.valueOf(p.getProductID()).equals(searchProductId.trim())) {
+                                match = false;
+                            }
+                        }
+                        if (searchName != null && !searchName.trim().isEmpty()) {
+                            if (!p.getName().toLowerCase().contains(searchName.trim().toLowerCase())) {
+                                match = false;
+                            }
+                        }
+                        if (searchCategoryId != null && !searchCategoryId.trim().isEmpty()) {
+                            if (!String.valueOf(p.getCategoryID()).equals(searchCategoryId.trim())) {
+                                match = false;
+                            }
+                        }
+                        if (searchOriginId != null && !searchOriginId.trim().isEmpty()) {
+                            if (!String.valueOf(p.getOriginID()).equals(searchOriginId.trim())) {
+                                match = false;
+                            }
+                        }
+                        if (searchStatus != null && !searchStatus.trim().isEmpty()) {
+                            boolean targetHidden = Boolean.parseBoolean(searchStatus.trim());
+                            if (p.isHidden() != targetHidden) {
+                                match = false;
+                            }
+                        }
+                        if (match) {
+                            filteredProducts.add(p);
+                        }
+                    }
+                    
+                    req.setAttribute("getAllProducts", filteredProducts);
                     req.setAttribute("getAllCategory", categories);
                     req.setAttribute("getAllOrigin", origins);
                     page = "managerProducts.jsp";
                     break;
+                }
 
                 case "user": {
                     UserDAO userDAO = new UserDAO();
@@ -213,13 +255,61 @@ public class AdminFilter extends HttpServlet {
                 return;
             }
             switch (page) {
-                case "product":
+                case "product": {
                     ProductDAO productDAO = new ProductDAO();
                     productDAO.checkAndCreateIsHiddenColumn();
+                    CategoryDAO categoryDAO = new CategoryDAO();
+                    OriginDAO originDAO = new OriginDAO();
+                    List<Category> categories = categoryDAO.getAllCategory();
+                    List<Origin> origins = originDAO.getAllOrigin();
                     List<Product> products = ProductDAO.getAllProductIncludeHidden();
-                    req.setAttribute("getAllProducts", products);
+                    
+                    String searchProductId = req.getParameter("searchProductId");
+                    String searchName = req.getParameter("searchName");
+                    String searchCategoryId = req.getParameter("searchCategoryId");
+                    String searchOriginId = req.getParameter("searchOriginId");
+                    String searchStatus = req.getParameter("searchStatus");
+                    
+                    List<Product> filteredProducts = new java.util.ArrayList<>();
+                    for (Product p : products) {
+                        boolean match = true;
+                        if (searchProductId != null && !searchProductId.trim().isEmpty()) {
+                            if (!String.valueOf(p.getProductID()).equals(searchProductId.trim())) {
+                                match = false;
+                            }
+                        }
+                        if (searchName != null && !searchName.trim().isEmpty()) {
+                            if (!p.getName().toLowerCase().contains(searchName.trim().toLowerCase())) {
+                                match = false;
+                            }
+                        }
+                        if (searchCategoryId != null && !searchCategoryId.trim().isEmpty()) {
+                            if (!String.valueOf(p.getCategoryID()).equals(searchCategoryId.trim())) {
+                                match = false;
+                            }
+                        }
+                        if (searchOriginId != null && !searchOriginId.trim().isEmpty()) {
+                            if (!String.valueOf(p.getOriginID()).equals(searchOriginId.trim())) {
+                                match = false;
+                            }
+                        }
+                        if (searchStatus != null && !searchStatus.trim().isEmpty()) {
+                            boolean targetHidden = Boolean.parseBoolean(searchStatus.trim());
+                            if (p.isHidden() != targetHidden) {
+                                match = false;
+                            }
+                        }
+                        if (match) {
+                            filteredProducts.add(p);
+                        }
+                    }
+                    
+                    req.setAttribute("getAllProducts", filteredProducts);
+                    req.setAttribute("getAllCategory", categories);
+                    req.setAttribute("getAllOrigin", origins);
                     page = "managerProducts.jsp";
                     break;
+                }
 
                 case "user": {
                     UserDAO userDAO = new UserDAO();

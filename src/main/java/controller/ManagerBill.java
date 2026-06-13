@@ -44,7 +44,7 @@ public class ManagerBill extends HttpServlet {
             String comment = req.getParameter("comment");
 
             int newPurchaseId = PurchasesDAO.newPurchaseID();
-            boolean success = PurchasesDAO.addPurchase(newPurchaseId, productID, userID, quantity, price, address, comment);
+            boolean success = PurchasesDAO.addPurchase(newPurchaseId, productID, userID, quantity, price, address, comment, "cash", 0);
             
             if (success) {
                 resp.setStatus(HttpServletResponse.SC_OK);

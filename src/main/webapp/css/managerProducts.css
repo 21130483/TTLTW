@@ -1,117 +1,247 @@
 .quan-ly-san-pham {
-    height: 707px;
-    padding: 20px;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #2d3748;
 }
 
-.quan-ly-san-pham .title {
-    width: 100%;
-    margin-top: 20px;
-
-}
-
-.quan-ly-san-pham .title p {
-    font-weight: bolder;
-    font-size: 40px;
-}
-
-.quan-ly-san-pham .them-san-pham {
-    width: 100%;
-    margin-top: 20px;
-}
-
-
-.quan-ly-san-pham .them-san-pham a {
-    text-decoration: none;
-}
-
-.quan-ly-san-pham .them-san-pham a .a {
-    width: 150px;
-    height: 50px;
-    font-size: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: azure;
-    color: black;
-    border: 1px solid black;
-}
-
-
-.quan-ly-san-pham .danh-muc-san-pham {
-    margin-top: 20px;
-}
-
-.danh-muc-san-pham .ten-cot {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 200px;
-    text-align: center;
+.quan-ly-san-pham .header-section {
     margin-bottom: 20px;
 }
 
+.quan-ly-san-pham .page-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0 0 6px 0;
+}
 
-.danh-muc-san-pham .ten-cot input {
+.quan-ly-san-pham .subtitle {
+    font-size: 14px;
+    color: #718096;
+    margin: 0;
+}
+
+.quan-ly-san-pham .them-san-pham-box {
+    margin-bottom: 24px;
+}
+
+.quan-ly-san-pham .them-sp-btn-link {
+    text-decoration: none;
+}
+
+.quan-ly-san-pham .them-sp-btn {
+    height: 40px;
+    padding: 0 20px;
+    background-color: #38a169;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.quan-ly-san-pham .them-sp-btn:hover {
+    background-color: #2f855a;
+}
+
+.quan-ly-san-pham .filter-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.quan-ly-san-pham .filter-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    color: #4a5568;
+}
+
+.quan-ly-san-pham .filter-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    align-items: flex-end;
+}
+
+.quan-ly-san-pham .filter-input,
+.quan-ly-san-pham .filter-select {
     width: 100%;
     height: 40px;
-    text-align: center;
-    font-size: 20px;
+    padding: 8px 12px;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #2d3748;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.quan-ly-san-pham .filter-input:focus,
+.quan-ly-san-pham .filter-select:focus {
+    border-color: #3182ce;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+}
+
+.quan-ly-san-pham .filter-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.quan-ly-san-pham .filter-btn {
+    height: 40px;
+    padding: 0 20px;
+    background-color: #3182ce;
+    color: #ffffff;
     border: none;
-
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
-.danh-muc-san-pham .ten-cot input::placeholder {
-    color: black;
+.quan-ly-san-pham .filter-btn:hover {
+    background-color: #2b6cb0;
 }
 
-.danh-muc-san-pham .ten-cot .button {
+.quan-ly-san-pham .filter-clear-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 16px;
+    background-color: #edf2f7;
+    color: #4a5568;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: background-color 0.2s;
+}
+
+.quan-ly-san-pham .filter-clear-btn:hover {
+    background-color: #e2e8f0;
+}
+
+.quan-ly-san-pham .table-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.quan-ly-san-pham .product-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.quan-ly-san-pham .product-table th {
+    background-color: #f7fafc;
+    color: #4a5568;
+    font-weight: 600;
+    padding: 14px 16px;
+    border-bottom: 2px solid #edf2f7;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.quan-ly-san-pham .product-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #edf2f7;
+    vertical-align: middle;
+}
+
+.quan-ly-san-pham .product-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.quan-ly-san-pham .product-id {
+    font-family: monospace;
+    font-weight: bold;
+    color: #4a5568;
+}
+
+.quan-ly-san-pham .product-name {
+    font-weight: 600;
+    color: #1a202c;
+    max-width: 250px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.quan-ly-san-pham .badge {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.quan-ly-san-pham .badge-active {
+    background-color: #c6f6d5;
+    color: #22543d;
+}
+
+.quan-ly-san-pham .badge-blocked {
+    background-color: #fed7d7;
+    color: #9b2c2c;
+}
+
+.quan-ly-san-pham .action-buttons-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    gap: 8px;
 }
 
-.danh-muc-san-pham .ten-cot button {
-    width: 100px;
-    height: 40px;
-    font-size: 18px;
+.quan-ly-san-pham .action-btn-link {
+    text-decoration: none;
 }
 
-.danh-muc-san-pham .box-san-pham {
-    border-top: 1px solid black;
-    list-style-type: none;
+.quan-ly-san-pham .sua-btn,
+.quan-ly-san-pham .toggle-btn {
+    padding: 6px 12px;
+    background-color: #fff;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    color: #4a5568;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-.danh-muc-san-pham .san-pham {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 200px;
-    text-align: center;
+.quan-ly-san-pham .sua-btn:hover {
+    background-color: #3182ce;
+    border-color: #3182ce;
+    color: #fff;
 }
 
-.danh-muc-san-pham .san-pham p {
-    font-size: 20px;
-    margin: 20px 0;
+.quan-ly-san-pham .toggle-btn.hide-btn:hover {
+    background-color: #e53e3e;
+    border-color: #e53e3e;
+    color: #fff;
 }
 
-.danh-muc-san-pham .san-pham .sua-xoa {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.danh-muc-san-pham .san-pham .sua-xoa button {
-    width: 60px;
-    height: 40px;
-    font-size: 18px;
-}
-
-.danh-muc-san-pham .san-pham .sua-xoa .sua {
-    margin-right: 20px;
-    background-color: #007bff;
-}
-
-.danh-muc-san-pham .san-pham .sua-xoa .xoa {
-    background-color: red;
-}
-
-.danh-muc-san-pham .san-pham .sua-xoa .hien {
+.quan-ly-san-pham .toggle-btn.show-btn:hover {
     background-color: #38a169;
+    border-color: #38a169;
     color: #fff;
 }

@@ -125,9 +125,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Calendar;
 
 public class UserDAO {
@@ -575,13 +577,11 @@ public class UserDAO {
     public boolean updateUser1(User user) {
         boolean check = connect.inTransaction(handle -> {
             return handle.createUpdate(
-                    "UPDATE users SET fullName = ? , gender = ?, phoneNumbers = ?, dob = ?, email = ? WHERE userID = ?")
+                    "UPDATE users SET fullName = ? , gender = ?, dob = ? WHERE userID = ?")
                     .bind(0, user.getFullName())
                     .bind(1, user.getGender())
-                    .bind(2, user.getPhoneNumbers())
-                    .bind(3, user.getDob())
-                    .bind(4, user.getEmail())
-                    .bind(5, user.getUserID())
+                    .bind(2, user.getDob())
+                    .bind(3, user.getUserID())
                     .execute() > 0;
         });
         return check;
